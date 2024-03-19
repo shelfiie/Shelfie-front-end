@@ -11,7 +11,7 @@ export function Layout() {
                 <h1>testando aside</h1>
             </Aside>
             <PageContent>
-              <UserData/>
+              {/* <UserData/ */}
             </PageContent>
         </Wrapper>
     </>

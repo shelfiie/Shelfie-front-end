@@ -10,6 +10,7 @@ import { validarEmail, validarSenha } from "../../utils/validadores";
 import { Input } from "../../components/globals/input.style";
 import { loginUser } from "../../hooks/useUserData";
 import { useNavigate } from "react-router-dom";
+import { isTokenExpired } from "../../hooks/token";
 
 
 export const LoginDiv = styled(BoxShadow)`
@@ -97,12 +98,14 @@ export function Login() {
         event.preventDefault();
         setLoading(true);
         try {
-            // const response = await teste();
-            const token = await loginUser( { email, password });
-            console.log('Token recebido: ', token);
+             const token = await login( { email, password });
             if (token) {
                 alert('sucedido')
                 navigate('/home')
+                if (isTokenExpired()) {
+                    alert('Sessão encerrada. Faça o Login novamente');
+                    navigate('/');
+                }
             } else{
                 alert('Credencias incorretas')
             }
