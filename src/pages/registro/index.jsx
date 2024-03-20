@@ -4,7 +4,7 @@ import { Logo } from "../../assets/logos/shelfie-logo.svg";
 import { Input } from "../../components/globals/input.style";
 import { Globals } from "../../styles/globals";
 import { Theme } from "../../styles/theme";
-import { Entrar, Form, LoginDiv } from "../login/index";
+import { Entrar, Form, LoginDiv } from "../login/index.jsx";
 
 const RegisterDiv = styled(LoginDiv)`
     @media (max-width: ${Theme.screen.desktopS}) {

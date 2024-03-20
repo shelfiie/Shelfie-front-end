@@ -1,5 +1,4 @@
 import { Logo } from "../../assets/logos/shelfie-logo.svg";
-import { UserData } from "../../routes/userData";
 import { Aside, PageContent, Wrapper } from "./styles";
 
 export function Layout() {
