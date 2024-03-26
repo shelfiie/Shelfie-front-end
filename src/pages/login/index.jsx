@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { BoxShadow } from "../../components/globals/box.style";
-import { Botao } from "../../components/globals/button.style";
+import { BoxShadow } from "../../components/globals/Box.style.tsx";
+import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme";
 import { Globals } from "../../styles/globals";
 import { Logo } from "../../assets/logos/shelfie-logo.svg";
-import { MyBook } from "../../assets/logos/mybook-logo";
 import {useContext, useState} from "react";
 import { validarEmail, validarSenha } from "../../utils/validadores";
-import { Input } from "../../components/globals/input.style";
+import { Input } from "../../components/globals/input.style.ts";
 import {AuthContext} from "../../context/auth.jsx";
 import {Navigate} from "react-router-dom";
+import {MyBookLogo} from "../../assets/logos/mybook-logo.tsx";
 
 
 export const LoginDiv = styled(BoxShadow)`
@@ -104,7 +104,7 @@ export function Login() {
             <>
                 <LoginDiv>
                     <div>
-                        <MyBook>My Book</MyBook>
+                        <MyBookLogo />
                         <Logo/>
                         <p>Entre para continuar para sua biblioteca digital</p>
                     </div>

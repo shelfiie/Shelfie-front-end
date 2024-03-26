@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { MyBook } from "../../assets/logos/mybook-logo";
 import { Logo } from "../../assets/logos/shelfie-logo.svg";
-import { Input } from "../../components/globals/input.style";
+import { Input } from "../../components/globals/input.style.ts";
 import { Globals } from "../../styles/globals";
 import { Theme } from "../../styles/theme";
 import { Entrar, Form, LoginDiv } from "../login/index.jsx";
+import {MyBookLogo} from "../../assets/logos/mybook-logo.tsx";
 
 const RegisterDiv = styled(LoginDiv)`
     @media (max-width: ${Theme.screen.desktopS}) {
@@ -28,7 +28,7 @@ export function Registro(){
         <>
             <RegisterDiv>
                 <div>
-                    <MyBook>My Book</MyBook>
+                    <MyBookLogo />
                     <Logo/>
                     <p>Registre-se para continuar para sua biblioteca digital</p>
                 </div>
