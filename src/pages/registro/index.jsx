@@ -24,6 +24,33 @@ const RegisterDiv = styled(LoginDiv)`
 
 
 export function Registro(){
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [user, setUser] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleChange(e){
+        const {name, value} = e.target;
+        if(name === 'name') setName(value);
+        if(name === 'email') setEmail(value);
+        if(name === 'user') setUser(value);
+        if(name === 'password') setPassword(value);
+    }
+
+    function handleRegister(event){
+        event.preventDefault();
+    
+        const user = {
+            name,
+            email,
+            user,
+            password
+        }
+
+        registerUser(user);
+        console.log(user);
+    }
+
     return(
         <>
             <RegisterDiv>
@@ -35,27 +62,39 @@ export function Registro(){
                 <Form>
                     <label htmlFor="nome">Nome Completo</label>
                     <Input 
-                        id="nome" 
+                        id="name" 
+                        name="name"
                         type="text" 
+                        value={name}
+                        onChange={handleChange}
                         placeholder="Digite seu nome completo"
                         />
 
                     <label htmlFor="email">E-mail</label>
                     <Input 
                         id="email" 
-                        type="email" 
+                        name="email"
+                        type="email"
+                        value={email} 
+                        onChange={handleChange}
                         placeholder="Digite seu e-mail"/>
 
                     <label htmlFor="usuario">Usuário</label>
                     <Input 
-                        id="usuario" 
+                        id="user"
+                        name="user" 
                         type="text" 
+                        value={user}
+                        onChange={handleChange}
                         placeholder="Digite o nome de usuário"/>
 
                     <label htmlFor="senha">Senha</label>
                     <Input 
-                        id="senha" 
-                        type="password" 
+                        id="password"
+                        name="password" 
+                        type="password"
+                        value={password} 
+                        onChange={handleChange}
                         placeholder="Digite sua senha"/>
 
                     <Entrar 
