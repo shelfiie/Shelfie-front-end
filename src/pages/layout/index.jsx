@@ -2,7 +2,7 @@ import { Logo } from "../../assets/logos/shelfie-logo.svg";
 import {Aside, Global, PageContent, Wrapper} from "./styles";
 import { MyBookLogo} from "../../assets/logos/mybook-logo.tsx";
 import {Theme} from "../../styles/theme.ts";
-import {SearchBar} from "../../components/globals/SearchBar.tsx";
+import {SearchBar} from "../../components/globals/SearchBar.jsx";
 export function Layout() {
   return (
       <>
