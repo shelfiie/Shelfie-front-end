@@ -36,7 +36,6 @@ const fetchUserData = async () : AxiosPromise<userData[]> => {
         method: 'get',
         url: API_URL + '/api/users/me',
         headers: {
-            // Authorization: `Bearer ${token}`
         }
     })
     return response;

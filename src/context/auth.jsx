@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, {createContext, useEffect, useState} from "react";
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://159.203.106.163:8080';
 const LOGIN_PARAM = '/auth/login';
 
 axios.defaults.baseURL = API_URL;
@@ -14,9 +14,6 @@ export const AuthProvider = ({ children }) => {
         const loadingStoreData = async () => {
             const storageUser = localStorage.getItem('@Auth:user');
             const storageToken = localStorage.getItem('@Auth:token');
-
-            console.log("storage token: " + storageToken);
-            console.log("storage user: " +storageUser);
 
             if (storageUser && storageToken) {
                 setUser(storageUser);
@@ -35,7 +32,6 @@ export const AuthProvider = ({ children }) => {
                 "Content-Type": "application/json"
             }
         });
-        console.log('response do get user: ' + response);
         return response.data;
 
     }
@@ -56,11 +52,9 @@ export const AuthProvider = ({ children }) => {
             alert(response.data.error);
         }else{
             const response = await getUser(token);
-            console.log('response do get user: ' + response);
-            setUser(response);
-
-            const user = response.data.user;
-            console.log('user antes de setar: ' + user);
+            setUser(response.id);
+            
+            const user = response.id;
             localStorage.setItem('@Auth:user', user);
 
             return { token, user, expirationDate };

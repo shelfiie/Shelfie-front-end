@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import {Theme} from "../../styles/theme.ts";
+import { useState } from "react";
+import { fetchBookData } from "../../hooks/getBookData.ts";
 
 const DivSearchBar = styled.div`
   position: absolute;
@@ -45,7 +47,23 @@ const InputSearch = styled.input`
 
   &:focus{outline: none;}
 `
+
 export const SearchBar = () => {
+const [search, setSearch] = useState("");
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  e.preventDefault();
+  if (name === "search") {setSearch(value);}
+  console.log(search);
+}
+
+const handleSubmit = (e) => {
+  console.log(search);
+  e.preventDefault();
+  fetchBookData(search);
+}
+
     return(
         <DivSearchBar>
             <DivFilter>
@@ -55,7 +73,16 @@ export const SearchBar = () => {
                     <option>Autor</option>
                 </select>
             </DivFilter>
-            <InputSearch type="text" placeholder="Pesquise um livro" />
+            <form onSubmit={handleSubmit}>
+              <InputSearch 
+                name="search" 
+                id="search" 
+                value={search}
+                type="text" 
+                onChange={handleChange}
+                placeholder="Pesquise um livro" />
+                <button type="submit">Pesquisar</button>
+            </form>
         </DivSearchBar>
     )
 }
