@@ -2,7 +2,8 @@ import { Logo } from "../../assets/logos/shelfie-logo.svg";
 import {Aside, Global, PageContent, Wrapper} from "./styles";
 import { MyBookLogo} from "../../assets/logos/mybook-logo.tsx";
 import {Theme} from "../../styles/theme.ts";
-import {SearchBar} from "../../components/globals/SearchBar.jsx";
+import {SearchBar} from "../../components/globals/search/SearchBar.jsx";
+import { Paginometro } from "../../components/globals/Paginometro.jsx";
 export function Layout() {
   return (
       <>
@@ -17,8 +18,10 @@ export function Layout() {
                 <a>Settings</a>
             </Aside>
             <PageContent>
-                <SearchBar/>
-              {/* <UserData/ */}
+                <div>
+                  <SearchBar/>
+                  <Paginometro />
+                </div>
             </PageContent>
       </Wrapper>
       </>
