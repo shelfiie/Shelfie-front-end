@@ -24,7 +24,7 @@ const ButtonWithShadow = styled.button<ButtonProps>`
     
     padding: ${Theme.margins.margin1rem};
     border: none;
-    border-radius: ${Theme.borders.radius};
+    border-radius: ${Theme.borders.radiusRound};
     box-shadow: 4px 4px rgba(0, 0, 0);
     
     transition: all 0.3s ease-in-out;

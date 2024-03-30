@@ -15,7 +15,8 @@ export const Theme = {
         border2px: '2px',
         border3px: '3px',
         dropShadow: '9px',
-        radius: '2rem'
+        radiusRound: '2rem',
+        radius: '.5rem',
     },
     margins: {
         marginhalfrem: '.5rem',

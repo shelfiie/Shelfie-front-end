@@ -8,7 +8,7 @@ interface BoxProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const BoxShadow = styled.div<BoxProps>`
 
-    border-radius: ${Theme.borders.radius};
+    border-radius: ${Theme.borders.radiusRound};
 
     height: fit-content;
     width: fit-content;
