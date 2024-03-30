@@ -1,50 +1,65 @@
-import { DivSearchBar, DivFilter, InputSearch, DivSearchInput } from "./SearchBar.styles";
-import { useState } from "react";
-import { fetchBookData } from "../../../hooks/getBookData.ts";
-import { SearchDropdown } from "./SearchDropdown.jsx";
+import React, { useEffect, useRef, useState } from "react";
+import { fetchBookData } from "../../../api/getBookData.ts";
+import { useClickFocus } from "../../../hooks/clickFocusInput";
+import { useClickOutside } from "../../../hooks/clickOutside";
+import { DivFilter, DivSearchBar, DivSearchInput, InputSearch } from "./SearchBar.styles";
+import { SearchResults } from "./SearchResults.jsx";
 
 
 export const SearchBar = () => {
-const [search, setSearch] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
+  const searchInputRef = useRef(null);
 
-const handleChange = async (e) => {
-  const { value } = e.target;
-  e.preventDefault();
+  useClickOutside(searchInputRef, () => setIsVisible(false));
+  useClickFocus(searchInputRef, () => setIsVisible(true));
 
-  setSearch(value);
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
 
-  if (search.length < 2) return;
+  const handleChange = async (e) => {
+    const { value } = e.target;
+    e.preventDefault();
 
-  const res = fetchBookData(search);
-  res.then((data) => {
-    console.log(data.items);
-  })
-}
+    setSearch(value);
+  };
+
+  useEffect(() => {
+    if (!search || search.length < 3 || search === "") {
+      setResults([]);
+      return;
+    }
+
+    const res = fetchBookData(search);
+    res.then((data) => {
+      setResults(data.items.slice(0, 5));
+    });
+  }, [search]);
 
 
-  return(
+  return (
     <DivSearchBar>
       <DivFilter>
-          <select>
-              <option>Tudo</option>
-              <option>Título</option>
-              <option>Autor</option>
-          </select>
+        <select>
+          <option>Tudo</option>
+          <option>Título</option>
+          <option>Autor</option>
+        </select>
       </DivFilter>
-      
-      <DivSearchInput>
-        <InputSearch 
-          name="search" 
-          id="search" 
-          value={search}
-          type="text" 
-          onChange={handleChange}
-          placeholder="Pesquise um livro">
-          </InputSearch>
 
-          <SearchDropdown />
+      <DivSearchInput>
+        <InputSearch
+          ref={searchInputRef}
+          name="search"
+          id="search"
+          value={search}
+          type="text"
+          onChange={handleChange}
+          placeholder="Pesquise um livro">  
+        </InputSearch>
+
+        <SearchResults isVisible={isVisible} data={results} />
       </DivSearchInput>
-      
+
     </DivSearchBar>
   )
 }

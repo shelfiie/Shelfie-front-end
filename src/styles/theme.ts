@@ -40,6 +40,7 @@ export const Theme = {
             bold: 700
         },
         sizes: {
+            xxsmall: '.8rem',
             xsmall: '1rem',
             small: '1.2rem',
             regular: '1.6rem',
