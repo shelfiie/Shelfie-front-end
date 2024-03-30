@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, {createContext, useEffect, useState} from "react";
+import { config } from "../api/config";
 
-const API_URL = 'http://159.203.106.163:8080';
-const LOGIN_PARAM = '/auth/login';
+const API_URL = config.apiUrl;
 
-axios.defaults.baseURL = API_URL;
 export const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
@@ -17,7 +16,8 @@ export const AuthProvider = ({ children }) => {
 
             if (storageUser && storageToken) {
                 setUser(storageUser);
-                // axios.AxiosHeaders = {Authorization: `Bearer ${storageToken}`}
+                axios.AxiosHeaders = {Authorization: `Bearer ${storageToken}`}
+                
             }
         };
 
@@ -37,7 +37,8 @@ export const AuthProvider = ({ children }) => {
     }
 
     const signIn = async (userLoginData) => {
-        const response = await axios.post(API_URL + LOGIN_PARAM, userLoginData);
+        const response = await axios.post(API_URL + '/auth/login', userLoginData);
+        console.log(response);
 
         const token = response.data.token;
         const expiresInMilliseconds = response.data.expiresIn;

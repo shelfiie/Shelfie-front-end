@@ -1,6 +1,3 @@
-import styled from "styled-components";
-import { BoxShadow } from "../../components/globals/Box.style.tsx";
-import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme";
 import { Globals } from "../../styles/globals";
 import { Logo } from "../../assets/logos/shelfie-logo.svg";
@@ -10,64 +7,7 @@ import { Input } from "../../components/globals/input.style.ts";
 import {AuthContext} from "../../context/auth.jsx";
 import {Navigate} from "react-router-dom";
 import {MyBookLogo} from "../../assets/logos/mybook-logo.tsx";
-
-
-export const LoginDiv = styled(BoxShadow)`
-    width: 42rem;
-    object-fit: cover  ;
-    background-color: ${Theme.colors.light};
-
-    padding: ${Theme.margins.margin5rem};
-    margin: 0 auto;
-    margin-top: ${Theme.margins.margin7rem};
-
-    > div{
-        margin: ${Theme.margins.margin5rem} 0 ${Theme.margins.margin6rem} 0;
-    }
-
-    @media (max-width: ${Theme.screen.desktopS}){
-        >div {
-            margin: ${Theme.margins.margin3rem} 0 ${Theme.margins.margin4rem} 0;
-        
-        }
-    }
-`
-
-export const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin-top: ${Theme.margins.margin5rem};
-    
-    input {margin-bottom: ${Theme.margins.margin1rem};}
-
-    label{
-        font-weight: ${Theme.font.weight.medium};
-        margin-bottom: ${Theme.margins.marginhalfrem};
-    }
-
-    :nth-child(5) * {
-        color: ${Theme.colors.dark};
-        margin-top: ${Theme.margins.margin1rem};
-    }
-`
-const CheckBox = styled.div`
-    display: inherit;
-    justify-content: space-between;
-    gap: 3px;
-    margin-top: ${Theme.margins.margin2rem};
-
-    * {
-        color: ${Theme.colors.dark};
-        display: inherit;
-        gap: .6rem;
-    }
-`
-
-export const Entrar = styled(Botao)`
-    gap: ${Theme.margins.margin1rem};
-    margin: ${Theme.margins.margin2rem} 0  ;
-    flex: 4;
-`
+import {CheckBox, Entrar, Form, LoginDiv} from "./index.styles.ts";
 
 export function Login() {
     const validarInput = () => {

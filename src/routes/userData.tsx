@@ -1,4 +1,4 @@
-import { useUserData } from "../hooks/useUserData";
+import { useUserData } from "../api/useUserData";
 
 export function UserData() {
     const { data: axiosResponse, isLoading, isError } = useUserData();

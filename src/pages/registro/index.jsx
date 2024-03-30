@@ -1,10 +1,12 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Logo } from "../../assets/logos/shelfie-logo.svg";
 import { Input } from "../../components/globals/input.style.ts";
 import { Globals } from "../../styles/globals";
 import { Theme } from "../../styles/theme";
-import { Entrar, Form, LoginDiv } from "../login/index.jsx";
-import {MyBookLogo} from "../../assets/logos/mybook-logo.tsx";
+import { Entrar, Form, LoginDiv } from "../login/index.styles.ts";
+import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
+import { registerUser } from "../../api/useUserData.ts";
 
 const RegisterDiv = styled(LoginDiv)`
     @media (max-width: ${Theme.screen.desktopS}) {
@@ -26,29 +28,29 @@ const RegisterDiv = styled(LoginDiv)`
 export function Registro(){
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [user, setUser] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
     function handleChange(e){
         const {name, value} = e.target;
         if(name === 'name') setName(value);
         if(name === 'email') setEmail(value);
-        if(name === 'user') setUser(value);
+        if(name === 'user') setUserName(value);
         if(name === 'password') setPassword(value);
+
     }
 
     function handleRegister(event){
         event.preventDefault();
-    
-        const user = {
-            name,
-            email,
-            user,
-            password
-        }
+
+        const user = {name, email, userName, password};
 
         registerUser(user);
-        console.log(user);
+       if(registerUser){
+           alert('Usuário cadastrado com sucesso!');
+           event.target.reset();
+        
+        }
     }
 
     return(
@@ -59,7 +61,7 @@ export function Registro(){
                     <Logo/>
                     <p>Registre-se para continuar para sua biblioteca digital</p>
                 </div>
-                <Form>
+                <Form onSubmit={handleRegister}>
                     <label htmlFor="nome">Nome Completo</label>
                     <Input 
                         id="name" 
@@ -84,7 +86,7 @@ export function Registro(){
                         id="user"
                         name="user" 
                         type="text" 
-                        value={user}
+                        value={userName}
                         onChange={handleChange}
                         placeholder="Digite o nome de usuário"/>
 

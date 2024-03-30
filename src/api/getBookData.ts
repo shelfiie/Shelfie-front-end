@@ -9,5 +9,4 @@ export async function fetchBookData(search: string): AxiosPromise<bookData> {
     const q = search.split(' ').join('+');
     const response = await axios.get(GOOGLE_API_URL + q);
     return response.data;
-
 }
