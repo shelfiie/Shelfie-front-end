@@ -24,7 +24,8 @@ export const SearchBar = () => {
   };
 
   useEffect(() => {
-    if (!search || search.length < 3 || search === "") {
+    const trimmedSearch = search.trim();
+    if (!trimmedSearch || trimmedSearch.length < 3) {
       setResults([]);
       return;
     }
