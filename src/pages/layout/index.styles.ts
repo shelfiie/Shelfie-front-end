@@ -1,4 +1,4 @@
-import styled, {createGlobalStyle} from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Theme } from "../../styles/theme";
 
 const Global = createGlobalStyle`
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
     display: grid;
 
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 6fr;
     background-color: ${Theme.colors.orange};
 `
 const PageContent = styled.div`
@@ -28,23 +28,11 @@ const PageContent = styled.div`
     position: relative;
     background-color: ${Theme.colors.light};
 
-    border-radius: ${Theme.borders.radius};
+    border-radius: ${Theme.borders.radiusRound};
     border: .3rem solid ${Theme.colors.deep};
     margin-top: ${Theme.margins.margin2rem};
 
 `
 
-const Aside = styled.aside`
-    background-color: ${Theme.colors.dark};
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    margin-top: ${Theme.margins.margin7rem};
 
-    svg{
-        width: 80%;
-    }
-`
-
-export { Global, PageContent, Wrapper, Aside }
+export { Global, PageContent, Wrapper };

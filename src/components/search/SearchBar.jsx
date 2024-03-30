@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { fetchBookData } from "../../../api/getBookData.ts";
-import { useClickFocus } from "../../../hooks/clickFocusInput";
-import { useClickOutside } from "../../../hooks/clickOutside";
-import { DivFilter, DivSearchBar, DivSearchInput, InputSearch } from "./SearchBar.styles";
+import { fetchBookData } from "../../api/getBookData.ts";
+import { useClickFocus } from "../../hooks/clickFocusInput.ts";
+import { useClickOutside } from "../../hooks/clickOutside.ts";
+import { DivFilter, DivSearchBar, DivSearchInput, InputSearch } from "./SearchBar.styles.ts";
 import { SearchResults } from "./SearchResults.jsx";
 
 
@@ -24,7 +24,8 @@ export const SearchBar = () => {
   };
 
   useEffect(() => {
-    if (!search || search.length < 3 || search === "") {
+    const trimmedSearch = search.trim();
+    if (!trimmedSearch || trimmedSearch.length < 3) {
       setResults([]);
       return;
     }

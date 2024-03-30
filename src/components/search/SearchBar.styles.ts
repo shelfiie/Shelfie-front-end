@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Theme } from "../../../styles/theme"
+import { Theme } from "../../styles/theme"
 
 const DivSearchBar = styled.div`
   position: absolute;
@@ -9,7 +9,7 @@ const DivSearchBar = styled.div`
 
   display: flex;
   
-  border-radius: ${Theme.margins.marginhalfrem};
+  border-radius: ${Theme.borders.radius};
   border: ${Theme.borders.border2px} solid ${Theme.colors.deep};
   background-color: #fff;
 
@@ -21,11 +21,13 @@ const DivFilter = styled.div`
   select{
     border-radius: ${Theme.margins.marginhalfrem};
     border-style: none;
+
     padding: ${Theme.margins.marginhalfrem};
+
     box-shadow: none;
+
     font-family: ${Theme.font.family.poppins};
     font-weight: ${Theme.font.weight.bold}; 
-    
 
     option{
         outline: none;
@@ -55,8 +57,7 @@ const InputSearch = styled.input`
 
 const DivSearchInput = styled.div`
     position: relative;
-    z-index: 101;
-
 `
 
-export { DivSearchBar, DivFilter, InputSearch, DivSearchInput }
+export { DivFilter, DivSearchBar, DivSearchInput, InputSearch }
+

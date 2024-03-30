@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import { Theme } from '../../styles/theme'
 
@@ -6,8 +5,10 @@ const PaginometroDiv = styled.div`
     position: absolute;
     right: 1rem;
     top: -1rem;
+    width: 25%;
 
-    display: inline-flex;
+    display: flex;
+    justify-content: space-around;
 
     background-color: ${Theme.colors.green};
     color: ${Theme.colors.light};
@@ -22,13 +23,5 @@ const PaginometroDiv = styled.div`
     gap: 2rem;
 `
 
-// to do
+export { PaginometroDiv }
 
-export const Paginometro = () => {
-    return (
-        <PaginometroDiv>
-            <p>Paginometro</p>
-            <p>105786264</p>
-        </PaginometroDiv>
-    )
-}
