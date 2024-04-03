@@ -1,8 +1,8 @@
-import {useContext} from "react";
-import {AuthContext} from "../context/auth.jsx";
-import {Navigate, Outlet} from "react-router-dom";
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { AuthContext } from "../context/auth.jsx";
 
-export const PrivateRoute = () => {
-    const { signEd } = useContext(AuthContext);
-    return signEd ? <Outlet /> : <Navigate to={'/'} />;
+export const PrivateRoute = ({ element, ...rest }) => {
+    const { signed } = useContext(AuthContext);
+    return signed ? <Outlet /> : <Navigate to={'/'} />;
 }
