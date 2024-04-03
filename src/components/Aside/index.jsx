@@ -12,9 +12,9 @@ import { AuthContext } from "../../context/auth.jsx";
 import { Navigate } from "react-router-dom";
 
 const navItems = [
-    { src: Home, name: "Home" },
-    { src: Bookmark, name: "Bookmarks" },
-    { src: Configuracoes, name: "Configurações" }
+    { src: Home, name: "Home", route: "/home" },
+    { src: Bookmark, name: "Bookmarks", route: "/bookmarks"},
+    { src: Configuracoes, name: "Configurações", route: "" }
 ];
 
 export const Aside = () => {
@@ -24,7 +24,6 @@ export const Aside = () => {
         event.preventDefault();
         logout();
     };
-    
     return (
         <AsideStyles>
             <div>
@@ -43,7 +42,7 @@ export const Aside = () => {
                     {navItems.map((item) => (
                         <li key={item.name}>
                             <img src={item.src} alt="" />
-                            <a href="#">{item.name}</a>
+                            <a href={item.route}>{item.name}</a>
                         </li>
                     ))}
                 </ul>

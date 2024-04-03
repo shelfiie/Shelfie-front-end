@@ -3,19 +3,20 @@ import { Paginometro } from "../../components/Paginometro/index.jsx";
 import { SearchBar } from "../../components/search/SearchBar.jsx";
 import { Global, PageContent, Wrapper } from "./index.styles.ts";
 
-export function Layout() {
+export function Layout( { children } ) {
   return (
-      <>
-      <Global/>
+    <>
+      <Global />
       <Wrapper>
         <Aside />
-            <PageContent>
-                <div>
-                  <SearchBar/>
-                  <Paginometro />
-                </div>
-            </PageContent>
+        <PageContent>
+          <div>
+            <SearchBar />
+            <Paginometro />
+          </div>
+          {children}
+        </PageContent>
       </Wrapper>
-      </>
+    </>
   )
 }

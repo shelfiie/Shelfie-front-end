@@ -2,12 +2,9 @@ import styled from "styled-components"
 import { Theme } from "../../styles/theme"
 
 const DivSearchBar = styled.div`
-  position: absolute;
-  top: -1rem;
-  left: 1rem;
   gap: 1rem;
 
-  display: flex;
+  display: inherit;
   
   border-radius: ${Theme.borders.radius};
   border: ${Theme.borders.border2px} solid ${Theme.colors.deep};
@@ -18,6 +15,7 @@ const DivSearchBar = styled.div`
 `
 
 const DivFilter = styled.div`
+  position: relative;
   select{
     border-radius: ${Theme.margins.marginhalfrem};
     border-style: none;
@@ -37,13 +35,13 @@ const DivFilter = styled.div`
     &:focus{outline: none;}
   }
   &::after{
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 100%;
-        background-color: ${Theme.colors.lightDark};
-        margin-left: 4px;
-    }
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background-color: ${Theme.colors.lightDark};
+      margin-left: 4px;
+  }
 `
 
 const InputSearch = styled.input`
@@ -55,9 +53,9 @@ const InputSearch = styled.input`
   &:focus{outline: none;}
 `
 
-const DivSearchInput = styled.div`
-    position: relative;
+const InputWrapper = styled.div`
+  position: relative;
 `
 
-export { DivFilter, DivSearchBar, DivSearchInput, InputSearch }
+export { DivFilter, DivSearchBar, InputSearch, InputWrapper }
 

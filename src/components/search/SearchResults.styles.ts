@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { Theme } from "../../styles/theme"
 
 export const SearchDropdownWrapper = styled.div`
+  margin-top: ${Theme.margins.marginhalfrem};
   position: absolute;
   left: 0; 
   right: -150%; 
