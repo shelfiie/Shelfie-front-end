@@ -2,9 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { fetchBookData } from "../../api/getBookData.ts";
 import { useClickFocus } from "../../hooks/clickFocusInput.ts";
 import { useClickOutside } from "../../hooks/clickOutside.ts";
-import { DivFilter, DivSearchBar, DivSearchInput, InputSearch } from "./SearchBar.styles.ts";
+import { DivFilter, DivSearchBar, InputSearch, InputWrapper } from "./SearchBar.styles.ts";
 import { SearchResults } from "./SearchResults.jsx";
+import styled from "styled-components";
 
+const Option = styled.option`
+  color: #000;
+  background-color: #fff;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+`;
 
 export const SearchBar = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -41,13 +48,13 @@ export const SearchBar = () => {
     <DivSearchBar>
       <DivFilter>
         <select>
-          <option>Tudo</option>
-          <option>Título</option>
-          <option>Autor</option>
+          <Option>Tudo</Option>
+          {/* <option>Título</option>
+          <option>Autor</option> */}
         </select>
       </DivFilter>
 
-      <DivSearchInput>
+      <InputWrapper>
         <InputSearch
           ref={searchInputRef}
           name="search"
@@ -59,7 +66,7 @@ export const SearchBar = () => {
         </InputSearch>
 
         <SearchResults isVisible={isVisible} data={results} />
-      </DivSearchInput>
+      </InputWrapper>
 
     </DivSearchBar>
   )

@@ -32,7 +32,14 @@ const PageContent = styled.div`
     border: .3rem solid ${Theme.colors.deep};
     margin-top: ${Theme.margins.margin2rem};
 
+    > div {
+      display: flex;
+      justify-content: space-between;
+      margin: -1rem 0 1rem 1rem;
+    }
+
 `
 
 
 export { Global, PageContent, Wrapper };
+

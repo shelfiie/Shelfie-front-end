@@ -11,12 +11,11 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const loadingStoreData = async () => {
-            const storageUser = localStorage.getItem('@Auth:user');
+            const storageUserId = localStorage.getItem('@Auth:userId');
             const storageToken = localStorage.getItem('@Auth:token');
-
-            if (storageUser && storageToken) {
-                setUser(storageUser);
-                axios.AxiosHeaders = {Authorization: `Bearer ${storageToken}`}
+            if (storageUserId && storageToken) {
+                setUser(storageUserId);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
             }
         };
         loadingStoreData();
@@ -54,16 +53,14 @@ export const AuthProvider = ({ children }) => {
             setUser(response.id);
             
             const user = response.id;
-            localStorage.setItem('@Auth:user', user);
-
-            // return { token, user, expirationDate };n
+            localStorage.setItem('@Auth:userId', user);
         }
     };
 
     const logout = () => {
         setUser(null);
         localStorage.removeItem('@Auth:token');
-        localStorage.removeItem('@Auth:user');
+        localStorage.removeItem('@Auth:userId');
         localStorage.removeItem('@Auth:expirationDate');
     };
 
@@ -71,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{
             user,
             // significa que signEd será verdadeiro (true) se user não for nulo (null)
-            signed : !!user,
+            signed: !!user,
             signIn,
             logout
         }}>

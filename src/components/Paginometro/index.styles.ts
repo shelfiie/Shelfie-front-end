@@ -2,12 +2,8 @@ import styled from 'styled-components'
 import { Theme } from '../../styles/theme'
 
 const PaginometroDiv = styled.div`
-    position: absolute;
-    right: 1rem;
-    top: -1rem;
     width: 25%;
-
-    display: flex;
+    display: inline-flex;
     justify-content: space-around;
 
     background-color: ${Theme.colors.green};
