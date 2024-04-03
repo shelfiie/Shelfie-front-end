@@ -17,7 +17,7 @@ export function Login() {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { signIn, signEd } = useContext(AuthContext);
+    const { signIn, signed } = useContext(AuthContext);
 
 
     function handleChange(e){
@@ -32,12 +32,14 @@ export function Login() {
     async function handleSignIn(event){
         event.preventDefault();
         setLoading(true);
+
         const user = { email, password };
         await signIn(user);
+        
         setLoading(false);
     }
 
-    if (signEd){
+    if (signed){
         return  <Navigate to={'/home'} />
     } else{
         return (

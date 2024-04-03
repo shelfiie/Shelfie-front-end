@@ -3,12 +3,19 @@ import { Theme } from "../../styles/theme";
 
 const AsideStyles = styled.aside`
     background-color: ${Theme.colors.orange};
+    
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    margin-top: ${Theme.margins.margin10rem};
+    justify-content: space-around;
+    padding: ${Theme.margins.margin1rem};
 
+    margin-top: ${Theme.margins.margin10rem};
+    margin-bottom: ${Theme.margins.margin5rem};
+
+    > div {
+        text-align: center;
+    }
     ul{
         display: flex;
         flex-direction: column;
@@ -45,7 +52,7 @@ const AsideStyles = styled.aside`
 
 
 
-    svg{width: 80%;}
+    svg{width: 100%;}
 `
 
 export { AsideStyles };

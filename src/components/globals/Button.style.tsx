@@ -5,6 +5,8 @@ import { Theme } from "../../styles/theme";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     backgroundColor?: string;
     color?: string;
+    fontSize?: string;
+    fontWeight?: string;
 }
 
 type ButtonType = {
@@ -19,8 +21,8 @@ const ButtonWithShadow = styled.button<ButtonProps>`
     background-color: ${(props) => props.backgroundColor};
     color: ${(props) => props.color};
 
-    font-size: ${Theme.font.sizes.regular};
-    font-weight: ${Theme.font.weight.semiBold};
+    font-size: ${(props) => props.fontSize || Theme.font.sizes.regular};
+    font-weight: ${(props) => props.fontWeight || Theme.font.weight.semiBold};
     
     padding: ${Theme.margins.margin1rem};
     border: none;
