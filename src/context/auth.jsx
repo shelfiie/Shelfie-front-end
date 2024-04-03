@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {createContext, useEffect, useState} from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { config } from "../api/config";
 
 const API_URL = config.apiUrl;
@@ -17,10 +17,8 @@ export const AuthProvider = ({ children }) => {
             if (storageUser && storageToken) {
                 setUser(storageUser);
                 axios.AxiosHeaders = {Authorization: `Bearer ${storageToken}`}
-                
             }
         };
-
         loadingStoreData();
     }, [user]);
 
@@ -58,7 +56,7 @@ export const AuthProvider = ({ children }) => {
             const user = response.id;
             localStorage.setItem('@Auth:user', user);
 
-            return { token, user, expirationDate };
+            // return { token, user, expirationDate };n
         }
     };
 
@@ -72,8 +70,10 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             user,
-            signEd : !!user,
-            signIn
+            // significa que signEd será verdadeiro (true) se user não for nulo (null)
+            signed : !!user,
+            signIn,
+            logout
         }}>
             { children }
         </AuthContext.Provider>
