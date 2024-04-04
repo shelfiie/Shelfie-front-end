@@ -5,6 +5,7 @@ const DivSearchBar = styled.div`
   gap: 1rem;
 
   display: inherit;
+  align-items: center;
   
   border-radius: ${Theme.borders.radius};
   border: ${Theme.borders.border2px} solid ${Theme.colors.deep};
@@ -49,12 +50,15 @@ const InputSearch = styled.input`
   border-radius: ${Theme.margins.marginhalfrem};
 
   height: 100%;
+  width: 100%;
 
   &:focus{outline: none;}
 `
 
 const InputWrapper = styled.div`
   position: relative;
+  height: 100%;
+  width: 100%;
 `
 
 export { DivFilter, DivSearchBar, InputSearch, InputWrapper }

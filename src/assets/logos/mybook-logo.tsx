@@ -7,7 +7,7 @@ interface MyBookLogoProps extends React.HTMLAttributes<HTMLParagraphElement> {
     fontSize?: string;
     fontWeight?: string;
     marginLeft?: string;
-    marginBottom?: string;
+    marginbottom?: string;
 }
 
 const MyBookStyle = styled.p<MyBookLogoProps>`
@@ -17,7 +17,7 @@ const MyBookStyle = styled.p<MyBookLogoProps>`
     color: ${(props) => props.color || Theme.colors.deep};
 
     letter-spacing: .2rem;
-    margin-bottom: ${(props) => props.marginBottom || "-2.5rem"};
+    margin-bottom: ${(props) => props.marginbottom || "-2.5rem"};
     margin-left: ${(props) => props.marginLeft || "-2rem"};
 `
 

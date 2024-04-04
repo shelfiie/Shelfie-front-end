@@ -42,7 +42,7 @@ export function Login() {
     }
     return (
         <>
-            <LoginDiv>
+            <LoginDiv backgroundcolor={Theme.colors.light}>
                 <div>
                     <MyBookLogo />
                     <Logo />
@@ -85,7 +85,7 @@ export function Login() {
                         content={loading ? 'Carregando' : 'Entrar'}
                         type="submit"
                         disabled={loading || !validarInput()}
-                        backgroundColor={Theme.colors.pink}
+                        backgrouncolor={Theme.colors.pink}
                         color={Theme.colors.light}></Entrar>
 
                     <div>

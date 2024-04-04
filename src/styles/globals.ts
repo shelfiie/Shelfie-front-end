@@ -7,7 +7,6 @@ export const Globals = createGlobalStyle`
         font-size: 62.5%;
         max-width: 100vw;
         max-height: 100vh;
-        overflow-x: hidden;
         background-image: url(${bgVector});
         background-repeat: no-repeat;
         background-size: max(100vw, 90vh);
