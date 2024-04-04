@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { SearchDropdownWrapper } from "./SearchResults.styles";
 
 export const SearchResults = ({ isVisible, data }) => {
+  const navigate = useNavigate();
 
   if (!isVisible || !data || !data.length) return null;
 
@@ -17,7 +19,11 @@ export const SearchResults = ({ isVisible, data }) => {
       authorsText = item.volumeInfo.authors;
     }
 
-    return <li key={item.id}>
+    return <li 
+      key={item.id} 
+      onClick={ () =>{
+        navigate(`/bookdetails/${item.id}`)
+      }}>
       <p>{item.volumeInfo.title}</p>
       <span>Autor: {authorsText}</span>
       <span>Ano de publicação: {date}</span>

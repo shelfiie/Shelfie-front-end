@@ -14,32 +14,37 @@ const Global = createGlobalStyle`
 `
 
 const Wrapper = styled.div`
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 
-    display: grid;
+  display: grid;
 
-    grid-template-columns: 1fr 6fr;
-    background-color: ${Theme.colors.orange};
+  grid-template-columns: 1fr 6fr;
+  background-color: ${Theme.colors.orange};
 `
 const PageContent = styled.div`
-    width: 95%;
-    height: 90%;
-    position: relative;
-    background-color: ${Theme.colors.light};
+  width: 95%;
+  height: 90%;
+  position: relative;
+  background-color: ${Theme.colors.light};
 
-    border-radius: ${Theme.borders.radiusRound};
-    border: .3rem solid ${Theme.colors.deep};
-    margin-top: ${Theme.margins.margin2rem};
-
-    > div {
-      display: flex;
-      justify-content: space-between;
-      margin: -1rem 0 1rem 1rem;
-    }
+  border-radius: ${Theme.borders.radiusRound};
+  border: .3rem solid ${Theme.colors.deep};
+  margin-top: ${Theme.margins.margin2rem};
 
 `
 
+const TopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: -1.5rem 2rem 0 2rem;
+`
 
-export { Global, PageContent, Wrapper };
+const LayoutChildren = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+`
+
+
+export { Global, LayoutChildren, PageContent, TopWrapper, Wrapper };
 

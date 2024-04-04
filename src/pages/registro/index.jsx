@@ -55,7 +55,7 @@ export function Registro(){
 
     return(
         <>
-            <RegisterDiv>
+            <RegisterDiv backgroundcolor={Theme.colors.light}>
                 <div>
                     <MyBookLogo />
                     <Logo/>
@@ -102,7 +102,7 @@ export function Registro(){
                     <Entrar 
                         content="Registrar"
                         type="submit" 
-                        backgroundColor={Theme.colors.pink} 
+                        backgroundcolor={Theme.colors.pink} 
                         color={Theme.colors.light} 
                     />
                 </Form>

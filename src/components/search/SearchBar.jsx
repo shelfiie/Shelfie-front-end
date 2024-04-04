@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { fetchBookData } from "../../api/getBookData.ts";
+import { fetchBookDataByTitle } from "../../api/getBookData.ts";
 import { useClickFocus } from "../../hooks/clickFocusInput.ts";
 import { useClickOutside } from "../../hooks/clickOutside.ts";
 import { DivFilter, DivSearchBar, InputSearch, InputWrapper } from "./SearchBar.styles.ts";
@@ -37,7 +37,7 @@ export const SearchBar = () => {
       return;
     }
 
-    const res = fetchBookData(search);
+    const res = fetchBookDataByTitle(search);
     res.then((data) => {
       setResults(data.items.slice(0, 5));
     });

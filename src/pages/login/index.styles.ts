@@ -5,8 +5,7 @@ import { Theme } from "../../styles/theme"
 
 const LoginDiv = styled(BoxShadow)`
     width: 42rem;
-    object-fit: cover  ;
-    background-color: ${Theme.colors.light};
+    object-fit: cover;
 
     padding: ${Theme.margins.margin5rem};
     margin: 0 auto;

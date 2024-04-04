@@ -1,7 +1,7 @@
 import { Aside } from "../../components/Aside/index.jsx";
 import { Paginometro } from "../../components/Paginometro/index.jsx";
 import { SearchBar } from "../../components/search/SearchBar.jsx";
-import { Global, PageContent, Wrapper } from "./index.styles.ts";
+import { Global, LayoutChildren, PageContent, TopWrapper, Wrapper } from "./index.styles.ts";
 
 export function Layout( { children } ) {
   return (
@@ -10,11 +10,16 @@ export function Layout( { children } ) {
       <Wrapper>
         <Aside />
         <PageContent>
-          <div>
+
+          <TopWrapper>
             <SearchBar />
             <Paginometro />
-          </div>
-          {children}
+          </TopWrapper>
+
+          <LayoutChildren>
+            {children}
+          </LayoutChildren>
+
         </PageContent>
       </Wrapper>
     </>

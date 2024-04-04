@@ -31,7 +31,7 @@ export const Aside = () => {
                     color={Theme.colors.light}
                     fontSize={Theme.font.sizes.small}
                     fontWeight={Theme.font.weight.regular}
-                    marginBottom="-1.5rem" />
+                    marginbottom="-1.5rem" />
                 <Logo />
 
                 <Perfil />
@@ -50,9 +50,9 @@ export const Aside = () => {
 
             <form onSubmit={handleLogout}>
                 <Botao
-                    backgroundColor={Theme.colors.blue}
+                    backgroundcolor={Theme.colors.blue}
                     color={Theme.colors.light}
-                    fontSize={Theme.font.sizes.xsmall}
+                    fontsize={Theme.font.sizes.xsmall}
                     content="Sair da conta"
                     type="submit"
                 />

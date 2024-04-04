@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { Theme } from "../../styles/theme";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    backgroundColor?: string;
+    backgroundcolor?: string;
     color?: string;
-    fontSize?: string;
+    fontsize?: string;
     fontWeight?: string;
+    padding?: string;
 }
 
 type ButtonType = {
@@ -18,13 +19,13 @@ type ButtonType = {
 
 
 const ButtonWithShadow = styled.button<ButtonProps>`
-    background-color: ${(props) => props.backgroundColor};
+    background-color: ${(props) => props.backgroundcolor};
     color: ${(props) => props.color};
 
-    font-size: ${(props) => props.fontSize || Theme.font.sizes.regular};
+    font-size: ${(props) => props.fontsize || Theme.font.sizes.regular};
     font-weight: ${(props) => props.fontWeight || Theme.font.weight.semiBold};
     
-    padding: ${Theme.margins.margin1rem};
+    padding: ${(props) => props.padding || Theme.margins.margin1rem};
     border: none;
     border-radius: ${Theme.borders.radiusRound};
     box-shadow: 4px 4px rgba(0, 0, 0);
