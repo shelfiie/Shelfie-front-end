@@ -8,4 +8,5 @@ interface bookData {
     isbn10: string;
     isbn13: string; 
     thumbnail: string;
+    pageCount: number;
 }

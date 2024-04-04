@@ -14,7 +14,6 @@ const Global = createGlobalStyle`
 `
 
 const Wrapper = styled.div`
-  height: 100vh;
   width: 100vw;
 
   display: grid;
@@ -24,7 +23,7 @@ const Wrapper = styled.div`
 `
 const PageContent = styled.div`
   width: 95%;
-  height: 90%;
+  height: 85%;
   position: relative;
   background-color: ${Theme.colors.light};
 
@@ -42,6 +41,7 @@ const TopWrapper = styled.div`
 
 const LayoutChildren = styled.div`
   display: grid;
+  height: 100%;
   grid-template-rows: 1fr 1fr;
 `
 

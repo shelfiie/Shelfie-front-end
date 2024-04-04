@@ -39,7 +39,7 @@ export const SearchBar = () => {
 
     const res = fetchBookDataByTitle(search);
     res.then((data) => {
-      setResults(data.items.slice(0, 5));
+      setResults(data.items);
     });
   }, [search]);
 
