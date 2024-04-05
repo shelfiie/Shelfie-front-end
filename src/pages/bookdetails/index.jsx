@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchBookById } from '../../api/getBookData';
+import { DropDownSelection } from '../../components/DropDownSelection/index';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/index';
-import { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails } from './index.styles';
+import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails, PageCount, UserBookDetails } from './index.styles';
 
 export const BookDetails = () => {
   const { id } = useParams();
+  const options = ['Selecionar', 'Quero ler', 'Lendo', 'Lido', 'Abandonado'];
   const [bookDetails, setBookDetails] = useState(null);
 
   useEffect(() => {
     const getBookDetails = async () => {
       try {
         const data = await fetchBookById(id);
-        console.log(data);
         setBookDetails(data);
       } catch (error) {
         console.error('Erro ao obter detalhes do livro:', error);
@@ -25,18 +26,16 @@ export const BookDetails = () => {
   }, [id]);
 
   if (!bookDetails) {
-    return <Layout>Carregando detalhes do livro...</Layout>;
+    return <Layout><Carregando>Carregando detalhes do livro...</Carregando></Layout>;
   }
 
-  const date = new Date(bookDetails.volumeInfo.publishedDate).toLocaleDateString('pt-BR', { year: 'numeric' });
-
   let authorsText = '';
-  if (Array.isArray(bookDetails.volumeInfo.authors)) {
-    authorsText = bookDetails.volumeInfo.authors.join(', ');
-  } else if (!bookDetails.volumeInfo.authors) {
+  if (Array.isArray(bookDetails.authors)) {
+    authorsText = bookDetails.authors.join(', ');
+  } else if (!bookDetails.authors) {
     authorsText = 'Autor não informado';
   } else {
-    authorsText = bookDetails.volumeInfo.authors;
+    authorsText = bookDetails.authors;
   }
 
   return (
@@ -46,59 +45,68 @@ export const BookDetails = () => {
         padding={Theme.margins.margin1rem}
         backgroundcolor={Theme.colors.blue}>
 
-        <BoxBookImage
-          padding={Theme.margins.margin1rem}
-          backgroundcolor={Theme.colors.light}>
-          <img src={bookDetails.volumeInfo.imageLinks.thumbnail} alt="" />
-        </BoxBookImage>
+        <img src={bookDetails.thumbnail} alt="" />
 
         <BookContent>
           <div>
-            <h1>{bookDetails.volumeInfo.title}</h1>
+            <h1>{bookDetails.title}</h1>
             <p>Autor(a): {authorsText}</p>
           </div>
 
           <ComplementaryDetails>
-            <p>Editora: {bookDetails.volumeInfo.publisher}</p>
-            <p>Ano de publicação: {date}</p>
-            <p>ISBN 10: TO DO</p>
-            <p>ISBN 13: TO DO</p>
+            <p>Editora: {bookDetails.publisher}</p>
+            <p>Ano de publicação: {bookDetails.publishedDate}</p>
+            <p>ISBN 10: {bookDetails.isbn10}</p>
+            <p>ISBN 13: {bookDetails.isbn13}</p>
           </ComplementaryDetails>
 
           <BookDescription>
             <span>Descrição</span>
             {/* //to do - desestruturar */}
-            <p>{bookDetails.volumeInfo.description.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '')}</p>
+            <p>{bookDetails.description}</p>
           </BookDescription>
 
           {/* // to do - nao deixar clicar no botao ler enquanto n colocou na lista de quero ler e lendo e não deixar fazer o review enquanto nao abandonou ou terminou (esperar chamado da api) */}
           <UserBookDetails>
-            <PageCount>
-              0/{bookDetails.volumeInfo.pageCount}
-            </PageCount>
+            <div>
+              <PageCount>
+                0/{bookDetails.pageCount}
+              </PageCount>
 
-            <select>
-              <option>SELECIONAR</option>
-            </select>
+              <DropDownSelection
+                backgroundcolor={Theme.colors.orange}
+                content='SELECIONAR'
+                color={Theme.colors.white}
+                options={options}
+              />
+            </div>
 
-            <Botao
-              content='Ler'
-              backgroundcolor={Theme.colors.blue}
-              color={Theme.colors.light}
-              fontsize={Theme.font.sizes.xsmall}
-              padding='1rem 2rem' 
-            />  
-            <Botao
-              content='Review'
-              backgroundcolor={Theme.colors.pink}
-              color={Theme.colors.light}
-              fontsize={Theme.font.sizes.xsmall}
-              disabled={true}
-            />
+            <div>
+              <Botao
+                content='Ler'
+                backgroundcolor={Theme.colors.blue}
+                color={Theme.colors.light}
+                fontSize={Theme.font.sizes.xsmall}
+                padding='.5rem 1rem'
+                borderRadius={Theme.borders.radius}
+                width={Theme.margins.margin5rem}
+              />
+              <Botao
+                content='Review'
+                backgroundcolor={Theme.colors.pink}
+                color={Theme.colors.light}
+                fontSize={Theme.font.sizes.xsmall}
+                disabled={true}
+                padding='.5rem 1rem'
+                borderRadius={Theme.borders.radius}
+                width={Theme.margins.margin7rem}
+              />
+            </div>
           </UserBookDetails>
 
         </BookContent>
       </BoxBook>
+
     </Layout>
   );
 };

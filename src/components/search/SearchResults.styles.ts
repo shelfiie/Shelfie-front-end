@@ -6,7 +6,7 @@ export const SearchDropdownWrapper = styled.div`
   position: absolute;
   left: 0; 
   right: -150%; 
-  width: auto;
+  width: 10 0%;
 
   background-color: #fff;
   border: 1px solid #ccc;

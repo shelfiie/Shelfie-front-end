@@ -52,7 +52,7 @@ export const Aside = () => {
                 <Botao
                     backgroundcolor={Theme.colors.blue}
                     color={Theme.colors.light}
-                    fontsize={Theme.font.sizes.xsmall}
+                    fontSize={Theme.font.sizes.xsmall}
                     content="Sair da conta"
                     type="submit"
                 />

@@ -1,20 +1,13 @@
 import { useContext, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg";
 import { Input } from "../../components/globals/input.style.ts";
 import { AuthContext } from "../../context/auth.jsx";
 import { Globals } from "../../styles/globals";
 import { Theme } from "../../styles/theme";
-import { validarEmail, validarSenha } from "../../utils/validadores";
 import { CheckBox, Entrar, Form, LoginDiv } from "./index.styles.ts";
 
 export function Login() {
-
-    const validarInput = () => {
-        return validarEmail(email) && validarSenha(password);
-    }
-
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -84,8 +77,8 @@ export function Login() {
                     <Entrar
                         content={loading ? 'Carregando' : 'Entrar'}
                         type="submit"
-                        disabled={loading || !validarInput()}
-                        backgrouncolor={Theme.colors.pink}
+                        disabled={loading}
+                        backgroundcolor={Theme.colors.pink}
                         color={Theme.colors.light}></Entrar>
 
                     <div>

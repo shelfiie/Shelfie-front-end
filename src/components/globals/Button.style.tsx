@@ -5,9 +5,11 @@ import { Theme } from "../../styles/theme";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     backgroundcolor?: string;
     color?: string;
-    fontsize?: string;
+    fontSize?: string;
     fontWeight?: string;
     padding?: string;
+    borderRadius?: string;
+    width?: string;
 }
 
 type ButtonType = {
@@ -22,14 +24,16 @@ const ButtonWithShadow = styled.button<ButtonProps>`
     background-color: ${(props) => props.backgroundcolor};
     color: ${(props) => props.color};
 
-    font-size: ${(props) => props.fontsize || Theme.font.sizes.regular};
+    font-size: ${(props) => props.fontSize || Theme.font.sizes.regular};
     font-weight: ${(props) => props.fontWeight || Theme.font.weight.semiBold};
     
     padding: ${(props) => props.padding || Theme.margins.margin1rem};
     border: none;
-    border-radius: ${Theme.borders.radiusRound};
+    border-radius: ${props => props.borderRadius || Theme.borders.radiusRound};
     box-shadow: 4px 4px rgba(0, 0, 0);
     
+    width: ${props => props.width || 'max-content'};
+
     transition: all 0.3s ease-in-out;
     
     &:hover{

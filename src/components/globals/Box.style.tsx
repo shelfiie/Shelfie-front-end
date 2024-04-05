@@ -14,8 +14,8 @@ const Box = styled.div<BoxProps>`
     height: 100%;
     text-align: center;
     
-    background-color: ${(props) => props.backgroundcolor};
-    box-shadow: 9px 9px ${(props) => props.shadowcolor || "#000"};
+    background-color: ${props => props.backgroundcolor};
+    box-shadow: 9px 9px ${props => props.shadowcolor || "#000"};
     color: ${(props) => props.color || "#000"};
 
     padding: ${(props) => props.padding};
