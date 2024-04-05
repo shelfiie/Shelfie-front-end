@@ -77,7 +77,7 @@ export function Login() {
                     <Entrar
                         content={loading ? 'Carregando' : 'Entrar'}
                         type="submit"
-                        disabled={loading || !validarInput()}
+                        disabled={loading}
                         backgroundcolor={Theme.colors.pink}
                         color={Theme.colors.light}></Entrar>
 

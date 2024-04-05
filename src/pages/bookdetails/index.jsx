@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchBookById } from '../../api/getBookData';
+import { DropDownSelection } from '../../components/DropDownSelection/index';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/index';
-import { BookContent, BookDescription, BoxBook, ComplementaryDetails, PageCount, UserBookDetails } from './index.styles';
+import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails, PageCount, UserBookDetails } from './index.styles';
 
 export const BookDetails = () => {
   const { id } = useParams();
+  const options = ['Selecionar', 'Quero ler', 'Lendo', 'Lido', 'Abandonado'];
   const [bookDetails, setBookDetails] = useState(null);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export const BookDetails = () => {
   }, [id]);
 
   if (!bookDetails) {
-    return <Layout>Carregando detalhes do livro...</Layout>;
+    return <Layout><Carregando>Carregando detalhes do livro...</Carregando></Layout>;
   }
 
   let authorsText = '';
@@ -43,7 +45,7 @@ export const BookDetails = () => {
         padding={Theme.margins.margin1rem}
         backgroundcolor={Theme.colors.blue}>
 
-          <img src={bookDetails.thumbnail} alt="" />
+        <img src={bookDetails.thumbnail} alt="" />
 
         <BookContent>
           <div>
@@ -66,32 +68,45 @@ export const BookDetails = () => {
 
           {/* // to do - nao deixar clicar no botao ler enquanto n colocou na lista de quero ler e lendo e não deixar fazer o review enquanto nao abandonou ou terminou (esperar chamado da api) */}
           <UserBookDetails>
-            <PageCount>
-              0/{bookDetails.pageCount}
-            </PageCount>
+            <div>
+              <PageCount>
+                0/{bookDetails.pageCount}
+              </PageCount>
 
-            <select>
-              <option>SELECIONAR</option>
-            </select>
+              <DropDownSelection
+                backgroundcolor={Theme.colors.orange}
+                content='SELECIONAR'
+                color={Theme.colors.white}
+                options={options}
+              />
+            </div>
 
-            <Botao
-              content='Ler'
-              backgroundcolor={Theme.colors.blue}
-              color={Theme.colors.light}
-              fontSize={Theme.font.sizes.xsmall}
-              padding='1rem 2rem' 
-            />  
-            <Botao
-              content='Review'
-              backgroundcolor={Theme.colors.pink}
-              color={Theme.colors.light}
-              fontSize={Theme.font.sizes.xsmall}
-              disabled={true}
-            />
+            <div>
+              <Botao
+                content='Ler'
+                backgroundcolor={Theme.colors.blue}
+                color={Theme.colors.light}
+                fontSize={Theme.font.sizes.xsmall}
+                padding='.5rem 1rem'
+                borderRadius={Theme.borders.radius}
+                width={Theme.margins.margin5rem}
+              />
+              <Botao
+                content='Review'
+                backgroundcolor={Theme.colors.pink}
+                color={Theme.colors.light}
+                fontSize={Theme.font.sizes.xsmall}
+                disabled={true}
+                padding='.5rem 1rem'
+                borderRadius={Theme.borders.radius}
+                width={Theme.margins.margin7rem}
+              />
+            </div>
           </UserBookDetails>
 
         </BookContent>
       </BoxBook>
+
     </Layout>
   );
 };

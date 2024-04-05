@@ -66,7 +66,7 @@ const BookDescription = styled.div`
 const PageCount = styled.p`
     border-radius: ${Theme.borders.radius};
     border: ${Theme.borders.border3px} solid ${Theme.colors.deep};
-    padding: .3rem;
+    padding: .5rem 1rem;
 
     font-weight: ${Theme.font.weight.bold};
 `
@@ -74,11 +74,23 @@ const PageCount = styled.p`
 const UserBookDetails = styled.div`
     display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+
+    margin-top: ${Theme.margins.margin1rem};
 
     gap: ${Theme.margins.margin1rem};
     width: 100%;
+
+    > div{
+        display: inline-flex;
+        gap: ${Theme.margins.margin1rem};
+    }
 `
 
-export { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails };
+const Carregando = styled.div`
+    display: grid;
+    margin: 0 auto;
+`
+
+export { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails, Carregando };
 

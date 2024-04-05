@@ -9,7 +9,7 @@ const LANG_RESTRICT = config.googleApiLanguageRestrict;
 const MAX_RESULTS = config.googleApiMaxResults;
 
 function replaceChars(str: string): string {
-    return str.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '').replace("'", " ");
+    return str.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '').replace("'", " ").replace(/<b>/g, '').replace(/<\/b>/g, '');
 }
 
 // Função para buscar os dados do livro em tempo real
@@ -20,19 +20,29 @@ export async function fetchBookDataByTitle(search: string): AxiosPromise<bookDat
     return response.data;
 }
 
-export async function fetchBookById(id: string):Promise<bookData> {
-    const response = await axios.get(GOOGLE_API_ID + id);
-    const bookDetails:bookData ={
-        googleId: response.data.id,
-        title: response.data.volumeInfo.title,
-        authors: response.data.volumeInfo.authors,
-        publisher: response.data.volumeInfo.publisher,
-        publishedDate: new Date(response.data.volumeInfo.publishedDate).toLocaleDateString('pt-BR', { year: 'numeric' }),
-        description: replaceChars(response.data.volumeInfo.description),
-        isbn10: response.data.volumeInfo.industryIdentifiers[0].identifier,
-        isbn13: response.data.volumeInfo.industryIdentifiers[1].identifier,
-        thumbnail: response.data.volumeInfo.imageLinks.large,
-        pageCount: response.data.volumeInfo.pageCount
+export async function fetchBookById(id: string): Promise<bookData> {
+    const { data } = await axios.get(GOOGLE_API_ID + id);
+
+    const { volumeInfo, id: googleId } = data;
+    const { title, authors, publisher, publishedDate, description, industryIdentifiers, pageCount, imageLinks } = volumeInfo;
+
+    const thumbnail = imageLinks
+        ? imageLinks.large
+            ? imageLinks.large
+            : imageLinks.thumbnail
+        : 'https://centrodametropole.fflch.usp.br/sites/centrodametropole.fflch.usp.br/files/user_files/livros/imagem/capa-no-book-cover.png';
+
+    const bookDetails: bookData = {
+        googleId,
+        title,
+        authors,
+        publisher,
+        publishedDate: new Date(publishedDate).toLocaleDateString('pt-BR', { year: 'numeric' }),
+        description: description ? replaceChars(description) : "Sem descrição",
+        isbn10: industryIdentifiers[0].identifier,
+        isbn13: industryIdentifiers[1].identifier,
+        thumbnail,
+        pageCount
     }
 
     return bookDetails;

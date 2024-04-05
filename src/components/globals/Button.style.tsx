@@ -8,6 +8,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     fontSize?: string;
     fontWeight?: string;
     padding?: string;
+    borderRadius?: string;
+    width?: string;
 }
 
 type ButtonType = {
@@ -27,9 +29,11 @@ const ButtonWithShadow = styled.button<ButtonProps>`
     
     padding: ${(props) => props.padding || Theme.margins.margin1rem};
     border: none;
-    border-radius: ${Theme.borders.radiusRound};
+    border-radius: ${props => props.borderRadius || Theme.borders.radiusRound};
     box-shadow: 4px 4px rgba(0, 0, 0);
     
+    width: ${props => props.width || 'max-content'};
+
     transition: all 0.3s ease-in-out;
     
     &:hover{

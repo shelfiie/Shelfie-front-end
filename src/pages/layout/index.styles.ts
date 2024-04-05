@@ -15,6 +15,7 @@ const Global = createGlobalStyle`
 
 const Wrapper = styled.div`
   width: 100vw;
+  height: 100vh;
 
   display: grid;
 
@@ -40,9 +41,7 @@ const TopWrapper = styled.div`
 `
 
 const LayoutChildren = styled.div`
-  display: grid;
-  height: 100%;
-  grid-template-rows: 1fr 1fr;
+
 `
 
 

@@ -4,6 +4,7 @@ export const Theme = {
     colors: {
         deep: '#000',
         dark: '#4C4C4C',
+        white: '#FFF',
         light: '#F3F3F7',
         lightDark: '#8A8A8A',
         pink: '#FB7DA8',
