@@ -1,3 +1,4 @@
+import { Review } from "../../components/Review/index.jsx";
 import { Layout } from "../layout/index.jsx";
 
 // to do - lista de livros e seus tratamentos
@@ -15,6 +16,7 @@ export function Home() {
             <li>livro 3</li>
           </ul>
         </div>
+        <Review />
       </Layout>
     </>
   )

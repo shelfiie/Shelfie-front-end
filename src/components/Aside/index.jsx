@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Bookmark from "../../assets/icons/bookmarks.png";
 import Home from "../../assets/icons/home.png";
 import Configuracoes from "../../assets/icons/settings.png";
@@ -9,7 +9,18 @@ import { Perfil } from "../Profile/index.jsx";
 import { Botao } from "../globals/Button.style.tsx";
 import { AsideStyles } from './index.styles.ts';
 import { AuthContext } from "../../context/auth.jsx";
-import { Navigate } from "react-router-dom";
+
+
+// to do = desestruturação
+// const [ navItem, setNavItem ] = useState({ src, nome, route});
+
+// const changeNavItem = ( src, nome, route) => {
+//     setNavItem = {
+//         src: src,
+//         nome,
+//         route
+//     }
+// }
 
 const navItems = [
     { src: Home, name: "Home", route: "/home" },
