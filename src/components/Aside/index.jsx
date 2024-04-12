@@ -64,6 +64,7 @@ export const Aside = () => {
                     backgroundcolor={Theme.colors.blue}
                     color={Theme.colors.light}
                     fontSize={Theme.font.sizes.xsmall}
+                    padding="0.5rem 1rem"
                     content="Sair da conta"
                     type="submit"
                 />

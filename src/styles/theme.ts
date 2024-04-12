@@ -20,6 +20,7 @@ export const Theme = {
         radius: '.5rem',
     },
     margins: {
+        margin5px: '5px',
         marginhalfrem: '.5rem',
         margin1rem: '1rem',
         margin2rem: '2rem',

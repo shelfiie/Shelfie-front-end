@@ -8,7 +8,7 @@ const AsideStyles = styled.aside`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    padding: ${Theme.margins.margin1rem};
+    padding: ${Theme.margins.marginhalfrem};
 
     margin-top: ${Theme.margins.margin10rem};
     margin-bottom: ${Theme.margins.margin5rem};
@@ -30,7 +30,7 @@ const AsideStyles = styled.aside`
             align-items: center;
             gap: ${Theme.margins.marginhalfrem};
 
-            padding: ${Theme.margins.marginhalfrem};
+            padding: ${Theme.margins.margin5px};
 
             &:hover{
                 background-color: #FFAE47;
@@ -41,7 +41,7 @@ const AsideStyles = styled.aside`
             a {
                 text-decoration: none;
                 color: ${Theme.colors.light};
-                font-size: ${Theme.font.sizes.small};
+                font-size: ${Theme.font.sizes.xsmall};
                 font-weight: ${Theme.font.weight.regular};
                 font-family: ${Theme.font.family.poppins};
             } 
@@ -52,7 +52,7 @@ const AsideStyles = styled.aside`
 
 
 
-    svg{width: 100%;}
+    svg{width: 90%;}
 `
 
 export { AsideStyles };

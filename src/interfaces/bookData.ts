@@ -9,4 +9,6 @@ interface bookData {
     isbn13: string; 
     thumbnail: string;
     pageCount: number;
+    rating?: number;
+    options?: string[];
 }

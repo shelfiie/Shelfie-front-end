@@ -11,11 +11,11 @@ const ProfileContainer = styled.div`
     align-items: center;
     justify-content: space-around;
 
-    gap: ${Theme.margins.marginhalfrem};
+    gap: ${Theme.margins.margin5px};
 
-    padding: ${Theme.margins.marginhalfrem};
+    padding: ${Theme.margins.margin5px};
 
-    font-size: ${Theme.font.sizes.xsmall};
+    font-size: ${Theme.font.sizes.xxsmall};
     img{
         width: 50px;
         height: 50px;

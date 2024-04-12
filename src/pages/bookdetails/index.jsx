@@ -6,10 +6,10 @@ import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/index';
 import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails, PageCount, UserBookDetails } from './index.styles';
+import { bookOptions } from '../../api/config';
 
 export const BookDetails = () => {
   const { id } = useParams();
-  const options = ['Selecionar', 'Quero ler', 'Lendo', 'Lido', 'Abandonado'];
   const [bookDetails, setBookDetails] = useState(null);
 
   useEffect(() => {
@@ -62,7 +62,6 @@ export const BookDetails = () => {
 
           <BookDescription>
             <span>Descrição</span>
-            {/* //to do - desestruturar */}
             <p>{bookDetails.description}</p>
           </BookDescription>
 
@@ -77,7 +76,7 @@ export const BookDetails = () => {
                 backgroundcolor={Theme.colors.orange}
                 content='SELECIONAR'
                 color={Theme.colors.white}
-                options={options}
+                options={bookOptions}
               />
             </div>
 

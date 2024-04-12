@@ -12,6 +12,7 @@ export interface DropDownSelectionProps {
     fontSize?: string;
     fontWeight?: string;
     padding?: string;
+    top?: string;
 }
 
 
@@ -33,14 +34,13 @@ const DropDownStyles = styled.div<DropDownSelectionProps & { isOpen: boolean }>`
     border-radius: ${Theme.borders.radius};
 
     position: relative;
-    z-index: 2;
     transition: all 0.3s ease-in-out;
 
     ul {
         display: ${props => props.isOpen ? 'block' : 'none'};
         width: max-content;
         position: absolute;
-        top: 2.8rem;
+        top: ${props => props.top || '110%'};
         left: 0;
 
         background-color: inherit;
@@ -53,14 +53,13 @@ const DropDownStyles = styled.div<DropDownSelectionProps & { isOpen: boolean }>`
     }
 `;
 
-const Option = styled.li`
-    font-size: 1rem;
-    font-weight: 500;
+const Option = styled.li<DropDownSelectionProps>`
+    font-size: inherit;
+    font-weight: inherit;
 
-    padding: ${Theme.margins.marginhalfrem} ${Theme.margins.margin1rem};
+    padding: ${(props) => props.padding || '.5rem 1rem'};
 
     list-style: none;
-
     transition: 300ms ease-in-out;
 
     &:hover{
@@ -68,10 +67,6 @@ const Option = styled.li`
     }
 `;
 
-const InvisibleText = styled.div`
-    visibility: hidden;
-    white-space: nowrap;
-`;
 
-export { DropDownStyles, InvisibleText, Option };
+export { DropDownStyles, Option };
 

@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
   display: grid;
 
-  grid-template-columns: 1fr 6fr;
+  grid-template-columns: 1fr 7fr;
   background-color: ${Theme.colors.orange};
 `
 const PageContent = styled.div`
@@ -41,7 +41,7 @@ const TopWrapper = styled.div`
 `
 
 const LayoutChildren = styled.div`
-
+  padding: ${Theme.margins.margin2rem};
 `
 
 
