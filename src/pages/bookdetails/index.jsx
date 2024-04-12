@@ -77,6 +77,7 @@ export const BookDetails = () => {
                 content='SELECIONAR'
                 color={Theme.colors.white}
                 options={bookOptions}
+                fontSize={Theme.font.sizes.xsmall}
               />
             </div>
 

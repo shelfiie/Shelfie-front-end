@@ -9,7 +9,7 @@ export type DropDownType = {
 export interface DropDownSelectionProps {
     backgroundcolor?: string;
     color?: string;
-    fontSize?: string;
+    fontSize: string;
     fontWeight?: string;
     padding?: string;
     top?: string;

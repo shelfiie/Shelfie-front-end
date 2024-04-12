@@ -7,7 +7,7 @@ import { PageContent } from "../layout/index.styles";
 const BoxBook = styled(BoxShadow)`
     *{font-family: ${Theme.font.family.poppins};}
     h1{
-       font-size: max(1rem, 2.5vw);
+       font-size: max(1rem, 1.5vw);
        letter-spacing: 1px;
     }
     margin: ${Theme.margins.margin1rem};
@@ -22,7 +22,7 @@ const BoxBook = styled(BoxShadow)`
 `
 
 const BoxBookImage = styled(BoxShadow)`
-    width: 12rem;
+    width: 10rem;
     height: min-content;
     img{
         width: 100%;
@@ -32,7 +32,7 @@ const BoxBookImage = styled(BoxShadow)`
 
 const BookContent = styled(PageContent)`
     display: grid;
-    margin: 0 0 0 1rem;
+    margin: 0;
     text-align: left;
     height: 100%;
     padding: ${Theme.margins.margin1rem};
@@ -68,6 +68,7 @@ const PageCount = styled.p`
     border: ${Theme.borders.border3px} solid ${Theme.colors.deep};
     padding: .5rem 1rem;
 
+    font-size: ${Theme.font.sizes.xsmall};
     font-weight: ${Theme.font.weight.bold};
 `
 
