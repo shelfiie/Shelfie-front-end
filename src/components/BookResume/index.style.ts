@@ -12,10 +12,6 @@ const StyledBookCover = styled.img`
     width: 7rem;
 
     transition: transform 0.3s ease-in-out;
-
-    &:hover {
-        transform: scale(1.1);
-    }
 `
 
 const StyledOptions = styled.div`
@@ -28,7 +24,7 @@ const StyledBookResumeContainer = styled(BoxShadow)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: ${Theme.margins.margin1rem};
+    gap: ${Theme.margins.marginhalfrem};
 
     padding: ${Theme.margins.margin5px};
 

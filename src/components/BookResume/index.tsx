@@ -5,7 +5,11 @@ import { bookOptions } from '../../api/config';
 import { StyledBookCover, StyledBookResumeContainer, StyledOptions } from './index.style.ts';
 import { Heart } from '../globals/Heart.style';
 
-export const BookResume = () => {
+type BookResumeType = {
+
+} 
+
+export const BookResume = ( ) => {
   return (
     <StyledBookResumeContainer>
         <StyledOptions>

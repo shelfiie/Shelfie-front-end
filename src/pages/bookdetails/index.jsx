@@ -5,8 +5,9 @@ import { DropDownSelection } from '../../components/DropDownSelection/index';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/index';
-import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails, PageCount, UserBookDetails } from './index.styles';
+import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage } from './index.styles';
 import { bookOptions } from '../../api/config';
+import { Heart } from '../../components/globals/Heart.style'
 
 export const BookDetails = () => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ export const BookDetails = () => {
         padding={Theme.margins.margin1rem}
         backgroundcolor={Theme.colors.blue}>
 
-        <img src={bookDetails.thumbnail} alt="" />
+        <BookCoverImage src={bookDetails.thumbnail} alt="" />
 
         <BookContent>
           <div>
@@ -77,10 +78,12 @@ export const BookDetails = () => {
                 content='SELECIONAR'
                 color={Theme.colors.white}
                 options={bookOptions}
+                fontSize={Theme.font.sizes.xsmall}
               />
             </div>
 
             <div>
+              <Heart />
               <Botao
                 content='Ler'
                 backgroundcolor={Theme.colors.blue}

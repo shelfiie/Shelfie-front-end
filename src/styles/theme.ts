@@ -43,8 +43,8 @@ export const Theme = {
             bold: 700
         },
         sizes: {
-            xxsmall: '.8rem',
-            xsmall: '1rem',
+            xxsmall: '.625rem',
+            xsmall: '.8rem',
             small: '1.2rem',
             regular: '1.6rem',
             big1x: '2rem',
