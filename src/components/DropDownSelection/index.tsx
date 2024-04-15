@@ -9,6 +9,7 @@ export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> 
 
     const handleOptionClick = (option: string) => {
         setSelectedOption(option);
+        console.log(option);
         setIsOpen(false);
     };
 
@@ -17,7 +18,6 @@ export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> 
             {selectedOption.toUpperCase()}
             <Arrow isOpen={isOpen} fill={Theme.colors.white} />
             <ul>
-                {/* // to do - colocar o bookOptions? maybe */}
                 {options ? options.map((option, index) => (
                     <Option key={index} value="" onClick={() => handleOptionClick(option)}>
                         {option}

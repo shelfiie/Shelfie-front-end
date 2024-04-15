@@ -7,6 +7,7 @@ const ORDER_BY = config.googleApiOrderByRelevance;
 const PRINT_TYPE = config.googleApiPrintType;
 const LANG_RESTRICT = config.googleApiLanguageRestrict;
 const MAX_RESULTS = config.googleApiMaxResults;
+const API_KEY = config.googleApiKey;
 
 function replaceChars(str: string): string {
     return str.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '').replace("'", " ").replace(/<b>/g, '').replace(/<\/b>/g, '');
@@ -15,13 +16,20 @@ function replaceChars(str: string): string {
 // Função para buscar os dados do livro em tempo real
 export async function fetchBookDataByTitle(search: string): AxiosPromise<bookData> {
     const q = search.split(' ').join('+');
-    const response = await axios.get(GOOGLE_API + q + ORDER_BY + PRINT_TYPE + LANG_RESTRICT + MAX_RESULTS);
+    const response = await axios.get(GOOGLE_API + q + ORDER_BY + PRINT_TYPE + LANG_RESTRICT + MAX_RESULTS + API_KEY , {
+        headers: {
+            'Authorization' : ''
+        }
+    });
     
     return response.data;
 }
 
 export async function fetchBookById(id: string): Promise<bookData> {
-    const { data } = await axios.get(GOOGLE_API_ID + id);
+    const { data } = await axios.get(GOOGLE_API_ID + id, {
+        headers: {
+            'Authorization' : ''
+        }});
 
     const { volumeInfo, id: googleId } = data;
     const { title, authors, publisher, publishedDate, description, industryIdentifiers, pageCount, imageLinks } = volumeInfo;
@@ -46,4 +54,9 @@ export async function fetchBookById(id: string): Promise<bookData> {
     }
 
     return bookDetails;
+}
+
+export async function getBookListByUser(userId: string): Promise<bookData[]> {
+    const { data } = await axios.get(`${config.apiUrl}/api/mybooks/${userId}/list`);
+    return data;
 }

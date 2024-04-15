@@ -20,5 +20,6 @@ export const fetchUserData = async (token: string): AxiosPromise<userData[]> => 
       "Content-Type": "application/json"
     }
   });
+
   return response.data;
 };

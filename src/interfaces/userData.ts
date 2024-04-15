@@ -6,6 +6,7 @@ export interface userData {
     name: string,
     username: string,
     password: string,
+    token: string,
     image: boolean,
     enabled: boolean,
     role: string,
