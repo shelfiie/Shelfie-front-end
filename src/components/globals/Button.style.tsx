@@ -32,7 +32,7 @@ const ButtonWithShadow = styled.button<ButtonProps>`
     border-radius: ${props => props.borderRadius || Theme.borders.radiusRound};
     box-shadow: 4px 4px rgba(0, 0, 0);
     
-    width: ${props => props.width || 'max-content'};
+    width: ${props => props.width || '100%'};
 
     transition: all 0.3s ease-in-out;
     
