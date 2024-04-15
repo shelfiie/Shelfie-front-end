@@ -1,6 +1,5 @@
 import axios, { AxiosPromise } from "axios";
 import { userData } from "../interfaces/userData";
-import { useQuery } from "@tanstack/react-query";
 import { userRegisterData } from "../interfaces/userRegisterData";
 import { config } from "./config";
 
@@ -13,23 +12,13 @@ export async function registerUser(
   return response.data;
 }
 
-const fetchUserData = async (): AxiosPromise<userData[]> => {
-  const response = axios({
-    method: "get",
-    url: API_URL + "/api/users/me",
-    headers: {},
+export const fetchUserData = async (token: string): AxiosPromise<userData[]> => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const response = await axios.get(API_URL + '/api/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
   });
-  return response;
+  return response.data;
 };
-
-export function useUserData() {
-  const query = useQuery({
-    queryFn: fetchUserData,
-    queryKey: ["userData"],
-    retry: 2,
-  });
-  return {
-    ...query,
-    userData: query.data?.data,
-  };
-}
