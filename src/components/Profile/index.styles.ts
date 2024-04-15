@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Theme } from "../../styles/theme";
-import { BoxShadow } from "../globals/Box.style";
 
 const ProfileContainer = styled.div`
     margin-top: ${Theme.margins.margin2rem};
@@ -11,11 +10,12 @@ const ProfileContainer = styled.div`
     align-items: center;
     justify-content: space-around;
 
-    gap: ${Theme.margins.marginhalfrem};
+    gap: ${Theme.margins.margin5px};
 
-    padding: ${Theme.margins.marginhalfrem};
+    padding: ${Theme.margins.margin5px};
 
     font-size: ${Theme.font.sizes.xsmall};
+    color: ${Theme.colors.white};
     img{
         width: 50px;
         height: 50px;

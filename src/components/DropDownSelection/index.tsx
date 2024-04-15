@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Arrow } from '../../assets/icons/Arrow.svg.tsx';
 import { Theme } from '../../styles/theme';
-import { DropDownSelectionProps, DropDownStyles, DropDownType, Option } from './inde.styles.ts';
+import { DropDownSelectionProps, DropDownStyles, DropDownType, Option } from './index.styles.ts';
 
 export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> = ({ content, options, ...props }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +17,7 @@ export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> 
             {selectedOption.toUpperCase()}
             <Arrow isOpen={isOpen} fill={Theme.colors.white} />
             <ul>
+                {/* // to do - colocar o bookOptions? maybe */}
                 {options ? options.map((option, index) => (
                     <Option key={index} value="" onClick={() => handleOptionClick(option)}>
                         {option}

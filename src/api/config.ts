@@ -9,4 +9,5 @@ export const config = {
     googleApiSearchByTitle: "https://www.googleapis.com/books/v1/volumes?q=intitle:",
     googleApiSearchByAuthor: "https://www.googleapis.com/books/v1/volumes?q=inauthor:",
 };
+export const bookOptions = ['Selecionar', 'Quero ler', 'Lendo', 'Lido', 'Abandonado'];
   

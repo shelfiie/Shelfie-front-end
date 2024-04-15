@@ -6,11 +6,13 @@ import { AuthContext } from "../../context/auth.jsx";
 import { Globals } from "../../styles/globals";
 import { Theme } from "../../styles/theme";
 import { CheckBox, Entrar, Form, LoginDiv } from "./index.styles.ts";
+import { Navigate } from "react-router-dom";
 
 export function Login() {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
     const { signIn, signed } = useContext(AuthContext);
 
 
@@ -25,14 +27,14 @@ export function Login() {
 
     async function handleSignIn(event) {
         event.preventDefault();
-        console.log("passando pelo login, valor do signed: " + signed)
         setLoading(true);
 
         const user = { email, password };
         await signIn(user);
-
         setLoading(false);
     }
+
+    if(signed) return <Navigate to="/home"/>
     return (
         <>
             <LoginDiv backgroundcolor={Theme.colors.light}>
@@ -89,4 +91,5 @@ export function Login() {
             <Globals />
         </>
     )
+
 }

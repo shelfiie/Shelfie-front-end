@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProfileContainer } from './index.styles.jsx'
+import { ProfileContainer } from './index.styles.ts'
 // to do: pegar as infos do usuario
 export const Perfil = () => {
   return (
