@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Arrow } from '../../assets/icons/Arrow.svg.tsx';
 import { Theme } from '../../styles/theme';
 import { DropDownSelectionProps, DropDownStyles, DropDownType, Option } from './index.styles.ts';
+import { insertBookListByUser } from '../../api/getBookData.ts';
 
 export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> = ({ content, options, ...props }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +10,8 @@ export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> 
 
     const handleOptionClick = (option: string) => {
         setSelectedOption(option);
-        console.log(option);
         setIsOpen(false);
+
     };
 
     return (
