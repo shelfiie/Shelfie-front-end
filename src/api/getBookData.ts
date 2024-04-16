@@ -16,20 +16,21 @@ function replaceChars(str: string): string {
 // Função para buscar os dados do livro em tempo real
 export async function fetchBookDataByTitle(search: string): AxiosPromise<bookData> {
     const q = search.split(' ').join('+');
-    const response = await axios.get(GOOGLE_API + q + ORDER_BY + PRINT_TYPE + LANG_RESTRICT + MAX_RESULTS + API_KEY , {
+    const response = await axios.get(GOOGLE_API + q + ORDER_BY + PRINT_TYPE + LANG_RESTRICT + MAX_RESULTS + API_KEY, {
         headers: {
-            'Authorization' : ''
+            'Authorization': ''
         }
     });
-    
+
     return response.data;
 }
 
 export async function fetchBookById(id: string): Promise<bookData> {
     const { data } = await axios.get(GOOGLE_API_ID + id, {
         headers: {
-            'Authorization' : ''
-        }});
+            'Authorization': ''
+        }
+    });
 
     const { volumeInfo, id: googleId } = data;
     const { title, authors, publisher, publishedDate, description, industryIdentifiers, pageCount, imageLinks } = volumeInfo;
@@ -59,4 +60,9 @@ export async function fetchBookById(id: string): Promise<bookData> {
 export async function getBookListByUser(userId: string): Promise<bookData[]> {
     const { data } = await axios.get(`${config.apiUrl}/api/mybooks/${userId}/list`);
     return data;
+}
+
+// to do - gabi vai arrumar as rotas
+export async function insertBookListByUser(userId: string, googleId: string, status: string): Promise<void> {
+    await axios.post(`${config.apiUrl}/api/mybooks/${userId}/${googleId}/${status}`);
 }
