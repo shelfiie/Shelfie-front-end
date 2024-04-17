@@ -12,13 +12,13 @@ export const EditUser = ({ onEditComplete }) => {
     const [password, setPassword] = useState('');
     const [image, setImage] = useState('');
 
-    const { user } = useState({
-        name,
-        userNome,
-        email,
-        password,
-        image
-    });
+    // const { user } = useState({
+    //     name,
+    //     userNome,
+    //     email,
+    //     password,
+    //     image
+    // });
 
     const handleChange = (e) => {
         const { target, value } = e.target;
