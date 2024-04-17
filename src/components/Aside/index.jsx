@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import Bookmark from "../../assets/icons/bookmarks.png";
 import Home from "../../assets/icons/home.png";
 import Configuracoes from "../../assets/icons/settings.png";
@@ -9,32 +9,26 @@ import { Perfil } from "../Profile/index.jsx";
 import { Botao } from "../globals/Button.style.tsx";
 import { AsideStyles } from './index.styles.ts';
 import { AuthContext } from "../../context/auth.jsx";
+import { Link } from "react-router-dom";
 
 
 // to do = desestruturação
-// const [ navItem, setNavItem ] = useState({ src, nome, route});
-
-// const changeNavItem = ( src, nome, route) => {
-//     setNavItem = {
-//         src: src,
-//         nome,
-//         route
-//     }
-// }
-
-const navItems = [
-    { src: Home, name: "Home", route: "/home" },
-    { src: Bookmark, name: "Bookmarks", route: "/bookmarks"},
-    { src: Configuracoes, name: "Configurações", route: "" }
-];
-
 export const Aside = () => {
     const { logout } = useContext(AuthContext);
 
-    const handleLogout = (event) => {
+
+    const navItems = [
+        { src: Home, name: "Home", route: "/home" },
+        { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
+        { src: Configuracoes, name: "Configurações", route: "/settings" }
+    ];
+
+    const handleLogout = useCallback((event) => {
         event.preventDefault();
         logout();
-    };
+    }, [logout]);
+
+
     return (
         <AsideStyles>
             <div>
@@ -50,11 +44,13 @@ export const Aside = () => {
 
             <nav>
                 <ul>
-                    {navItems.map((item) => (
-                        <li key={item.name}>
-                            <img src={item.src} alt="" />
-                            <a href={item.route}>{item.name}</a>
-                        </li>
+                    {navItems.map((item, index) => (
+                        <Link to={item.route} key={index}>
+                            <li key={item.name}>
+                                <img src={item.src} alt="" />
+                                {item.name}
+                            </li>
+                        </Link>
                     ))}
                 </ul>
             </nav>

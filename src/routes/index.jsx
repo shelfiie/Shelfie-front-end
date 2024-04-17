@@ -5,6 +5,8 @@ import { Home } from "../pages/home/index.jsx";
 import { Login } from "../pages/login/index.jsx";
 import { Registro } from "../pages/registro/index.jsx";
 import { PrivateRoute } from "./privateRoute.jsx";
+import { Settings } from "../pages/settings/index.jsx";
+import { NotFound } from "../pages/404/index.jsx";
 
 export function Rotas() {
   return (
@@ -17,7 +19,10 @@ export function Rotas() {
           <Route path="/home" element={<Home />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>

@@ -8,16 +8,21 @@ const API_URL = config.apiUrl;
 export const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
+    const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:userId'));
+
     useEffect(() => {
         const loadingStoreData = async () => {
             const storageUserId = localStorage.getItem('@Auth:userId');
             const storageToken = localStorage.getItem('@Auth:token');
             if (storageUserId && storageToken) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
+                setSigned(true);
+            } else {
+                setSigned(false);
             }
         };
         loadingStoreData();
-    }, [localStorage.getItem('@Auth:token'), localStorage.getItem('@Auth:userId')]);
+    }, [signed]);
 
     const signIn = async (userLoginData) => {
         try {
@@ -36,6 +41,8 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('@Auth:userId', userData.id);
             localStorage.setItem('@Auth:userName', userData.username);
 
+            setSigned(true);
+
             return;
 
         } catch (error) {
@@ -48,12 +55,13 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('@Auth:userId');
         localStorage.removeItem('@Auth:expirationDate');
         localStorage.removeItem('@Auth:userName');
+
+        setSigned(false);
     };
 
     return (
         <AuthContext.Provider value={{
-            // significa que signEd será verdadeiro (true) se user não for nulo (null)
-            signed: !!localStorage.getItem('@Auth:userId'),
+            signed,
             signIn,
             logout
         }}>

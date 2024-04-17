@@ -19,4 +19,10 @@ const Carrousel = styled.div`
     }
 `
 
-export { Carrousel, CarrouselTitle }
+const EmptyCarrousel = styled.p`
+    margin: 0 auto;
+    font-size: ${Theme.font.sizes.small};
+    color: ${Theme.colors.lightDark};
+`
+
+export { Carrousel, CarrouselTitle, EmptyCarrousel }

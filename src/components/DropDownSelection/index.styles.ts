@@ -6,6 +6,10 @@ export type DropDownType = {
     options?: string[],
 }
 
+export interface OptionsProps {
+    padding?: string;
+} 
+
 export interface DropDownSelectionProps {
     backgroundcolor?: string;
     color?: string;
@@ -53,7 +57,7 @@ const DropDownStyles = styled.div<DropDownSelectionProps & { isOpen: boolean }>`
     }
 `;
 
-const Option = styled.li<DropDownSelectionProps>`
+const Option = styled.li<OptionsProps>`
     font-size: inherit;
     font-weight: inherit;
 
