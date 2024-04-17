@@ -1,7 +1,7 @@
 import { useCallback, useContext, useState } from "react";
 import Bookmark from "../../assets/icons/bookmarks.png";
 import Home from "../../assets/icons/home.png";
-import Configuracoes from "../../assets/icons/settings.png";
+import Profile from "../../assets/icons/profile.png";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
 import { Theme } from "../../styles/theme.ts";
@@ -18,9 +18,9 @@ export const Aside = () => {
 
 
     const navItems = [
+        { src: Profile, name: "Perfil", route: "/me" },
         { src: Home, name: "Home", route: "/home" },
         { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
-        { src: Configuracoes, name: "Configurações", route: "/settings" }
     ];
 
     const handleLogout = useCallback((event) => {

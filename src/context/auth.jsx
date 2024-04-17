@@ -37,9 +37,14 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('@Auth:token', token);
             localStorage.setItem('@Auth:expirationDate', expirationDate.toISOString());
 
-            const userData = await fetchUserData(token);
-            localStorage.setItem('@Auth:userId', userData.id);
-            localStorage.setItem('@Auth:userName', userData.username);
+            const userData = await fetchUserData();
+            
+            if (userData instanceof Error) {
+                console.error(userData);
+            } else {
+                localStorage.setItem('@Auth:userId', userData.id);
+                localStorage.setItem('@Auth:userName', userData.usernome);
+            }
 
             setSigned(true);
 
