@@ -1,15 +1,15 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
+import { Link } from "react-router-dom";
 import Bookmark from "../../assets/icons/bookmarks.png";
 import Home from "../../assets/icons/home.png";
 import Profile from "../../assets/icons/profile.png";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
+import { AuthContext } from "../../context/auth.jsx";
 import { Theme } from "../../styles/theme.ts";
 import { Perfil } from "../Profile/index.jsx";
 import { Botao } from "../globals/Button.style.tsx";
 import { AsideStyles } from './index.styles.ts';
-import { AuthContext } from "../../context/auth.jsx";
-import { Link } from "react-router-dom";
 
 
 // to do = desestruturação
@@ -18,9 +18,9 @@ export const Aside = () => {
 
 
     const navItems = [
-        { src: Profile, name: "Perfil", route: "/me" },
-        { src: Home, name: "Home", route: "/home" },
-        { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
+        { src: Profile, name: "Perfil", route: "/Shelfie-front-end/me" },
+        { src: Home, name: "Home", route: "/Shelfie-front-end/home" },
+        { src: Bookmark, name: "Bookmarks", route: "/Shelfie-front-end/bookmarks" },
     ];
 
     const handleLogout = useCallback((event) => {
