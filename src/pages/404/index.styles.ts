@@ -13,18 +13,14 @@ const NotFoundGlobals = createGlobalStyle`
 
 `
 const NotFoundWrapper = styled.div`
-    position: relative;
     font-family: ${Theme.font.family.poppins};
     height: 100vh;
     width: 100%;
     text-align: center;
     background-color: ${Theme.colors.light};
 
-    h1{
-        font-size: ${Theme.font.sizes.big2x};
-    }
-
-    a{
+    a{  
+        margin-top: 1rem;
         background-color: ${Theme.colors.orange};
         text-decoration: none;
         color: ${Theme.colors.light};
@@ -36,10 +32,14 @@ const NotFoundWrapper = styled.div`
         }
     }
 
-    svg{
-        position: absolute;
-        left: 0;
+`
+
+const NotfoundText = styled.div`
+    margin-top: -5rem;
+    margin-bottom: 3rem;
+    h1{
+        font-size: ${Theme.font.sizes.big2x};
     }
 `
 
-export { NotFoundWrapper, NotFoundGlobals }
+export { NotFoundWrapper, NotFoundGlobals, NotfoundText }
