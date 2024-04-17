@@ -12,14 +12,14 @@ export function Rotas() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/Shelfie-front-end" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         
         <Route element={<PrivateRoute />}>
           <Route path="/home" element={<Home />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/me" element={<Settings />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
