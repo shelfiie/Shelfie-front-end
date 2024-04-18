@@ -12,14 +12,19 @@ export async function registerUser(
   return response.data;
 }
 
-export const fetchUserData = async (token: string): AxiosPromise<userData[]> => {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  const response = await axios.get(API_URL + '/api/users/me', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"
-    }
-  });
-
+export const fetchUserData = async (): AxiosPromise<userData[]> => {
+  const response = await axios.get(API_URL + `/api/users/me`);
   return response.data;
 };
+
+export const updateUser = async (user: userData): AxiosPromise<userData> => {
+  const response = await axios.put(API_URL + `/api/users/${user.id}/update`, { user });
+
+  return response.data;
+}
+
+export const deleteUser = async (userId: string): AxiosPromise<userData> => {
+  const response = await axios.delete(API_URL + `/api/users/${userId}/delete`);
+
+  return response.data;
+}

@@ -34,7 +34,7 @@ export function Login() {
         setLoading(false);
     }
 
-    if(signed) return <Navigate to="/home"/>
+    if(signed) return <Navigate to="/Shelfie-front-end/home"/>
     return (
         <>
             <LoginDiv backgroundcolor={Theme.colors.light}>
