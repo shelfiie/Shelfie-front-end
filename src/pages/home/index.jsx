@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BookResume } from "../../components/BookResume/index.tsx";
-import { Review } from "../../components/Review/index.jsx";
+// import { Review } from "../../components/Review/index.jsx";
 import { Layout } from "../layout/index.jsx";
 import { Carrousel, CarrouselTitle, EmptyCarrousel } from "./index.style.ts";
 import { getBookListByUser } from "../../api/getBookData.ts";

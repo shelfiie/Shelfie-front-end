@@ -3,11 +3,7 @@ import { DropDownSelection} from '../DropDownSelection/index';
 import { bookOptions } from '../../api/config';
 // import Lixeira from '../../assets/icons/lixeira.png';
 import { StyledBookCover, StyledBookResumeContainer, StyledOptions } from './index.style.ts';
-import { Heart } from '../globals/Heart.style';
 
-type BookResumeType = {
-
-} 
 
 export const BookResume = ( ) => {
   return (

@@ -22,7 +22,7 @@ export const SearchResults = ({ isVisible, data }) => {
     return <li 
       key={item.id} 
       onClick={ () =>{
-        navigate(`/bookdetails/${item.id}`)
+        navigate(`/Shelfie-front-end/bookdetails/${item.id}`)
       }}>
       <p>{item.volumeInfo.title}</p>
       <span>Autor: {authorsText}</span>
