@@ -8,5 +8,5 @@ export default defineConfig({
     port: 5173,
   },
   plugins: [react()],
-  base:"/Shelfie-front-end"
+  base:"/Shelfie-front-end",
 })
