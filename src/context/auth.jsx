@@ -25,34 +25,32 @@ export const AuthProvider = ({ children }) => {
     }, [signed]);
 
     const signIn = async (userLoginData) => {
-        try {
-            const response = await axios.post(API_URL + '/auth/login', userLoginData);
+        const response = await axios.post(API_URL + '/auth/login', userLoginData);
 
-            const token = response.data.token;
-            const expiresInMilliseconds = response.data.expiresIn;
-            const expirationDate = new Date(new Date().getTime() + expiresInMilliseconds);
+        const token = response.data.token;
+        const expiresInMilliseconds = response.data.expiresIn;
+        const expirationDate = new Date(new Date().getTime() + expiresInMilliseconds);
 
-            setTimeout(logout, expiresInMilliseconds);
+        setTimeout(logout, expiresInMilliseconds);
 
-            localStorage.setItem('@Auth:token', token);
-            localStorage.setItem('@Auth:expirationDate', expirationDate.toISOString());
+        localStorage.setItem('@Auth:token', token);
+        localStorage.setItem('@Auth:expirationDate', expirationDate.toISOString());
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            const userData = await fetchUserData();
-            
-            if (userData instanceof Error) {
-                console.error(userData);
-            } else {
-                localStorage.setItem('@Auth:userId', userData.id);
-                localStorage.setItem('@Auth:userName', userData.usernome);
-            }
 
-            setSigned(true);
+        const userData = await fetchUserData(token)
+            .then(response => { return response })
+            .catch(error => {
+                localStorage.removeItem('@Auth:token');
+                localStorage.removeItem('@Auth:expirationDate');
+                return error;
+            });
+        localStorage.setItem('@Auth:userId', userData.id);
+        localStorage.setItem('@Auth:userName', userData.usernome);
 
-            return;
+        setSigned(true);
+        return;
 
-        } catch (error) {
-            return error.response.data.description;
-        }
     };
 
     const logout = () => {
