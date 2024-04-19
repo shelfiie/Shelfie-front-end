@@ -16,48 +16,51 @@ const AsideStyles = styled.aside`
     > div {
         text-align: center;
     }
-    ul{
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        gap: ${Theme.margins.margin1rem};
-        padding: ${Theme.margins.marginhalfrem};
-
-        width: 100%;
-
-        a {
-            display: inherit;
-            list-style: none;
-            text-decoration: none;
-
-            gap: ${Theme.margins.marginhalfrem};
-            
-            padding: ${Theme.margins.margin5px};
-            
-            &:hover{
-                background-color: #FFAE47;
-                color: ${Theme.colors.orange};
-                border-radius: ${Theme.borders.radius};
-            }
-            li {
-                display: inherit;
-                align-items: center;
-
-                color: ${Theme.colors.light};
-                font-size: ${Theme.font.sizes.xsmall};
-                font-weight: ${Theme.font.weight.regular};
-                font-family: ${Theme.font.family.poppins};
-            } 
-
-
-            img {width: 48px;}
-        }
-    }
-
-
 
     svg{width: 90%;}
 `
 
-export { AsideStyles };
+const Nav = styled.nav`
+    width: 90%;
+`
+
+const UlNav = styled.ul`
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: ${Theme.margins.margin1rem};
+    padding: ${Theme.margins.marginhalfrem};
+
+    width: 100%;
+
+    a {
+        display: inherit;
+        list-style: none;
+        text-decoration: none;
+
+        gap: ${Theme.margins.marginhalfrem};
+        
+        padding: ${Theme.margins.margin5px};
+        
+        &:hover{
+            background-color: #FFAE47;
+            color: ${Theme.colors.orange};
+            border-radius: ${Theme.borders.radius};
+        }
+        li {
+            display: inherit;
+            align-items: center;
+
+            color: ${Theme.colors.light};
+            font-size: ${Theme.font.sizes.xsmall};
+            font-weight: ${Theme.font.weight.regular};
+            font-family: ${Theme.font.family.poppins};
+        } 
+
+
+        img {width: 48px;}
+    }
+`
+
+export { AsideStyles, Nav, UlNav };
 
