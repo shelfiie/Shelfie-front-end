@@ -12,8 +12,12 @@ export async function registerUser(
   return response.data;
 }
 
-export const fetchUserData = async (): AxiosPromise<userData[]> => {
-  const response = await axios.get(API_URL + `/api/users/me`);
+export const fetchUserData = async (token : string): AxiosPromise<userData[]> => {
+  const response = await axios.get(API_URL + '/api/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 

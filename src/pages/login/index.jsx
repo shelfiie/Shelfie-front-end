@@ -30,8 +30,16 @@ export function Login() {
         setLoading(true);
 
         const user = { email, password };
-        await signIn(user);
-        setLoading(false);
+        const response = await signIn(user);
+        console.log("response: " + response);
+        if(response.status === 401){
+            alert('Usuário ou senha inválidos');
+            setLoading(false);
+        
+        }
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
     }
 
     if(signed) return <Navigate to="/Shelfie-front-end/home"/>

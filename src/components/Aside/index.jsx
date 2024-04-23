@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/auth.jsx";
 import { Theme } from "../../styles/theme.ts";
 import { Perfil } from "../Profile/index.jsx";
 import { Botao } from "../globals/Button.style.tsx";
-import { AsideStyles } from './index.styles.ts';
+import { AsideStyles, Nav, UlNav } from './index.styles.ts';
 
 
 // to do = desestruturação
@@ -42,8 +42,8 @@ export const Aside = () => {
                 <Perfil />
             </div>
 
-            <nav>
-                <ul>
+            <Nav>
+                <UlNav>
                     {navItems.map((item, index) => (
                         <Link to={item.route} key={index}>
                             <li key={item.name}>
@@ -52,8 +52,8 @@ export const Aside = () => {
                             </li>
                         </Link>
                     ))}
-                </ul>
-            </nav>
+                </UlNav>
+            </Nav>
 
             <form onSubmit={handleLogout}>
                 <Botao
