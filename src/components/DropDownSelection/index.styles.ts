@@ -17,6 +17,7 @@ export interface DropDownSelectionProps {
     fontWeight?: string;
     padding?: string;
     top?: string;
+    propsSelectedOptions?: string;
 }
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchBookById } from '../../api/getBookData';
+import { fetchBookById, insertBookListByUser } from '../../api/getBookData';
 import { DropDownSelection } from '../../components/DropDownSelection/index';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
@@ -8,10 +8,11 @@ import { Layout } from '../layout/index';
 import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage } from './index.styles';
 import { bookOptions } from '../../api/config';
 import { Heart } from '../../components/globals/Heart.style'
-
+// refactor pelo amor de deus q nem eu to entendendo mais
 export const BookDetails = () => {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     const getBookDetails = async () => {
@@ -26,6 +27,21 @@ export const BookDetails = () => {
     getBookDetails();
   }, [id]);
 
+  const handleInsertBook = async ( status ) => {
+    setSelectedOption(status);
+    const userId = localStorage.getItem('@Auth:userId');
+    console.log('componente pai pegando a opçao: ', selectedOption);
+
+    if(userId && bookDetails) {
+      try {
+        await insertBookListByUser(userId, bookDetails.googleId, status);
+      } catch (error) {
+        console.error('Erro ao inserir livro:', error);
+      }
+    }
+
+  }
+
   if (!bookDetails) {
     return <Layout><Carregando>Carregando detalhes do livro...</Carregando></Layout>;
   }
@@ -38,7 +54,6 @@ export const BookDetails = () => {
   } else {
     authorsText = bookDetails.authors;
   }
-
   return (
     <Layout>
       <BoxBook
@@ -46,7 +61,7 @@ export const BookDetails = () => {
         padding={Theme.margins.margin1rem}
         backgroundcolor={Theme.colors.blue}>
 
-        <BookCoverImage src={bookDetails.thumbnail} alt="" />
+        <BookCoverImage src={bookDetails.thumbnail} alt="book cover" />
 
         <BookContent>
           <div>
@@ -78,8 +93,9 @@ export const BookDetails = () => {
                 content='SELECIONAR'
                 color={Theme.colors.white}
                 options={bookOptions}
-                fontSize={Theme.font.sizes.xsmall}
-              />
+                fontSize={Theme.font.sizes.xsmall} 
+                onClick={handleInsertBook}
+                />
             </div>
 
             <div>

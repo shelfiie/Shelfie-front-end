@@ -18,9 +18,9 @@ export const Aside = () => {
 
 
     const navItems = [
-        { src: Profile, name: "Perfil", route: "/Shelfie-front-end/me" },
-        { src: Home, name: "Home", route: "/Shelfie-front-end/home" },
-        { src: Bookmark, name: "Bookmarks", route: "/Shelfie-front-end/bookmarks" },
+        { src: Profile, name: "Perfil", route: "/me" },
+        { src: Home, name: "Home", route: "/home" },
+        { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
     ];
 
     const handleLogout = useCallback((event) => {

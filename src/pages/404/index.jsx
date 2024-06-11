@@ -20,7 +20,7 @@ export const NotFound = () => {
                 <h1>Oops!</h1>
                 <p>Nós não conseguimos achar a página que você tentou acessar.</p>
             </NotfoundText>
-            <Link to="Shelfie-front-end/home">
+            <Link to="/home">
                 Voltar à página inicial
             </Link>
 
