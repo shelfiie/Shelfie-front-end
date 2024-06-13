@@ -10,5 +10,5 @@ interface bookData {
     thumbnail: string;
     pageCount: number;
     rating?: number;
-    options?: string[];
+    status?: string;
 }

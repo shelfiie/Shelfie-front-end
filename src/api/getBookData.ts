@@ -21,7 +21,7 @@ export async function fetchBookDataByTitle(search: string): AxiosPromise<bookDat
             'Authorization': ''
         }
     });
-
+    console.log(response);
     return response.data;
 }
 
@@ -62,7 +62,11 @@ export async function getBookListByUser(userId: string): Promise<bookData[]> {
     return data;
 }
 
-// to do - gabi vai arrumar as rotas
+// refactor
 export async function insertBookListByUser(userId: string, googleId: string, status: string): Promise<void> {
-    await axios.post(`${config.apiUrl}/api/mybooks/${userId}/${googleId}/${status}`);
+    try{
+        await axios.post(`${config.apiUrl}/api/mybooks/${userId}/${googleId}/${status}`);
+    } catch (error) {
+        console.error(error);
+    }
 }

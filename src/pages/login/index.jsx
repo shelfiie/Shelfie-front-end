@@ -31,18 +31,11 @@ export function Login() {
 
         const user = { email, password };
         const response = await signIn(user);
+        console.log("signed: " + signed);
         console.log("response: " + response);
-        if(response.status === 401){
-            alert('Usuário ou senha inválidos');
-            setLoading(false);
-        
-        }
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
     }
 
-    if(signed) return <Navigate to="/Shelfie-front-end/home"/>
+    if(signed) return <Navigate to="/home"/>
     return (
         <>
             <LoginDiv backgroundcolor={Theme.colors.light}>
