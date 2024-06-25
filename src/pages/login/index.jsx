@@ -7,6 +7,7 @@ import { Globals } from "../../styles/globals";
 import { Theme } from "../../styles/theme";
 import { CheckBox, Entrar, Form, LoginDiv } from "./index.styles.ts";
 import { Navigate } from "react-router-dom";
+import { GoogleBooksService } from "../../api/services/GBookService.ts"
 
 export function Login() {
     const [loading, setLoading] = useState(false);
@@ -35,7 +36,17 @@ export function Login() {
         console.log("response: " + response);
     }
 
-    if(signed) return <Navigate to="/home"/>
+    async function handleTeste(event) {
+        event.preventDefault();
+        const booksService = new GoogleBooksService();
+        const response = await booksService.fetchBooksByParams({ 
+            q: 'intitle:harry potter',
+            maxResults: 10,
+        })
+        console.log(response);
+    }
+
+    if (signed) return <Navigate to="/home" />
     return (
         <>
             <LoginDiv backgroundcolor={Theme.colors.light}>
@@ -83,6 +94,12 @@ export function Login() {
                         disabled={loading}
                         backgroundcolor={Theme.colors.pink}
                         color={Theme.colors.light}></Entrar>
+                    <Entrar
+                        content={'teste'}
+                        type="submit"
+                        backgroundcolor={Theme.colors.pink}
+                        color={Theme.colors.light}
+                        onClick={handleTeste}></Entrar>
 
                     <div>
                         <p> Novo usuário? <a href="/registro"><u>Registre-se aqui!</u></a></p>

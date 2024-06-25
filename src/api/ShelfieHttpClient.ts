@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { HttpRequest, HttpResponse } from "./IHttpClient";
-import { IHttpClient } from "./IHttpClient.1";
+import { IHttpClient } from "./IHttpClient";
 
 export class ShelfieHttpClient implements IHttpClient {
   private axiosInstance: AxiosInstance;
@@ -11,7 +11,8 @@ export class ShelfieHttpClient implements IHttpClient {
       headers: { "Content-Type": "application/json" },
     });
   }
-  put<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
+
+  async put<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
     return this.axiosInstance.put<T>(url, body)
       .then((response) => {
         return {

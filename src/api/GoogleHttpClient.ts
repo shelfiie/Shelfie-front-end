@@ -1,25 +1,30 @@
 import axios, { AxiosInstance } from "axios";
-import { HttpRequest, HttpResponse } from "./IHttpClient";
-import { IGoogleHttpClient } from "./IHttpClient.1";
+import { HttpRequest, HttpResponse, StatusCode } from "./IHttpClient";
+import { IGoogleHttpClient } from "./IHttpClient";
 
 export class GoogleHttpClient implements IGoogleHttpClient {
-  private axiosInstance: AxiosInstance;
+    private axiosInstance: AxiosInstance;
 
-  constructor() {
-    this.axiosInstance = axios.create({
-      baseURL: "",
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+    constructor() {
+        this.axiosInstance = axios.create({
+            baseURL: "https://www.googleapis.com",
+            headers: { "Content-Type": "application/json" },
+        })
 
-  async get<T>({ url }: HttpRequest<T>): Promise<HttpResponse<T>> {
-    return await this.axiosInstance.get<T>(url)
-      .then(response => {
+        this.axiosInstance.interceptors.request.use((config) => {
+            config.params = { key: import.meta.env.VITE_GOOGLE_API_KEY};
+            return config;
+        })
+    }
+
+    
+
+    async get<T>({ url, search }: HttpRequest<T>): Promise<HttpResponse<T>> {
+        const response = await this.axiosInstance.get<T>(url, { params: search });
         return {
-          statusCode: response.status,
-          body: response.data
+            statusCode: response.status as StatusCode,
+            body: response.data as T | undefined
         };
-      });
-  }
+    }
 
 }
