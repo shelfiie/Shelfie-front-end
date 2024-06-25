@@ -1,12 +1,46 @@
 import { GoogleHttpClient } from "../GoogleHttpClient";
+import { HttpRequest, HttpResponse, StatusCode } from "../IHttpClient";
 
-async function fetchBookByTitle(title: string){
-    const googleClient = new GoogleHttpClient();
-    const response = await googleClient.get({
-        url: '/books/v1/volumes/',
-        search: { q: `intitle:${title}` }
-    })
-    if(response.statusCode.OK) {
-        
+
+export class GoogleBooksService {
+    private client: GoogleHttpClient;
+
+    constructor() {
+        this.client = new GoogleHttpClient();
+    }
+
+    // private buildUrl({ base, params }: { base: string, params: Record<string, string> }): string {
+    //     console.log(params);
+    //     if (params) {
+    //         const queryString = Object.entries(params)
+    //             .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
+    //             .join('&');
+    //         return `${base}${queryString}`;
+    //     } else {
+    //         return base;
+    //     }
+    // }
+
+    private buildParams(params: Record<string, string>): Record<string, string> {
+        if (params) {
+            const query = Object.entries(params)
+                .map(([key, value]) => `${key}=${value as string}`)
+                .join('&')
+                .replace(/ /g, '+');
+                return { query };
+        }
+    }
+
+    async fetchBooksByParams(params: Record<string, string>): Promise<HttpResponse<any>> {
+        c
+        const base = '/books/v1/volumes';
+        const searchParams = this.buildParams(params);
+        const response = await this.client.get({ url: base, search: searchParams });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+        } else {
+            return response;
+        }
     }
 }

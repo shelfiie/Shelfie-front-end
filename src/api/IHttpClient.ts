@@ -1,4 +1,4 @@
-enum StatusCode {
+export enum StatusCode {
     Ok = 200,
     Created = 201,
     BadRequest = 400,
@@ -11,11 +11,12 @@ enum StatusCode {
 export type HttpResponse<T> = {
     statusCode: StatusCode;
     body?: T;
+    
 }
 
 export type HttpRequest<T> = {
     url: string;
-    search?: { [key: string]: string }
+    search?: Record<string, string>;
     body?: T;
 }
 
