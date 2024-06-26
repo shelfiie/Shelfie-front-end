@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 import { GoogleHttpClient } from "../GoogleHttpClient";
 import { HttpRequest, HttpResponse, StatusCode } from "../IHttpClient";
 
@@ -21,19 +22,19 @@ export class GoogleBooksService {
     //     }
     // }
 
-    private buildParams(params: Record<string, string>): Record<string, string> {
+    private buildParams(params: Record<string, string>): string {
         if (params) {
             const query = Object.entries(params)
                 .map(([key, value]) => `${key}=${value as string}`)
                 .join('&')
                 .replace(/ /g, '+');
-                return { query };
-        }
+            return `?${query}`;
+        } else return '';
     }
 
     async fetchBooksByParams(params: Record<string, string>): Promise<HttpResponse<any>> {
-        c
         const base = '/books/v1/volumes';
+
         const searchParams = this.buildParams(params);
         const response = await this.client.get({ url: base, search: searchParams });
 

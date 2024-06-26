@@ -36,16 +36,6 @@ export function Login() {
         console.log("response: " + response);
     }
 
-    async function handleTeste(event) {
-        event.preventDefault();
-        const booksService = new GoogleBooksService();
-        const response = await booksService.fetchBooksByParams({ 
-            q: 'intitle:harry potter',
-            maxResults: 10,
-        })
-        console.log(response);
-    }
-
     if (signed) return <Navigate to="/home" />
     return (
         <>
@@ -94,12 +84,6 @@ export function Login() {
                         disabled={loading}
                         backgroundcolor={Theme.colors.pink}
                         color={Theme.colors.light}></Entrar>
-                    <Entrar
-                        content={'teste'}
-                        type="submit"
-                        backgroundcolor={Theme.colors.pink}
-                        color={Theme.colors.light}
-                        onClick={handleTeste}></Entrar>
 
                     <div>
                         <p> Novo usuário? <a href="/registro"><u>Registre-se aqui!</u></a></p>
