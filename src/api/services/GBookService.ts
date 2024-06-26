@@ -1,7 +1,5 @@
-import { stringify } from "querystring";
 import { GoogleHttpClient } from "../GoogleHttpClient";
-import { HttpRequest, HttpResponse, StatusCode } from "../IHttpClient";
-
+import { HttpResponse, StatusCode } from "../IHttpClient";
 
 export class GoogleBooksService {
     private client: GoogleHttpClient;
@@ -9,18 +7,6 @@ export class GoogleBooksService {
     constructor() {
         this.client = new GoogleHttpClient();
     }
-
-    // private buildUrl({ base, params }: { base: string, params: Record<string, string> }): string {
-    //     console.log(params);
-    //     if (params) {
-    //         const queryString = Object.entries(params)
-    //             .map(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
-    //             .join('&');
-    //         return `${base}${queryString}`;
-    //     } else {
-    //         return base;
-    //     }
-    // }
 
     private buildParams(params: Record<string, string>): string {
         if (params) {
@@ -35,13 +21,23 @@ export class GoogleBooksService {
     async fetchBooksByParams(params: Record<string, string>): Promise<HttpResponse<any>> {
         const base = '/books/v1/volumes';
 
-        const searchParams = this.buildParams(params);
-        const response = await this.client.get({ url: base, search: searchParams });
+        try {
+            const searchParams = this.buildParams(params);
+            const response = await this.client.get({ url: base, search: searchParams });
 
-        if (response.statusCode === StatusCode.Ok) {
-            return response;
-        } else {
-            return response;
+            if (response.statusCode === StatusCode.Ok) {
+                return {
+                    statusCode: StatusCode.Ok,
+                    body: response.body,
+                    resolve: 'Sucesso ao buscar livros',
+                }
+
+            } else {
+                return response;
+            }
+        } catch (error) {
+            throw new Error('Erro ao buscar livros');
         }
+
     }
 }

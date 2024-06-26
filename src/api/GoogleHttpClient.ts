@@ -16,7 +16,6 @@ export class GoogleHttpClient implements IGoogleHttpClient {
             return config;
         })
     }
-
     
 
     async get<T>({ url, search }: HttpRequest<T>): Promise<HttpResponse<T>> {

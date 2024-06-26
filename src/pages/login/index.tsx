@@ -1,73 +1,66 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
-import { Logo } from "../../assets/logos/shelfie-logo.svg";
+import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
 import { Input } from "../../components/globals/input.style.ts";
-import { AuthContext } from "../../context/auth.jsx";
-import { Globals } from "../../styles/globals";
-import { Theme } from "../../styles/theme";
+import { AuthContext } from "../../context/auth.tsx";
+import { Globals } from "../../styles/globals.ts";
+import { Theme } from "../../styles/theme.ts";
 import { CheckBox, Entrar, Form, LoginDiv } from "./index.styles.ts";
 import { Navigate } from "react-router-dom";
-import { GoogleBooksService } from "../../api/services/GBookService.ts"
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { UserLoginFilter, userLoginFilter } from "../../types/userTypes.ts";
+
 
 export function Login() {
-    const [loading, setLoading] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors }
+    } = useForm<UserLoginFilter>({
+        mode: 'all',
+        reValidateMode: 'onChange',
+        resolver: zodResolver(userLoginFilter)
+    });
+
+    const onSubmit: SubmitHandler<UserLoginFilter> = (errors) => {
+        console.log(errors);
+    };
 
     const { signIn, signed } = useContext(AuthContext);
-
-
-    function handleChange(e) {
-        const { name, value } = e.target;
-        if (name === 'email') {
-            setEmail(value);
-        } else if (name === 'password') {
-            setPassword(value);
-        }
-    }
-
-    async function handleSignIn(event) {
-        event.preventDefault();
-        setLoading(true);
-
-        const user = { email, password };
-        const response = await signIn(user);
-        console.log("signed: " + signed);
-        console.log("response: " + response);
-    }
-
-    if (signed) return <Navigate to="/home" />
+    // if (signed) return <Navigate to="/home" />
     return (
         <>
             <LoginDiv backgroundcolor={Theme.colors.light}>
+
                 <div>
                     <MyBookLogo />
                     <Logo />
                     <p>Entre para continuar para sua biblioteca digital</p>
                 </div>
-                <Form onSubmit={handleSignIn}>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label htmlFor="email">Email</label>
                         <Input required
                             id="email"
-                            name="email"
                             type="email"
-                            value={email}
                             placeholder="Digite seu e-mail"
-                            onChange={handleChange}
+                            {...register('email')}
                         />
+                        {errors.email && <span>{errors.email.message}</span>}
                     </div>
 
                     <div>
                         <label htmlFor="password">Senha</label>
                         <Input required
                             id="password"
-                            name="password"
                             type="password"
-                            value={password}
                             placeholder="Digite sua senha"
-                            onChange={handleChange}
+                            {...register('password')}
                         />
+                        {errors.password && <span>{errors.password.message}</span>}
                     </div>
 
                     <CheckBox>
@@ -79,9 +72,8 @@ export function Login() {
                     </CheckBox>
 
                     <Entrar
-                        content={loading ? 'Carregando' : 'Entrar'}
+                        content={'Entrar'}
                         type="submit"
-                        disabled={loading}
                         backgroundcolor={Theme.colors.pink}
                         color={Theme.colors.light}></Entrar>
 
