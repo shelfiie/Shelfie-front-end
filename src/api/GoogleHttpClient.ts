@@ -16,11 +16,10 @@ export class GoogleHttpClient implements IGoogleHttpClient {
             return config;
         })
     }
-
     
 
     async get<T>({ url, search }: HttpRequest<T>): Promise<HttpResponse<T>> {
-        const response = await this.axiosInstance.get<T>(url, { params: search });
+        const response = await this.axiosInstance.get<T>(`${url}${search}`);
         return {
             statusCode: response.status as StatusCode,
             body: response.data as T | undefined

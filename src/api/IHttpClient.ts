@@ -11,12 +11,13 @@ export enum StatusCode {
 export type HttpResponse<T> = {
     statusCode: StatusCode;
     body?: T;
-    
+    resolve?: string;
+    reject?: string;
 }
 
 export type HttpRequest<T> = {
     url: string;
-    search?: Record<string, string>;
+    search?: string;
     body?: T;
 }
 

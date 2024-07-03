@@ -1,30 +1,27 @@
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
-import { config } from "../api/config";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { fetchUserData } from "../api/useUserData";
-
-const API_URL = config.apiUrl;
 
 export const AuthContext = createContext(undefined);
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children} : {children: ReactNode}) => {
     const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:userId'));
 
-    useEffect(() => {
-        const loadingStoreData = async () => {
-            const storageUserId = localStorage.getItem('@Auth:userId');
-            const storageToken = localStorage.getItem('@Auth:token');
-            if (storageUserId && storageToken) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
-                setSigned(true);
-            } else {
-                setSigned(false);
-            }
-        };
-        loadingStoreData();
-    }, [signed]);
+    // useEffect(() => {
+    //     const loadingStoreData = async () => {
+    //         const storageUserId = localStorage.getItem('@Auth:userId');
+    //         const storageToken = localStorage.getItem('@Auth:token');
+    //         if (storageUserId && storageToken) {
+    //             axios.defaults.headers.common['Authorization'] = `Bearer ${storageToken}`;
+    //             setSigned(true);
+    //         } else {
+    //             setSigned(false);
+    //         }
+    //     };
+    //     loadingStoreData();
+    // }, [signed]);
 
-    const signIn = async (userLoginData) => {
+    const signIn = async ({  }) => {
         const response = await axios.post(API_URL + '/auth/login', userLoginData);
 
         const token = response.data.token;
@@ -64,6 +61,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
+            user,
             signed,
             signIn,
             logout

@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from "axios";
-import { userData } from "../interfaces/userData";
-import { userRegisterData } from "../interfaces/userRegisterData";
+import { userData } from "../types/userTypes";
+import { userRegisterData } from "../types/userRegisterData";
 import { config } from "./config";
 
 const API_URL = config.apiUrl;
