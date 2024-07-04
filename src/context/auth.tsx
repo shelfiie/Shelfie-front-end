@@ -1,26 +1,24 @@
-import axios from "axios";
-import { ReactNode, createContext, useContext, useState } from "react";
-import { fetchUserData } from "../api/useUserData";
+import { ReactNode, createContext, useState } from "react";
+import { fetchUserData } from "../hooks/useUserData";
 import { AuthService } from "../api/services/AuthService";
-import { userData } from "../types/userTypes";
-import { set } from "zod";
+import { userData } from "../types/userType";
 
 
 export const AuthContext = createContext<{
-  user: null | any;
-  signed: boolean;
-  signIn: (body: userData) => Promise<void>;
-  logout: () => void;
-  token: string;
+    user: null | any;
+    signed: boolean;
+    logIn: (body: userData) => Promise<void>;
+    logout: () => void;
+    token: string;
 } | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const { token } = useContext(AuthContext);
     const authService = new AuthService();
     // const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:userId'));
     const [user, setUser] = useState(null);
     const [signed, setSigned] = useState(!!user);
     const [expirationDate, setExpirationDate] = useState('');
+    const [token, setToken] = useState('');
 
     // useEffect(() => {
     //     const loadingStoreData = async () => {
@@ -36,31 +34,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     //     loadingStoreData();
     // }, [signed]);
 
-    const signIn = async (body: userData) => {
-        if (body.email && body.password) {
-            const response = await authService.loginUser(body);
+    const logIn = async ({ email, password }: userData) => {
+        console.log(email, password);
+        if (email && password) {
+            const response = await authService.loginUser({ email, password });
 
             localStorage.setItem('@Auth:token', response.body.token);
-            
+            setToken(response.body.token);
+
             const expiresInMilliseconds = response.body.expiresIn;
             setTimeout(logout, expiresInMilliseconds);
             const expirationDate = new Date(new Date().getTime() + expiresInMilliseconds);
             setExpirationDate(expirationDate.toISOString());
 
-            console.log(response)
         }
 
-        const userData = await fetchUserData(token)
-            .then(response => { return response })
-            .catch(error => {
-                localStorage.removeItem('@Auth:token');
-                localStorage.removeItem('@Auth:expirationDate');
-                return error;
-            });
-        localStorage.setItem('@Auth:userId', userData.id);
-        localStorage.setItem('@Auth:userName', userData.usernome);
+        // const userData = await fetchUserData()
+        //     .then(response => { return response })
+        //     .catch(error => {
+        //         localStorage.removeItem('@Auth:token');
+        //         localStorage.removeItem('@Auth:expirationDate');
+        //         return error;
+        //     });
+        // localStorage.setItem('@Auth:userId', userData.id);
+        // localStorage.setItem('@Auth:userName', userData.usernome);
 
-        setSigned(true);
+        // setSigned(true);
         return;
 
     };
@@ -78,7 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         <AuthContext.Provider value={{
             user,
             signed,
-            signIn,
+            logIn,
             logout,
             token
         }}>

@@ -3,7 +3,6 @@ import { Layout } from '../layout'
 import { SettingsImageProfile } from "./index.style.ts";
 import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme.ts";
-import { updateUser } from '../../api/useUserData.ts';
 
 export const EditUser = ({ onEditComplete }) => {
     const [name, setName] = useState('');

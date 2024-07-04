@@ -6,14 +6,14 @@ import { AuthContext } from "../../context/auth.tsx";
 import { Globals } from "../../styles/globals.ts";
 import { Theme } from "../../styles/theme.ts";
 import { CheckBox, Entrar, Form, LoginDiv } from "./index.styles.ts";
-import { Navigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserLoginFilter, userLoginFilter } from "../../types/userTypes.ts";
+import { UserLoginFilter, userLoginFilter } from "../../types/authType.ts";
 
 
 export function Login() {
+    const { logIn } = useContext(AuthContext);
+
     const {
         register,
         handleSubmit,
@@ -29,7 +29,12 @@ export function Login() {
         console.log(errors);
     };
 
-    const { signIn, signed } = useContext(AuthContext);
+    const handleCLick = async (e: Event) => {
+        e.preventDefault();
+        const response = await logIn({ email: watch('email'), password: watch('password') });
+        console.log(response);
+    }
+
     // if (signed) return <Navigate to="/home" />
     return (
         <>
@@ -40,7 +45,7 @@ export function Login() {
                     <Logo />
                     <p>Entre para continuar para sua biblioteca digital</p>
                 </div>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={() => handleSubmit(onSubmit)}>
                     <div>
                         <label htmlFor="email">Email</label>
                         <Input required
@@ -75,7 +80,8 @@ export function Login() {
                         content={'Entrar'}
                         type="submit"
                         backgroundcolor={Theme.colors.pink}
-                        color={Theme.colors.light}></Entrar>
+                        color={Theme.colors.light}
+                        onClick={handleCLick} />
 
                     <div>
                         <p> Novo usuário? <a href="/registro"><u>Registre-se aqui!</u></a></p>
