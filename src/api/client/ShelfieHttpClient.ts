@@ -18,6 +18,8 @@ export class ShelfieHttpClient implements IHttpClient {
       }
       return config;
     })
+
+    this.axiosInstance.defaults.insecureHTTPParser = false;
   }
 
   async put<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {

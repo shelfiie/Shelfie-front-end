@@ -1,5 +1,5 @@
-import { GoogleHttpClient } from "../GoogleHttpClient";
-import { HttpResponse, StatusCode } from "../IHttpClient";
+import { GoogleHttpClient } from "../client/GoogleHttpClient";
+import { HttpResponse, StatusCode } from "../client/IHttpClient";
 
 export class GoogleBooksService {
     private client: GoogleHttpClient;
