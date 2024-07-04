@@ -15,12 +15,12 @@ export function Rotas() {
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}> */}
           <Route path="/home" element={<Home />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
           <Route path="/me" element={<Settings />} />
-        </Route>
+        {/* </Route> */}
 
         <Route path="*" element={<NotFound />} />
 
