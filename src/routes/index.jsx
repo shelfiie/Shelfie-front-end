@@ -3,7 +3,7 @@ import { BookDetails } from "../pages/bookdetails/index.jsx";
 import { Bookmarks } from "../pages/bookmarks/index.jsx";
 import { Home } from "../pages/home/index.jsx";
 import { Login } from "../pages/login/index.tsx";
-import { Registro } from "../pages/registro/index.jsx";
+import { Registro } from "../pages/registro/index.tsx";
 import { PrivateRoute } from "./privateRoute.jsx";
 import { Settings } from "../pages/settings/index.jsx";
 import { NotFound } from "../pages/404/index.jsx";

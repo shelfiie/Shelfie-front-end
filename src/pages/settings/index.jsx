@@ -4,7 +4,7 @@ import { SettingsImageProfile, UserInformation } from "./index.style.ts";
 import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme.ts";
 import { EditUser } from "./EditUser.jsx";
-import { fetchUserData } from "../../api/useUserData.ts";
+import { fetchUserData } from "../../hooks/useUserData.ts";
 
 export const Settings = () => {
   const [isEditing, setIsEditing] = useState(false);

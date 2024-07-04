@@ -1,12 +1,15 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import { Logo } from "../../assets/logos/shelfie-logo.svg";
+import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
 import { Input } from "../../components/globals/input.style.ts";
-import { Globals } from "../../styles/globals";
-import { Theme } from "../../styles/theme";
+import { Globals } from "../../styles/globals.ts";
+import { Theme } from "../../styles/theme.ts";
 import { Entrar, Form, LoginDiv } from "../login/index.styles.ts";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
-import { registerUser } from "../../api/useUserData.ts";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { userRegisterFilter, UserRegisterFilter } from '../../types/authType.ts'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth.tsx";
 
 const RegisterDiv = styled(LoginDiv)`
     @media (max-width: ${Theme.screen.desktopS}) {
@@ -26,31 +29,20 @@ const RegisterDiv = styled(LoginDiv)`
 
 
 export function Registro() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
 
-    function handleChange(e) {
-        const { name, value } = e.target;
-        if (name === 'name') setName(value);
-        if (name === 'email') setEmail(value);
-        if (name === 'user') setUserName(value);
-        if (name === 'password') setPassword(value);
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors }
+    } = useForm<UserRegisterFilter>({
+        mode: 'all',
+        reValidateMode: 'onChange',
+        resolver: zodResolver(userRegisterFilter),
+    });
 
-    }
-
-    async function handleRegister(event) {
-        event.preventDefault();
-
-        const user = { name, email, userName, password };
-
-        await registerUser(user);
-        if (registerUser) {
-            alert('Usuário cadastrado com sucesso!');
-            event.target.reset();
-
-        }
+    const onSubmit: SubmitHandler<UserRegisterFilter> = (errors) => {
+        console.log(errors);
     }
 
     return (
@@ -61,43 +53,46 @@ export function Registro() {
                     <Logo />
                     <p>Registre-se para continuar para sua biblioteca digital</p>
                 </div>
-                <Form onSubmit={handleRegister}>
+                <Form onSubmit={() => handleSubmit(onSubmit)}>
                     <label htmlFor="nome">Nome Completo</label>
                     <Input
                         id="name"
-                        name="name"
+                        {...register('name')}
                         type="text"
-                        value={name}
-                        onChange={handleChange}
                         placeholder="Digite seu nome completo"
                     />
+                    {errors.name && <span>{errors.name.message}</span>}
 
                     <label htmlFor="email">E-mail</label>
                     <Input
                         id="email"
-                        name="email"
+                        {...register('email')}
                         type="email"
-                        value={email}
-                        onChange={handleChange}
                         placeholder="Digite seu e-mail" />
+                    {errors.email && <span>{errors.email.message}</span>}
 
                     <label htmlFor="usuario">Usuário</label>
                     <Input
                         id="user"
-                        name="user"
+                        {...register('usernome')}
                         type="text"
-                        value={userName}
-                        onChange={handleChange}
                         placeholder="Digite o nome de usuário" />
+                    {errors.usernome && <span>{errors.usernome.message}</span>}
 
                     <label htmlFor="senha">Senha</label>
                     <Input
                         id="password"
-                        name="password"
+                        {...register('password')}
                         type="password"
-                        value={password}
-                        onChange={handleChange}
                         placeholder="Digite sua senha" />
+                    {errors.password && <span>{errors.password.message}</span>}
+
+                    <Input
+                        id="confirmPassword"
+                        {...register('confirmPassword')}
+                        type="password"
+                        placeholder="Confirme sua senha" />
+                    {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
 
                     <Entrar
                         content="Registrar"
