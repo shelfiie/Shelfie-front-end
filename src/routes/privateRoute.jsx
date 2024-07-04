@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext } from "../context/auth.jsx";
+import { AuthContext } from "../context/auth";
 
 export const PrivateRoute = () => {
     const { signed } = useContext(AuthContext);

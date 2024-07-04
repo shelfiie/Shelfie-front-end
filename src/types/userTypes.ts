@@ -6,6 +6,7 @@ export type userData = {
     id: string,
     name: string,
     userName: string,
+    usernome: string,
     email: string,
     password: string,
     token?: string,

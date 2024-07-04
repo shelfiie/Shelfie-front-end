@@ -11,10 +11,6 @@ export class GoogleHttpClient implements IGoogleHttpClient {
             headers: { "Content-Type": "application/json" },
         })
 
-        this.axiosInstance.interceptors.request.use((config) => {
-            config.params = { key: import.meta.env.VITE_GOOGLE_API_KEY};
-            return config;
-        })
     }
     
 

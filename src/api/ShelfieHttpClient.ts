@@ -10,6 +10,14 @@ export class ShelfieHttpClient implements IHttpClient {
       baseURL: "http://159.203.106.163:8080",
       headers: { "Content-Type": "application/json" },
     });
+
+    this.axiosInstance.interceptors.request.use((config) => {
+      const token = localStorage.getItem('@Auth:token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    })
   }
 
   async put<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {

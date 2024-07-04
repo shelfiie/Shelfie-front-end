@@ -1,11 +1,26 @@
 import axios from "axios";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { fetchUserData } from "../api/useUserData";
+import { AuthService } from "../api/services/AuthService";
+import { userData } from "../types/userTypes";
+import { set } from "zod";
 
-export const AuthContext = createContext(undefined);
 
-export const AuthProvider = ({children} : {children: ReactNode}) => {
-    const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:userId'));
+export const AuthContext = createContext<{
+  user: null | any;
+  signed: boolean;
+  signIn: (body: userData) => Promise<void>;
+  logout: () => void;
+  token: string;
+} | undefined>(undefined);
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+    const { token } = useContext(AuthContext);
+    const authService = new AuthService();
+    // const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:userId'));
+    const [user, setUser] = useState(null);
+    const [signed, setSigned] = useState(!!user);
+    const [expirationDate, setExpirationDate] = useState('');
 
     // useEffect(() => {
     //     const loadingStoreData = async () => {
@@ -21,19 +36,19 @@ export const AuthProvider = ({children} : {children: ReactNode}) => {
     //     loadingStoreData();
     // }, [signed]);
 
-    const signIn = async ({  }) => {
-        const response = await axios.post(API_URL + '/auth/login', userLoginData);
+    const signIn = async (body: userData) => {
+        if (body.email && body.password) {
+            const response = await authService.loginUser(body);
 
-        const token = response.data.token;
-        const expiresInMilliseconds = response.data.expiresIn;
-        const expirationDate = new Date(new Date().getTime() + expiresInMilliseconds);
+            localStorage.setItem('@Auth:token', response.body.token);
+            
+            const expiresInMilliseconds = response.body.expiresIn;
+            setTimeout(logout, expiresInMilliseconds);
+            const expirationDate = new Date(new Date().getTime() + expiresInMilliseconds);
+            setExpirationDate(expirationDate.toISOString());
 
-        setTimeout(logout, expiresInMilliseconds);
-
-        localStorage.setItem('@Auth:token', token);
-        localStorage.setItem('@Auth:expirationDate', expirationDate.toISOString());
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
+            console.log(response)
+        }
 
         const userData = await fetchUserData(token)
             .then(response => { return response })
@@ -64,7 +79,8 @@ export const AuthProvider = ({children} : {children: ReactNode}) => {
             user,
             signed,
             signIn,
-            logout
+            logout,
+            token
         }}>
             {children}
         </AuthContext.Provider>

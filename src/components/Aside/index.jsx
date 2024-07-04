@@ -5,11 +5,11 @@ import Home from "../../assets/icons/home.png";
 import Profile from "../../assets/icons/profile.png";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
-import { AuthContext } from "../../context/auth.jsx";
 import { Theme } from "../../styles/theme.ts";
 import { Perfil } from "../Profile/index.jsx";
 import { Botao } from "../globals/Button.style.tsx";
 import { AsideStyles, Nav, UlNav } from './index.styles.ts';
+import { AuthContext } from "../../context/auth.tsx";
 
 
 // to do = desestruturação
