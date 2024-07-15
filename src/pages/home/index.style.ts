@@ -12,11 +12,6 @@ const Carrousel = styled.div`
     overflow-x: auto;
     scroll-behavior: smooth;
     height: 100%;
-
-    &::-webkit-scrollbar {
-        /* border-radius: ${Theme.borders.radius}; */
-        
-    }
 `
 
 const EmptyCarrousel = styled.p`

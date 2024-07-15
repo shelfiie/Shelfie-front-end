@@ -21,7 +21,7 @@ const Box = styled.div<BoxProps>`
     padding: ${(props) => props.padding};
 `
 
-export const BoxShadow = (props : BoxProps) => {
+export const BoxShadow = ({...props}) => {
     return(
         <Box 
             {...props}

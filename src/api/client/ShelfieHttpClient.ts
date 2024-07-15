@@ -19,7 +19,6 @@ export class ShelfieHttpClient implements IHttpClient {
       return config;
     })
 
-    this.axiosInstance.defaults.insecureHTTPParser = false;
   }
 
   async put<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
@@ -28,6 +27,16 @@ export class ShelfieHttpClient implements IHttpClient {
         return {
           statusCode: response.status,
           body: response.data,
+        };
+      }).catch(error => {
+        if (error.response?.status >= 500){
+          return {
+            statusCode: 500,
+            reject: 'Erro interno no servidor',
+          };
+        } else return {
+          statusCode: error.response?.status,
+          reject: error.response?.data.description,
         };
       });
   }
@@ -39,6 +48,16 @@ export class ShelfieHttpClient implements IHttpClient {
           statusCode: response.status,
           body: response.data
         };
+      }).catch(error => {
+        if (error.response?.status >= 500){
+          return {
+            statusCode: 500,
+            reject: 'Erro interno no servidor',
+          };
+        } else return {
+          statusCode: error.response?.status,
+          reject: error.response?.data.description,
+        };
       });
   }
   async post<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
@@ -46,9 +65,18 @@ export class ShelfieHttpClient implements IHttpClient {
       .then(response => {
         return {
           statusCode: response.status,
-          body: response.data
+          body: response.data,
+        };
+      }).catch(error => {
+        if (error.response?.status >= 500){
+          return {
+            statusCode: 500,
+            reject: 'Erro interno no servidor',
+          };
+        } else return {
+          statusCode: error.response?.status,
+          reject: error.response?.data.description,
         };
       });
   }
-
 }

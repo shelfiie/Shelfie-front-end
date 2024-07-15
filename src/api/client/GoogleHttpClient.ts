@@ -12,14 +12,22 @@ export class GoogleHttpClient implements IGoogleHttpClient {
         })
 
     }
-    
+
 
     async get<T>({ url, search }: HttpRequest<T>): Promise<HttpResponse<T>> {
-        const response = await this.axiosInstance.get<T>(`${url}${search}`);
-        return {
-            statusCode: response.status as StatusCode,
-            body: response.data as T | undefined
-        };
+        if (search) {
+            const response = await this.axiosInstance.get<T>(`${url}${search}&orderBy=relevance&langRestrict=pt`);
+            return {
+                statusCode: response.status as StatusCode,
+                body: response.data as T | undefined
+            };
+        } else {
+            const response = await this.axiosInstance.get<T>(url);
+            return {
+                statusCode: response.status as StatusCode,
+                body: response.data as T | undefined
+            };
+        }
     }
 
 }

@@ -12,7 +12,7 @@ export type HttpResponse<T> = {
     statusCode: StatusCode;
     body?: T;
     resolve?: string;
-    reject?: string;
+    reject?: any;
 }
 
 export type HttpRequest<T> = {

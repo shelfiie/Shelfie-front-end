@@ -1,6 +1,6 @@
+import { bookOptions } from '../../api/hooks/useBookStatus.ts';
 import { Theme } from '../../styles/theme';
 import { DropDownSelection} from '../DropDownSelection/index';
-import { bookOptions } from '../../api/config';
 // import Lixeira from '../../assets/icons/lixeira.png';
 import { StyledBookCover, StyledBookResumeContainer, StyledOptions } from './index.style.ts';
 

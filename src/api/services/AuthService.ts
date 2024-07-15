@@ -1,38 +1,30 @@
-import { userData } from "../../types/userType";
-import { HttpResponse, IHttpClient } from "../client/IHttpClient";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpResponse } from "../client/IHttpClient";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
+import { UserData } from "../../types/userType";
 
 export class AuthService {
-    private client: IHttpClient;
+    private client: ShelfieHttpClient;
 
     constructor() {
         this.client = new ShelfieHttpClient();
     }
 
-    async loginUser({ email, password }: userData): Promise<HttpResponse<any>> {
+    async loginUser({ email, password }: UserData): Promise<HttpResponse<any>> {
         const base = '/auth/login';
-        // try {
         const response = await this.client.post({ url: base, body: { email, password } });
 
         if (response.statusCode === 200) {
-            return {
-                statusCode: 200,
-                body: response.body,
-                resolve: 'Usuário logado com sucesso',
-            }
-
+            return response;
         } else {
             return response;
         }
-        // } catch (error) {
-        //     throw new Error('Erro ao logar usuário');
-        // }
     }
 
-    async registerUser({ name, email, password, usernome }: userData): Promise<HttpResponse<any>> {
+    async registerUser({ name, email, password, nickname }: UserData): Promise<HttpResponse<any>> {
         const base = '/auth/signup';
         try {
-            const response = await this.client.post({ url: base, body: { name, email, password, usernome } });
+            const response = await this.client.post({ url: base, body: { name, email, password, nickname } });
 
             if (response.statusCode === 200) {
                 return {

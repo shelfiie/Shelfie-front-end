@@ -3,25 +3,18 @@ import styled from "styled-components";
 import { Theme } from "../../styles/theme";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    backgroundcolor?: string;
+    backgroundColor?: string;
     color?: string;
     fontSize?: string;
     fontWeight?: string;
     padding?: string;
     borderRadius?: string;
     width?: string;
+    isError?: boolean;
 }
-
-type ButtonType = {
-    content: string,
-    type?:  "button" | "submit" | "reset" | undefined,
-    disabled?: boolean
-    onClick?: () => void
-}
-
 
 const ButtonWithShadow = styled.button<ButtonProps>`
-    background-color: ${(props) => props.backgroundcolor};
+    background-color: ${(props) => props.isError ? Theme.colors.lightDark : props.backgroundColor || Theme.colors.pink};
     color: ${(props) => props.color};
 
     font-size: ${(props) => props.fontSize || Theme.font.sizes.regular};
@@ -42,15 +35,11 @@ const ButtonWithShadow = styled.button<ButtonProps>`
 
     `;
 
-export const Botao : React.FC<ButtonType> = ({content, type, disabled, onClick, ...props}) => {
-    return(
-        <ButtonWithShadow 
-            content={content}
-            onClick={onClick}
-            type={type}
-            disabled={disabled}
-            {...props}
-            > {content} </ButtonWithShadow>
+export const Botao: React.FC<ButtonProps> = ({ isError, children, ...rest }) => {
+    return (
+        <ButtonWithShadow isError={isError}
+            {...rest}
+        >{children}</ButtonWithShadow>
     )
 
 }
