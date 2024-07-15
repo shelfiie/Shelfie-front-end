@@ -1,50 +1,59 @@
 import React, { useState } from 'react';
 import { Arrow } from '../../assets/icons/Arrow.svg.tsx';
-import { Theme } from '../../styles/theme';
+import { Theme } from '../../styles/theme.ts';
 import { DropDownSelectionProps, DropDownStyles, DropDownType, Option } from './index.styles.ts';
-import { Autocomplete, MenuItem, OutlinedInput, Select, SelectChangeEvent, styled, TextField } from '@mui/material';
+import { Autocomplete, Menu, MenuItem, OutlinedInput, Select, SelectChangeEvent, styled, TextField } from '@mui/material';
 import { BookData } from '../../types/bookData.ts';
-import { Brightness1 } from '@mui/icons-material';
 import { BookService } from '../../api/services/BookService.ts';
 
-
-const StyledUTxtField = styled(TextField)({
-    // backgroundColor: Theme.colors.blue,
-})
-
-const StyledAutocomplete = styled(Autocomplete)({
-    backgroundColor: Theme.colors.blue,
-    color: Theme.colors.white,
-    borderRadius: Theme.borders.radius,
-    borderStyle: 'none',
-    '& svg': { fill: Theme.colors.white },
-    '& fieldset': {
-        border: Theme.borders.border3px + ' solid black',
-        color: Theme.colors.white
-    },
-    '& label': {
-        color: Theme.colors.white,
-        fontFamily: 'inherit'
-    },
-})
-
-const MenuItemStyle = {
+const StyledSelect = styled(Select)({
+    width: '100%',
     backgroundColor: Theme.colors.blue,
     color: Theme.colors.white,
     fontFamily: 'inherit',
-    '&:hover':
-    {
-        backgroundColor: Theme.colors.blue,
-        filter: 'brightness(0.8)'
+    borderRadius: Theme.borders.radius,
+    border: `${Theme.borders.border3px} solid black`,
+    '& svg': {
+        fill: Theme.colors.white
     },
-    '&.Mui-selected':
-    {
+    '& .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
+        backgroundColor: Theme.colors.blue
+
+    },
+    '& .MuiPaper-root': {
         backgroundColor: Theme.colors.blue
     }
-}
+});
+
+const StyledMenuItem = styled(MenuItem)({
+    backgroundColor: Theme.colors.blue,
+    color: Theme.colors.white,
+
+    '&.Mui-selected': {
+        backgroundColor: Theme.colors.lightBlue,
+        '&:hover': {
+            backgroundColor: Theme.colors.deepBlue,
+        }
+    },
+    '&:hover': {
+        backgroundColor: Theme.colors.deepBlue,
+    }
+})
+
+const StyledMenu = styled(Menu)({
+    '& .MuiPaper-root': {
+        backgroundColor: Theme.colors.blue,
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Exemplo de box-shadow
+        color: Theme.colors.white
+    }
+});
+
 
 const SelectStyle = {
-    width: '100%', backgroundColor: Theme.colors.blue, color: Theme.colors.white, fontFamily: 'inherit',
+    width: '100%', backgroundColor: Theme.colors.blue,
+    color: Theme.colors.white, fontFamily: 'inherit',
+    borderRadius: Theme.borders.radius,
+    border: Theme.borders.border3px + ' solid black',
     '& svg': {
         fill: Theme.colors.white
     },
@@ -52,6 +61,19 @@ const SelectStyle = {
         backgroundColor: Theme.colors.blue
     }
 }
+
+// const StyledMenuItem = styled(MenuItem)({
+//     width: '100%', backgroundColor: Theme.colors.blue,
+//     color: Theme.colors.white, fontFamily: 'inherit',
+//     borderRadius: Theme.borders.radius,
+//     border: Theme.borders.border3px + ' solid black',
+//     '& svg': {
+//         fill: Theme.colors.white
+//     },
+//     '&.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
+//         backgroundColor: Theme.colors.blue
+//     }
+// })
 
 export const MUIDropDown = (googleId: BookData) => {
     // to-do options vai ser um hook pra fazer a logica pegando o atual status do book
@@ -69,6 +91,7 @@ export const MUIDropDown = (googleId: BookData) => {
         const response = service.postBookStatus({ googleId: googleId.googleId, status: option });
         console.log(response);
     }
+
     return (
         <>
             <Select
@@ -77,44 +100,20 @@ export const MUIDropDown = (googleId: BookData) => {
                 value={option}
                 input={<OutlinedInput />}
                 onChange={handleChange} >
-                <MenuItem disabled value="" sx={MenuItemStyle}>SELECIONAR</MenuItem>
+                <StyledMenuItem disabled value="">SELECIONAR</StyledMenuItem>
                 {options.map((option, index) => (
-                    <MenuItem
-                        id={`menu-item-${index}`}
-                        sx={MenuItemStyle}
-                        onClick={handleBookStatus}
-                        key={index}
-                        value={option}>
-                        {option}
-                    </MenuItem>
+                    // <StyledMenu open={true}>
+                        <StyledMenuItem
+                            id={`menu-item-${index}`}
+                            onClick={handleBookStatus}
+                            key={index}
+                            value={option}>
+                            {option}
+                        </StyledMenuItem>
+                    // </StyledMenu>
                 ))}
 
             </Select>
-            {/* 
-            <StyledAutocomplete
-                clearOnEscape={false}
-                id="combo-box-demo"
-                options={options}
-                inputValue={inputValue}
-                value={selectedValue}
-                onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
-                onChange={(event, selectedValue) => {
-                    setSelectedValue(selectedValue);
-                    console.log("alteraçao do componente pai: ", selectedValue);
-                }}
-                renderOption={(props, option) => {
-                    return (
-                        <li {...props}>
-                            {option}
-                        </li>
-                    )
-                }}
-                renderInput={(params) =>
-                    <TextField
-                        {...params}
-                        placeholder='SELECIONAR'
-                        InputLabelProps={{ shrink: false }} />}
-            /> */}
         </>
     )
 }
