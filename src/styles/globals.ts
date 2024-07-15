@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Theme } from "./theme";
 import bgVector from "../assets/bg-vector1.png"
 
@@ -29,4 +29,10 @@ export const Globals = createGlobalStyle`
     display: block;
     text-align: left;
     }
+`;
+
+export const ErrorText = styled.span`
+    color: red;
+    font-size: 1.2rem;
+    text-align: left;
 `;

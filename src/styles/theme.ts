@@ -10,7 +10,8 @@ export const Theme = {
         pink: '#FB7DA8',
         blue: '#2565ED',
         green: '#00995E',
-        orange: '#FF8F00'
+        orange: '#FF8F00',
+        deepOrange: '#FF6D00',
     },
     borders: {
         border2px: '2px',
