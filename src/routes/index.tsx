@@ -18,6 +18,7 @@ export function Rotas() {
           <Route path="/home" element={<Home />} />
           <Route path="/me" element={<Profile />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
+          {/* <Route path="/progression" element={} /> */}
           {/* <Route path="/bookmarks" element={<Bookmarks />} /> */}
         </Route>
 
