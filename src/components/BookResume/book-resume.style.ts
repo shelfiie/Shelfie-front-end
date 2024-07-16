@@ -10,7 +10,6 @@ const StyledLixeira = styled.img`
 
 const StyledBookCover = styled.img`
     width: 7rem;
-
     transition: transform 0.3s ease-in-out;
 `
 
@@ -18,6 +17,7 @@ const StyledOptions = styled.div`
     display: inline-flex;
     align-items: center;
     gap: ${Theme.margins.marginhalfrem};
+    width: 100%;
 `
 
 const StyledBookResumeContainer = styled(BoxShadow)`

@@ -1,6 +1,6 @@
 type BookData = {
     id?: string;
-    googleId: string;
+    googleId?: string;
     title?: string;
     authors?: string[];
     publisher?: string;
@@ -13,7 +13,12 @@ type BookData = {
     pageCount?: number;
     rating?: number;
     status?: string;
+    progression?: {
+        commentary: string;
+        pages: number;
+    }
 }
+
 
 type BooksResultsType = {
     id: string;

@@ -1,4 +1,4 @@
-import { BookResume } from "../../components/BookResume/index.tsx";
+import { BookResume } from "../../components/BookResume/book-resume.tsx";
 import { Layout } from "../layout/index.js";
 import { Carrousel, CarrouselTitle, EmptyCarrousel } from "./index.style.ts";
 import { useGetUserData } from "../../api/hooks/useGetUserData.ts";
@@ -16,7 +16,7 @@ export function Home() {
     <>
       <Layout>
         <CarrouselTitle>Últimas Leituras</CarrouselTitle>
-        <button onClick={() => console.log(books)}>Teste</button>
+        {/* <button onClick={() => console.log(books)}>Teste</button> */}
         <Carrousel>
           <BookResume />
           <BookResume />
