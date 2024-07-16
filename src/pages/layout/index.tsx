@@ -9,14 +9,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <Global />
       <Wrapper>
         <Aside />
-        <PageContent>
-
+        <PageContent id="page-content">
           <TopWrapper>
             <SearchBar />
             <Paginometro />
           </TopWrapper>
-
-          <LayoutChildren>
+          <LayoutChildren id="layout-children">
             {children}
           </LayoutChildren>
 

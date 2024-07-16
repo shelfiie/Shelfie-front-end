@@ -1,13 +1,13 @@
 import { BookResume } from "../../components/BookResume/book-resume.tsx";
 import { Layout } from "../layout/index.js";
 import { Carrousel, CarrouselTitle, EmptyCarrousel } from "./index.style.ts";
-import { useGetUserData } from "../../api/hooks/useGetUserData.ts";
+import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
 import { useBookSearch } from "../../api/hooks/useBookSearch.ts";
 
 // to do - lista de livros e seus tratamentos
 
 export function Home() {
-  const { user } = useGetUserData();
+  const { user } = useFetchUserData();
   const { books } = useBookSearch();
 
   // to do - arrumar o layout que ta esticando

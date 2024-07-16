@@ -37,11 +37,19 @@ const PageContent = styled.div`
 const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: -1.5rem 2rem 0 2rem;
+  margin: -1.5rem 0 0 2rem;
+  position: absolute;
+  width: 100%;
+
 `
 
-const LayoutChildren = styled.div`
+type LayoutChildrenProps = {
+  height?: string;
+}
+
+const LayoutChildren = styled.div<LayoutChildrenProps>`
   padding: ${Theme.margins.margin2rem};
+  height: ${(props) => props.height || '100%'};
 `
 
 

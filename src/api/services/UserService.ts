@@ -22,4 +22,14 @@ export class UserService {
         return response;
     }
 
+    // async deleteUser(id : UserData): Promise<HttpResponse<unknown>> {
+
+    // }
+
+    async fetchAllUsers(): Promise<HttpResponse<unknown>> {
+        const base = `/api/users`;
+        const response = await this.client.get({ url: base });
+        return response;
+    }
+
 }

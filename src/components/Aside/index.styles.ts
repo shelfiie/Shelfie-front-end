@@ -58,7 +58,10 @@ const UlNav = styled.ul`
         } 
 
 
-        img {width: 48px;}
+        svg {
+            width: 48px;
+            scale: 1.5;
+        }
     }
 `
 
