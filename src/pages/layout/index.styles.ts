@@ -41,6 +41,7 @@ const TopWrapper = styled.div`
 `
 
 const LayoutChildren = styled.div`
+  height: 100%;
   padding: ${Theme.margins.margin2rem};
 `
 
