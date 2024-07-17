@@ -58,7 +58,7 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
           <DeleteRoundedIcon onClick={handleDisable} />
         </ButtonWrapper>
 
-        <ProgressionModal isOpen={isOpen} handleModal={handleProgressionModal} />
+        <ProgressionModal id={id} isOpen={isOpen} handleModal={handleProgressionModal} />
       </StyledOptions>
 
       <ResumeTitle>

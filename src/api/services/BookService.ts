@@ -19,14 +19,8 @@ export class BookService {
         return response;
     }
 
-    async postProgression({ progression, id }: BookData): Promise<HttpResponse<any>> {
+    async postProgression( data : BookData): Promise<HttpResponse<any>> {
         const base = `/api/mybooks/reading`;
-
-        const data = {
-            commentary: progression?.commentary,
-            pages: progression?.pages,
-            myBooksId: id
-        }
 
         const response = await this.client.post({
             url: base,
