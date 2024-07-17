@@ -28,7 +28,7 @@ const styledBox = {
 
 const progressionFilter = z.object({
     commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }),
-    pages: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser inteiro' }).int({ message: 'Número deve ser inteiro' }),
+    page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser inteiro' }).int({ message: 'Número deve ser inteiro' }),
     bookId: z.string()
 })
 
@@ -55,12 +55,13 @@ export const ProgressionModal = (
     // console.log(errors)
 
     const onSubmit: SubmitHandler<ProgressionFilter> = async (data) => {
+        setLoading(true);
+
         const modifiedData = {
             ...data,
-            pages: data.pages.toString(),
+            pages: data.page.toString(),
         };
         console.log(modifiedData)
-        setLoading(true);
 
         const service = new BookService()
 
@@ -113,11 +114,11 @@ export const ProgressionModal = (
 
                         <p>Quantidade de páginas lidas: </p>
                         <TextField
-                            {...register('pages')}
+                            {...register('page')}
                             required
                             type="number"
-                            error={!!errors.pages}
-                            helperText={errors.pages?.message}
+                            error={!!errors.page}
+                            helperText={errors.page?.message}
                             placeholder="Páginas" />
 
                         <ButtonsDiv>

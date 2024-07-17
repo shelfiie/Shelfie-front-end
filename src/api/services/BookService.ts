@@ -20,7 +20,7 @@ export class BookService {
     }
 
     async postProgression( data : BookData): Promise<HttpResponse<any>> {
-        const base = `/api/mybooks/reading`;
+        const base = `/api/reading`;
 
         const response = await this.client.post({
             url: base,
