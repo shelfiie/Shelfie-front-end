@@ -5,7 +5,7 @@ import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 const useFetchUserData = () => {
     const [user, setUser] = useState<UserData | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
+    
     useEffect(() => {
         const getUserData = async () => {
             setIsLoading(true);

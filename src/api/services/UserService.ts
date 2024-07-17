@@ -22,9 +22,11 @@ export class UserService {
         return response;
     }
 
-    // async deleteUser(id : UserData): Promise<HttpResponse<unknown>> {
-
-    // }
+    async disableUser(id : UserData): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/${id}`;
+        const response = await this.client.put({ url: base });
+        return response;
+    }
 
     async fetchAllUsers(): Promise<HttpResponse<unknown>> {
         const base = `/api/users`;

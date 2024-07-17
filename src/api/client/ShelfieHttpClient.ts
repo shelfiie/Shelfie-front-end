@@ -60,6 +60,7 @@ export class ShelfieHttpClient implements IHttpClient {
         };
       });
   }
+  
   async post<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
     return await this.axiosInstance.post<T>(url, body)
       .then(response => {

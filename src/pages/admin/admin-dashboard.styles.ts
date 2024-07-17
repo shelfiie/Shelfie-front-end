@@ -5,6 +5,8 @@ const UserDiv = styled.div`
     background-color: ${Theme.colors.white};
     padding: ${Theme.margins.margin1rem};
     border-radius: ${Theme.borders.radius};
+    display: flex;
+    flex-direction: row;
 `
 
 const PageWrapper = styled.div`

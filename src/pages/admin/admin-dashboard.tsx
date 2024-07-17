@@ -5,6 +5,7 @@ import { UserData } from "../../types/userType";
 import { DashboardWrapper, PageWrapper, UserDiv, UsersWrapper } from "./admin-dashboard.styles";
 import { Pagination } from "@mui/material";
 import { Theme } from "../../styles/theme";
+import { Botao } from "../../components/globals/Button.style";
 
 
 export const AdminDashboard = () => {
@@ -17,6 +18,7 @@ export const AdminDashboard = () => {
         const fetchUsers = async () => {
             const userService = new UserService();
             const response = await userService.fetchAllUsers();
+            console.log(response);
             // Supondo que a resposta seja um array de usuários
             setUsers(response?.body as UserData[]);
             // Define o total de páginas baseado no tamanho da resposta e pageSize
@@ -40,13 +42,20 @@ export const AdminDashboard = () => {
                     <UsersWrapper>
                         {usersToDisplay.map((user, index) => (
                             <UserDiv key={index}>
-                                <p>{user.id}</p>
-                                <p>{user.role}</p>
-                                <p>{user.email}</p>
-                                <p>{user.nickname}</p>
-                                <p>{user.name}</p>
+                                <div>
+                                    <p>{user.id}</p>
+                                    <p>{user.role}</p>
+                                    <p>{user.email}</p>
+                                    <p>{user.nickname}</p>
+                                    <p>{user.name}</p>
+                                    <p>{String(user.enabled)}</p>
+                                </div>
+                                <Botao >
+                                    Desabilitar
+                                </Botao>
                             </UserDiv>
                         ))}
+
                     </UsersWrapper>
 
                     <Pagination id="pagination" sx={{ display: 'flex', justifyContent: 'center' }} count={totalPages} page={page} onChange={handleChange} />
