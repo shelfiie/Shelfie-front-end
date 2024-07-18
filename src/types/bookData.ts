@@ -1,7 +1,17 @@
+export enum BookStatus {
+    LENDO = "LENDO",
+    LIDO = "LIDO",
+    QUERO_LER = "QUERO_LER",
+    ABANDONADO = "ABANDONADO",
+}
+
 type BookData = {
+    // myBooksId
     id?: string;
+    bookId?: string;
     googleId?: string;
     title?: string;
+    enabled?: boolean;
     authors?: string[];
     publisher?: string;
     publishedDate?: string;
@@ -12,7 +22,7 @@ type BookData = {
     smallThumbnail?: string;
     pageCount?: number;
     rating?: number;
-    status?: string;
+    bookStatus?: BookStatus;
     progression?: {
         commentary: string;
         pages: number;
