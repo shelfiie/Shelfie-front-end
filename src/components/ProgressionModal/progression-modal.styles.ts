@@ -20,4 +20,13 @@ const ProgressionForm = styled.form`
     gap: ${Theme.margins.margin1rem};
 `
 
-export { ButtonsDiv, ProgressionSpan, ProgressionForm }
+const styledBox = {
+    backgroundColor: 'white', position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: Theme.margins.margin1rem,
+    borderRadius: Theme.borders.radius,
+}
+
+export { ButtonsDiv, ProgressionSpan, ProgressionForm, styledBox }
