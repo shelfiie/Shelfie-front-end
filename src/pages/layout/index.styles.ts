@@ -16,30 +16,30 @@ const Global = createGlobalStyle`
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
+  position: relative;
 
   display: grid;
 
   grid-template-columns: 1fr 7fr;
   background-color: ${Theme.colors.orange};
 `
+
 const PageContent = styled.div`
   width: 95%;
   height: 85%;
-  position: relative;
   background-color: ${Theme.colors.light};
 
   border-radius: ${Theme.borders.radiusRound};
   border: .3rem solid ${Theme.colors.deep};
   margin-top: ${Theme.margins.margin2rem};
-
 `
 
 const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: -1.5rem 0 0 2rem;
+  margin: 0.5rem 0 0 14rem;
   position: absolute;
-  width: 100%;
+  width: 78%;
 
 `
 

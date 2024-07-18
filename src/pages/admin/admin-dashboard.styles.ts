@@ -7,6 +7,10 @@ const UserDiv = styled.div`
     border-radius: ${Theme.borders.radius};
     display: flex;
     flex-direction: row;
+    align-items: center;
+    > button {
+        flex: 1;
+    }
 `
 
 const PageWrapper = styled.div`
@@ -24,8 +28,22 @@ const UsersWrapper = styled.div`
 `
 
 const DashboardWrapper = styled.div`
-    padding: ${Theme.margins.margin1rem};
     height: 100%;
 `
 
-export { UserDiv, PageWrapper, UsersWrapper, DashboardWrapper };
+const UserInformation = styled.div`
+    display: inherit;
+    flex-direction: column;
+    flex: 3;
+`
+
+const AdminSpan = styled.span`
+    color: ${Theme.colors.lightDark};
+`
+
+const ItemWrapper = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.marginhalfrem}
+`
+
+export { UserDiv, PageWrapper, UsersWrapper, DashboardWrapper, UserInformation, AdminSpan, ItemWrapper };

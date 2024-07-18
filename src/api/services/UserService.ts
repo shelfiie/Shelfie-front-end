@@ -12,7 +12,6 @@ export class UserService {
     async getUserData(): Promise<HttpResponse<unknown>> {
         const base = `/api/users/me`;
         const response = await this.client.get({ url: base });
-        console.log(response);
         return response;
     }
 
