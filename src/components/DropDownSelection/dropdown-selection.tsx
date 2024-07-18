@@ -1,141 +1,58 @@
 import React, { useState } from 'react';
 import { Arrow } from '../../assets/icons/Arrow.svg.tsx';
 import { Theme } from '../../styles/theme.ts';
-import { DropDownSelectionProps, DropDownStyles, DropDownType, Option } from './index.styles.ts';
-import { Autocomplete, Menu, MenuItem, OutlinedInput, Select, SelectChangeEvent, styled, TextField } from '@mui/material';
-import { BookData } from '../../types/bookData.ts';
+import { DropDownStyles, Option } from './index.styles.ts';
+import { Alert, Snackbar } from '@mui/material';
+import { BookData, BookStatus } from '../../types/bookData.ts';
 import { BookService } from '../../api/services/BookService.ts';
+import { bookOptions } from '../../api/hooks/useBookStatus.ts';
+import { StatusCode } from '../../api/client/IHttpClient.ts';
 
-const StyledSelect = styled(Select)({
-    width: '100%',
-    backgroundColor: Theme.colors.blue,
-    color: Theme.colors.white,
-    fontFamily: 'inherit',
-    borderRadius: Theme.borders.radius,
-    border: `${Theme.borders.border3px} solid black`,
-    '& svg': {
-        fill: Theme.colors.white
-    },
-    '& .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
-        backgroundColor: Theme.colors.blue
-
-    },
-    '& .MuiPaper-root': {
-        backgroundColor: Theme.colors.blue
-    }
-});
-
-const StyledMenuItem = styled(MenuItem)({
-    backgroundColor: Theme.colors.blue,
-    color: Theme.colors.white,
-
-    '&.Mui-selected': {
-        backgroundColor: Theme.colors.lightBlue,
-        '&:hover': {
-            backgroundColor: Theme.colors.deepBlue,
-        }
-    },
-    '&:hover': {
-        backgroundColor: Theme.colors.deepBlue,
-    }
-})
-
-const StyledMenu = styled(Menu)({
-    '& .MuiPaper-root': {
-        backgroundColor: Theme.colors.blue,
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Exemplo de box-shadow
-        color: Theme.colors.white
-    }
-});
-
-
-const SelectStyle = {
-    width: '100%', backgroundColor: Theme.colors.blue,
-    color: Theme.colors.white, fontFamily: 'inherit',
-    borderRadius: Theme.borders.radius,
-    border: Theme.borders.border3px + ' solid black',
-    '& svg': {
-        fill: Theme.colors.white
-    },
-    '&.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
-        backgroundColor: Theme.colors.blue
-    }
+type DropDownSelectionProps = {
+    content: string;
+    googleId: BookData['googleId'];
 }
 
-// const StyledMenuItem = styled(MenuItem)({
-//     width: '100%', backgroundColor: Theme.colors.blue,
-//     color: Theme.colors.white, fontFamily: 'inherit',
-//     borderRadius: Theme.borders.radius,
-//     border: Theme.borders.border3px + ' solid black',
-//     '& svg': {
-//         fill: Theme.colors.white
-//     },
-//     '&.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper': {
-//         backgroundColor: Theme.colors.blue
-//     }
-// })
-
-export const MUIDropDown = (googleId: BookData) => {
-    // to-do options vai ser um hook pra fazer a logica pegando o atual status do book
-    const options = ['QUERO LER', 'LENDO', 'LIDO', 'ABANDONADO'];
-
-    const [option, setOption] = useState<string>('');
-    const handleChange = (event: SelectChangeEvent) => {
-        setOption(event.target.value as string);
-        console.log(option)
-    };
-
-    const handleBookStatus = () => {
-        console.log("googleId: ", googleId.googleId);
-        const service = new BookService();
-        const response = service.postBookStatus({ googleId: googleId.googleId, status: option });
-        console.log(response);
-    }
-
-    return (
-        <>
-            <Select
-                displayEmpty
-                sx={SelectStyle}
-                value={option}
-                input={<OutlinedInput />}
-                onChange={handleChange} >
-                <StyledMenuItem disabled value="">SELECIONAR</StyledMenuItem>
-                {options.map((option, index) => (
-                    // <StyledMenu open={true}>
-                        <StyledMenuItem
-                            id={`menu-item-${index}`}
-                            onClick={handleBookStatus}
-                            key={index}
-                            value={option}>
-                            {option}
-                        </StyledMenuItem>
-                    // </StyledMenu>
-                ))}
-
-            </Select>
-        </>
-    )
-}
-
-export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> = ({ content, options, propsSelectedOptions, ...props }) => {
+export const DropDownSelection: React.FC<DropDownSelectionProps> = ({ googleId, content, ...rest }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [success, setSuccess] = useState<string | null>();
+    const [error, setError] = useState<string | null>(null);
     const [selectedOption, setSelectedOption] = useState(content);
 
-    const handleOptionClick = (option: string) => {
+    const handleOptionClick = async (option: string) => {
         setSelectedOption(option);
-        console.log("alteraçao do componente filho, passando para o pai: ", option);
+        const service = new BookService();
+
+        if (option !== 'SELECIONAR') {
+            const response = await service.postBookStatus({ googleId: googleId, bookStatus: selectedOption as BookStatus });
+
+            if (response?.statusCode === StatusCode.Created) {
+                setSuccess(response?.resolve);
+            } else {
+                setError(response?.reject);
+            }
+            console.log(response);
+        }
+
+
         setIsOpen(false);
     };
 
     return (
-        <DropDownStyles {...props} isOpen={isOpen} onClick={() => {
-            setIsOpen(!isOpen);
-        }} >
+        <DropDownStyles
+            backgroundcolor={Theme.colors.orange}
+            isOpen={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+            color={Theme.colors.white}
+            fontSize={Theme.font.sizes.xsmall}
+            {...rest}>
+
             {selectedOption.toUpperCase()}
+
             <Arrow isOpen={isOpen} fill={Theme.colors.white} />
+
             <ul>
-                {options ? options.map((option, index) => (
+                {bookOptions ? bookOptions.map((option, index) => (
                     <Option
                         key={index}
                         value={option}
@@ -144,6 +61,27 @@ export const DropDownSelection: React.FC<DropDownType & DropDownSelectionProps> 
                     </Option>
                 )) : <></>}
             </ul>
+
+            {error &&
+                <Snackbar
+                    sx={{ marginRight: '4rem' }}
+                    open={!!error}
+                    autoHideDuration={5000}
+                    onClose={() => setError(null)}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                    <Alert severity='error'>{error}</Alert>
+                </Snackbar>}
+
+            {success &&
+                <Snackbar
+                    sx={{ marginRight: '4rem' }}
+                    open={!!success}
+                    autoHideDuration={5000}
+                    onClose={() => setSuccess(null)}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+                    <Alert severity='success'>{success}</Alert>
+                </Snackbar>}
+
         </DropDownStyles>
     )
 }

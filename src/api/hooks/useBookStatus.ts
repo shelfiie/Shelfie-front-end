@@ -34,3 +34,7 @@
 // const bookOptions = ['Quero ler', 'Lendo', 'Lido', 'Abandonado'];
 
 // export { usePostBookStatus, bookOptions };
+
+const bookOptions = ['Quero ler', 'Lendo', 'Lido', 'Abandonado'];
+
+export { bookOptions }
