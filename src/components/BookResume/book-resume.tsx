@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Theme } from '../../styles/theme.ts';
 import { Botao } from '../globals/Button.style.tsx';
-// import Lixeira from '../../assets/icons/lixeira.png';
 import { ButtonWrapper, ResumeTitle, StyledBookCover, StyledBookResumeContainer, StyledOptions } from './book-resume.style.ts';
 import { ProgressionModal } from '../ProgressionModal/progression-modal.tsx';
 import { BookData, BookStatus } from '../../types/bookData.ts';
@@ -81,8 +80,20 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
           autoHideDuration={5000}
           onClose={() => setSuccess(undefined)}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          <Alert onClose={() => setSuccess(undefined)} severity="success">
+          <Alert  severity="success">
             {success}
+          </Alert>
+        </Snackbar>}
+
+      {error && 
+        <Snackbar
+          sx={{ marginRight: '4rem' }}
+          open={!!error}
+          autoHideDuration={5000}
+          onClose={() => setError(undefined)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+          <Alert severity="error">
+            {error}
           </Alert>
         </Snackbar>}
     </StyledBookResumeContainer>
