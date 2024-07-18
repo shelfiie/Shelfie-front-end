@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { DropDownSelection, MUIDropDown } from '../../components/DropDownSelection/dropdown-selection';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/index';
@@ -7,21 +6,13 @@ import { BookContent, BookDescription, BoxBook, Carregando, ComplementaryDetails
 import { Heart } from '../../components/globals/Heart.style'
 import { useGBookById } from '../../api/hooks/useGBookById';
 import { useEffect } from 'react';
-import { bookOptions } from '../../api/hooks/useBookStatus';
-import { BookService } from '../../api/services/BookService';
+import { DropDownSelection } from '../../components/DropDownSelection/dropdown-selection';
 
 // refactor pelo amor de deus q nem eu to entendendo mais
 export const BookDetails = () => {
   const { id } = useParams();
   const { book } = useGBookById(id ?? '');
   const navigate = useNavigate();
-
-  const handleGetBookStatus = () => {
-    const service = new BookService();
-    service.postBookStatus(book?.googleId).then((response) => {
-      console.log(response);
-    });
-  }
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -69,12 +60,8 @@ export const BookDetails = () => {
               </PageCount>
 
               <DropDownSelection
-                backgroundcolor={Theme.colors.orange}
-                content='SELECIONAR'
-                color={Theme.colors.white}
-                options={bookOptions}
-                fontSize={Theme.font.sizes.xsmall}
-              />
+                googleId={book.googleId}
+                content='SELECIONAR' />
             </div>
 
             <div>
@@ -104,10 +91,6 @@ export const BookDetails = () => {
           </UserBookDetails>
         </BookContent>
       </BoxBook>
-      <MUIDropDown googleId={book.googleId ?? ''} />
-      <button onClick={handleGetBookStatus}> teste </button>
-
     </Layout>
   );
 };
-
