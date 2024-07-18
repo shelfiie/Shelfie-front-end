@@ -8,6 +8,7 @@ import { BookData, BookStatus } from '../../types/bookData.ts';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { BookService } from '../../api/services/BookService.ts';
 import { Alert, Snackbar } from '@mui/material';
+import { StatusCode } from '../../api/client/IHttpClient.ts';
 
 type BookResumeProps = {
   // bookId
@@ -19,15 +20,21 @@ type BookResumeProps = {
 export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [success, setSuccess] = useState<string | undefined>();
+  const [error, setError] = useState<string | undefined>();
 
   const handleProgressionModal = () => setIsOpen(!isOpen);
 
   const handleDisable = async () => {
     const bookService = new BookService();
-    // recebe a my book id ainda
     const response = await bookService.disableBook(myBookId ?? '');
-    setSuccess(response?.resolve);
-    console.log(response);
+    if (response.statusCode === StatusCode.Ok) {
+      setSuccess(response?.resolve);
+      setTimeout(() => setSuccess(undefined), 3000);
+
+    } else {
+      setError(response?.reject);
+      setTimeout(() => setError(undefined), 3000);
+    }
   }
 
   return (

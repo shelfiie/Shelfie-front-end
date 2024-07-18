@@ -6,6 +6,7 @@ import { Pagination, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { ChangeEvent, useState } from "react";
 import { BookData } from "../../types/bookData.ts";
+import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 
 export function Home() {
   const { allBooks, lendo, lidos, queroler, abandonados, isLoading } = useFetchBooksByUser();
@@ -35,6 +36,21 @@ export function Home() {
     return items.slice(indexFirstItem, indexLastItem);
   };
 
+  const TabPanelContent = ({ items, page, category }: { items: BookData[], page: number, category: string }) => (
+    <Carrousel id="carrossel">
+      <BooksWrapper id="books-wrapper">
+        {items.length > 0 ? paginatedItems(items, page).map((book) => (
+          <BookResume key={book.id} id={book.bookId} myBookId={book.id} status={book.bookStatus} />
+        )) : (<p>Você não tem livros nessa lista</p>)}
+      </BooksWrapper>
+      <Pagination
+        count={Math.ceil(items.length / itemsPerPage)}
+        page={page}
+        onChange={(event, newPage) => handlePageChange(category, event, newPage)}
+      />
+    </Carrousel>
+  );
+
 
   return (
 
@@ -50,78 +66,23 @@ export function Home() {
           </TabList>
 
           <TabPanel sx={{ height: '100%' }} value='1'>
-            <Carrousel id="carrossel">
-              <BooksWrapper id="books-wrapper">
-                {paginatedItems(allBooks, page.allBooks).map((book) => (
-                  <BookResume id={book.bookId} myBookId={book.id} status={book.bookStatus} />
-                ))}
-              </BooksWrapper>
-              <Pagination
-                count={Math.ceil(allBooks.length / itemsPerPage)}
-                page={page.allBooks}
-                onChange={(event, newPage) => handlePageChange('allBooks', event, newPage)}
-              />
-            </Carrousel>
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={allBooks} page={page.allBooks} category="allBooks" />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='2'>
-            <Carrousel id="carrossel">
-              <BooksWrapper id="books-wrapper">
-                {paginatedItems(lendo, page.lendo).map((book) => (
-                  <BookResume id={book.bookId} myBookId={book.id} status={book.bookStatus} />
-                ))}
-              </BooksWrapper>
-              <Pagination
-                count={Math.ceil(lendo.length / itemsPerPage)}
-                page={page.lendo}
-                onChange={(event, newPage) => handlePageChange('lendo', event, newPage)}
-              />
-            </Carrousel>
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lendo} page={page.lendo} category="lendo" />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='3'>
-            <Carrousel id="carrossel">
-              <BooksWrapper id="books-wrapper">
-                {lidos.length > 0 ? lidos.map((book) => (
-                  <BookResume id={book.bookId} myBookId={book.id} status={book.bookStatus} />
-                )) : (<p>Você não tem livros nessa lista</p>)}
-              </BooksWrapper>
-              <Pagination
-                count={Math.ceil(lendo.length / itemsPerPage)}
-                page={page.lendo}
-                onChange={(event, newPage) => handlePageChange('lendo', event, newPage)}
-              />
-            </Carrousel>
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lidos} page={page.lidos} category="lidos" />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='4'>
-            <Carrousel id="carrossel">
-              <BooksWrapper id="books-wrapper">
-                {queroler.length > 0 ? queroler.map((book) => (
-                  <BookResume id={book.bookId} myBookId={book.id} status={book.bookStatus} />
-                )) : (<p>Você não tem livros nessa lista</p>)}
-              </BooksWrapper>
-              <Pagination
-                count={Math.ceil(lendo.length / itemsPerPage)}
-                page={page.lendo}
-                onChange={(event, newPage) => handlePageChange('lendo', event, newPage)}
-              />
-            </Carrousel>
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={queroler} page={page.queroler} category="queroler" />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='5'>
-            <Carrousel>
-              <BooksWrapper id="books-wrapper">
-                {abandonados.length > 0 ? abandonados.map((book) => (
-                  <BookResume id={book.bookId} myBookId={book.id} status={book.bookStatus} />
-                )) : (<p>Você não tem livros nessa lista</p>)}
-              </BooksWrapper>
-              <Pagination
-                count={Math.ceil(lendo.length / itemsPerPage)}
-                page={page.lendo}
-                onChange={(event, newPage) => handlePageChange('lendo', event, newPage)}
-              />
-            </Carrousel>
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={abandonados} page={page.abandonados} category="abandonados" />}
           </TabPanel>
 
         </TabContext>

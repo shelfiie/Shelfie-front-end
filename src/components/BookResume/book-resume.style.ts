@@ -34,7 +34,7 @@ const StyledBookResumeContainer = styled(BoxShadow)`
     border: ${Theme.borders.border3px} solid ${Theme.colors.deep};
     box-shadow: 0px 0px 0 0px;
     background-color: ${Theme.colors.white};
-    width: 18%;
+    width: 15%;
     height: min-content;
 `
 const ResumeTitle = styled.p`

@@ -1,4 +1,4 @@
-import { Alert, Box, Modal, TextField, Typography } from "@mui/material"
+import { Alert, Box, Modal, TextField } from "@mui/material"
 import { Botao } from "../globals/Button.style";
 import { useState } from "react";
 import { Theme } from "../../styles/theme";
@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BookData } from "../../types/bookData";
-import { ButtonsDiv, ProgressionForm, ProgressionSpan } from "./progression-modal.styles";
+import { ButtonsDiv, ProgressionForm, ProgressionSpan, styledBox } from "./progression-modal.styles";
 import { BookService } from "../../api/services/BookService";
 import { StatusCode } from "../../api/client/IHttpClient";
 
@@ -15,15 +15,6 @@ type ProgressionModalProps = {
     handleModal: () => void | undefined;
     id: BookData['id'];
     title?: BookData['title'];
-}
-
-const styledBox = {
-    backgroundColor: 'white', position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: Theme.margins.margin1rem,
-    borderRadius: Theme.borders.radius,
 }
 
 const progressionFilter = z.object({
@@ -36,7 +27,6 @@ type ProgressionFilter = z.infer<typeof progressionFilter>
 
 export const ProgressionModal = (
     { isOpen, handleModal, id, title }: ProgressionModalProps) => {
-    const [value, setValue] = useState<number | null>(2);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState<string | null>();
     const [error, setError] = useState<string | null>();
@@ -44,7 +34,6 @@ export const ProgressionModal = (
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors }
     } = useForm<ProgressionFilter>({
         mode: 'all',
@@ -52,28 +41,22 @@ export const ProgressionModal = (
         resolver: zodResolver(progressionFilter)
     });
 
-    // console.log(errors)
-
     const onSubmit: SubmitHandler<ProgressionFilter> = async (data) => {
         setLoading(true);
 
-        const modifiedData = {
-            ...data,
-            pages: data.page.toString(),
-        };
-        console.log(modifiedData)
-
         const service = new BookService()
 
-        const response = await service.postProgression(modifiedData as BookData);
+        const response = await service.postProgression(data as BookData);
 
         if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
-            setSuccess(response?.resolve);
             setError(null);
+            setSuccess(response?.resolve);
+            setTimeout(() => setSuccess(null), 3000);
         } else {
-            setError(response?.reject);
             setSuccess(null);
+            setError(response?.reject);
+            setTimeout(() => setError(null), 3000);
         }
     }
 
@@ -88,12 +71,10 @@ export const ProgressionModal = (
                 sx={styledBox}>
                 <Box>
                     <ProgressionForm onSubmit={handleSubmit(onSubmit)}>
-                        <TextField
-                            hidden={true}
+                        <TextField sx={{ display: 'none' }}
                             {...register('bookId')}
-                            value={id}>
-                            {id}
-                        </TextField>
+                            value={id} />
+
                         <ProgressionSpan>
                             Conte um pouco sobre sobre o que está achando do livro e da leitura.
                         </ProgressionSpan>
