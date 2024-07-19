@@ -20,7 +20,6 @@ export function Rotas() {
           <Route path="/me" element={<Profile />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          {/* <Route path="/bookmarks" element={<Bookmarks />} /> */}
         </Route>
 
         <Route path="*" element={<NotFound />} />
