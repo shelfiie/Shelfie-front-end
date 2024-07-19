@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { NotFound } from "../pages/404/not-found.js";
 import { Login } from "../pages/login/login.tsx";
 import { Home } from "../pages/home/home.tsx";
@@ -10,7 +10,7 @@ import { AdminDashboard } from "../pages/admin/admin-dashboard.tsx";
 
 export function Rotas() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
@@ -26,6 +26,6 @@ export function Rotas() {
         <Route path="*" element={<NotFound />} />
 
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }

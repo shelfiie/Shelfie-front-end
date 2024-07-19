@@ -4,9 +4,7 @@ import { Rotas } from './routes/routes'
 
 function App() {
   return (
-    <BrowserRouter>
       <Rotas />
-    </BrowserRouter>
   )
 }
 
