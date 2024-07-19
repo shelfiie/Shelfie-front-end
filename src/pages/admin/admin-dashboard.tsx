@@ -63,11 +63,6 @@ export const AdminDashboard = () => {
                                     <ItemWrapper>
                                         <AdminSpan>Habilitado: </AdminSpan> <p>{String(user.enabled)}</p>
                                     </ItemWrapper>
-                                    {/* <p>{user.role}</p>
-                                    <p>{user.email}</p>
-                                    <p>{user.nickname}</p>
-                                    <p>{user.name}</p>
-                                    <p>{String(user.enabled)}</p> */}
                                 </UserInformation>
                                 <div>
                                     <Botao

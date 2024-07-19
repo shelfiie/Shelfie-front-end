@@ -7,7 +7,6 @@ export enum UserRole {
 }
 
 export type UserData = {
-    map: any;
     id?: string,
     name?: string,
     userName?: string,

@@ -1,5 +1,5 @@
 import { useFetchUserData } from '../../api/hooks/useFetchUserData.ts'
-import { ProfileContainer } from './index.styles.ts'
+import { ProfileContainer } from './profile.styles.ts'
 // to do: pegar as infos do usuario
 export const Perfil = () => {
   const { user } = useFetchUserData();

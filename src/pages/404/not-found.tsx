@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { NotFoundGlobals, NotFoundWrapper, NotfoundText } from './index.styles.ts'
+import { NotFoundGlobals, NotFoundWrapper, NotfoundText } from './not-found.styles.ts'
 import { Waves } from '../../assets/Waves.tsx';
 
 export const NotFound = () => {

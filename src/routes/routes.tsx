@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { NotFound } from "../pages/404/index.js";
+import { NotFound } from "../pages/404/not-found.js";
 import { Login } from "../pages/login/login.tsx";
 import { Home } from "../pages/home/home.tsx";
 import { Profile } from "../pages/profile/profile-index.tsx";
