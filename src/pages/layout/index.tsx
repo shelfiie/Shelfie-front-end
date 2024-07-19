@@ -1,5 +1,5 @@
 import { Aside } from "../../components/Aside/aside.tsx";
-import { Paginometro } from "../../components/Paginometro/index.tsx";
+import { Paginometro } from "../../components/Paginometro/paginometro.tsx";
 import { SearchBar } from "../../components/Search/search-bar.js";
 import { Global, LayoutChildren, PageContent, TopWrapper, Wrapper } from "./index.styles.ts";
 

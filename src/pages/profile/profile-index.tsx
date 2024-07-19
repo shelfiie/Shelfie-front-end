@@ -3,7 +3,7 @@ import { Layout } from "../layout/index.js";
 // import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme.ts";
 import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
-import { EditProfile } from "./edit-profile.tsx";
+// import { EditProfile } from "./edit-profile.tsx";
 import { BookNumber, PhotoWrapper, SettingsImageProfile, UserContent, UserInformation } from "./profile-styles.ts";
 import { Box } from "@mui/material";
 import { ProfileSkeletons } from "./profile-skeletons.tsx";
@@ -13,6 +13,7 @@ export const Profile = () => {
 
   const { user } = useFetchUserData();
 
+  // to - do editar perfil
 
   const BooksInfStyles = {
     backgroundColor: Theme.colors.pink,
@@ -30,11 +31,11 @@ export const Profile = () => {
     }
   }
 
-  if (isEditing) {
-    return (
-      <EditProfile setIsEditing={setIsEditing} />
-    )
-  }
+  // if (isEditing) {
+  //   return (
+  //     <EditProfile setIsEditing={setIsEditing} />
+  //   )
+  // }
 
   return (
     <Layout>

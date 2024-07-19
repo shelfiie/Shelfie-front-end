@@ -1,5 +1,4 @@
-import React from 'react'
-import { PaginometroDiv } from './index.styles'
+import { PaginometroDiv } from './paginometro.styles'
 // to do
 
 export const Paginometro = () => {

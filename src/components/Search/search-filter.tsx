@@ -35,7 +35,7 @@ export const Filter = ({ setSearchParams, currentParams }: FilterProps) => {
             options={options}
             getOptionLabel={(option) => option}
             defaultValue={options[0]}
-            onInputChange={(event, newInputValue) => {
+            onInputChange={(_event, newInputValue) => {
                 setSearchParams({ ...currentParams, filter: newInputValue });
             }}
             renderInput={(params) => <TextField {...params}
