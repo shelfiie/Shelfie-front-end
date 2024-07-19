@@ -21,11 +21,11 @@ export function Home() {
     abandonados: 1,
   });
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  const handlePageChange = (category: string, event: ChangeEvent<unknown>, newPage: number) => {
+  const handlePageChange = (category: string, _event: ChangeEvent<unknown>, newPage: number) => {
     setPage(prev => ({ ...prev, [category]: newPage }));
   };
 
