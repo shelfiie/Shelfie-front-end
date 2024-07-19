@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 import { ProfileSkeletons } from "./profile-skeletons.tsx";
 
 export const Profile = () => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  // const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { user } = useFetchUserData();
 
