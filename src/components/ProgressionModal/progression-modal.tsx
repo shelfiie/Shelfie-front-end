@@ -75,6 +75,8 @@ export const ProgressionModal = (
                             {...register('bookId')}
                             value={id} />
 
+                        {title && <p>{title}</p>}
+
                         <ProgressionSpan>
                             Conte um pouco sobre sobre o que está achando do livro e da leitura.
                         </ProgressionSpan>
@@ -110,13 +112,16 @@ export const ProgressionModal = (
                                 fontSize={Theme.font.sizes.xsmall}
                                 onClick={handleModal}
                             >Cancelar</Botao>
+
                             <Botao
+                                disabled={loading}
                                 type="submit"
                                 backgroundColor={Theme.colors.green}
                                 borderRadius={Theme.borders.radius}
                                 color={Theme.colors.white}
                                 fontSize={Theme.font.sizes.xsmall}
-                            >Salvar</Botao>
+                            >{loading ? 'Carregando' : 'Salvar'}</Botao>
+                            
                         </ButtonsDiv>
 
                         {success && <Alert severity="success">{success}</Alert>}
