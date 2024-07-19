@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Layout } from "../layout/index.js";
 // import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme.ts";
