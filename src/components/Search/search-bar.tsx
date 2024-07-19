@@ -51,12 +51,12 @@ export const SearchBar: React.FC = () => {
         noOptionsText={error ? error : 'Nenhum livro encontrado'}
         getOptionLabel={(option: BookData) => option.title || ''}
         inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
+        onInputChange={(_event, newInputValue) => {
           setInputValue(newInputValue);
           handleSearchParams({ search: newInputValue });
         }}
-        onChange={(event, newValue) => setSelectedBook(newValue)}
-        renderOption={(props, option: BookData) => {
+        onChange={(_event, newValue) => setSelectedBook(newValue)}
+        renderOption={(_props, option: BookData) => {
           return <BookListItem
             key={option.id}
             option={option}

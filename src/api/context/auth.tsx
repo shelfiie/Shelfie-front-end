@@ -2,8 +2,6 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { UserData } from "../../types/userType";
 import { HttpResponse, StatusCode } from "../client/IHttpClient";
-import { resolve } from "path";
-
 
 type AuthContextProps = {
     signed: boolean;
