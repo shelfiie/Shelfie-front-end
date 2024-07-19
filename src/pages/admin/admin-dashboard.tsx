@@ -27,7 +27,7 @@ export const AdminDashboard = () => {
         fetchUsers();
     }, []);
 
-    const handleChange = (event: any, value: SetStateAction<number>) => setPage(value);
+    const handleChange = (_event: any, value: SetStateAction<number>) => setPage(value);
 
     const usersToDisplay = users.slice((page - 1) * pageSize, page * pageSize);
 

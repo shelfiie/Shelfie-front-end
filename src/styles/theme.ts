@@ -1,7 +1,3 @@
-// @import url('https://fonts.googleapis.com/css2?family=Syne:wght@300..700&display=swap');
-
-import { lightBlue } from "@mui/material/colors";
-
 export const Theme = {
     colors: {
         deep: '#000',
