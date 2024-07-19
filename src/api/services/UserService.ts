@@ -22,9 +22,12 @@ export class UserService {
     }
 
     async disableUser(id : UserData): Promise<HttpResponse<unknown>> {
-        const base = `/api/users/${id}`;
+        const base = `/api/users/${id}/disable`;
         const response = await this.client.put({ url: base });
-        return response;
+        return {
+            ...response,
+            resolve: 'Usuário desativado com sucesso!',
+        };
     }
 
     async fetchAllUsers(): Promise<HttpResponse<unknown>> {
