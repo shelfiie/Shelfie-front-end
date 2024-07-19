@@ -1,32 +1,36 @@
-import { useCallback, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import Bookmark from "../../assets/icons/bookmarks.png";
-import Home from "../../assets/icons/home.png";
-import Profile from "../../assets/icons/profile.png";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
 import { Theme } from "../../styles/theme.ts";
 import { Botao } from "../globals/Button.style.tsx";
-import { AsideStyles, Nav, UlNav } from './index.styles.ts';
+import { AsideStyles, Nav, UlNav } from './aside.styles.ts';
 import { AuthContext } from "../../api/context/auth.tsx";
-import { Perfil } from "../Profile/index.tsx";
-
+import { Perfil } from "../Profile/profile.tsx";
+import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
+import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import { UserRole } from "../../types/userType.ts";
 
 export const Aside = () => {
     const { logout } = useContext(AuthContext);
-
+    const { user } = useFetchUserData();
 
     const navItems = [
-        { src: Profile, name: "Perfil", route: "/me" },
-        { src: Home, name: "Home", route: "/home" },
-        { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
+        { src: MenuBookRoundedIcon, name: "Biblioteca", route: "/home" },
+        { src: PersonRoundedIcon, name: "Perfil", route: "/me" },
+        // { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
     ];
 
-    const handleLogout = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+    if (user?.role === UserRole.ADMIN) {
+        navItems.push({ src: SupervisorAccountRoundedIcon, name: "Admin Dashboard", route: "/admin" });
+    }
+
+    const handleLogout = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         logout();
-    }, [logout]);
-
+    }
 
     return (
         <AsideStyles>
@@ -46,7 +50,8 @@ export const Aside = () => {
                     {navItems.map((item, index) => (
                         <Link to={item.route} key={index}>
                             <li key={item.name}>
-                                <img src={item.src} alt="" />
+                                <item.src />
+                                {/* <img src={item.src} alt="" /> */}
                                 {item.name}
                             </li>
                         </Link>

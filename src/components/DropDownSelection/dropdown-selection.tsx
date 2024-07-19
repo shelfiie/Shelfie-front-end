@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Arrow } from '../../assets/icons/Arrow.svg.tsx';
 import { Theme } from '../../styles/theme.ts';
-import { DropDownStyles, Option } from './index.styles.ts';
+import { DropDownStyles, Option } from './dropdown-selection.styles.ts';
 import { Alert, Snackbar } from '@mui/material';
 import { BookData, BookStatus } from '../../types/bookData.ts';
 import { BookService } from '../../api/services/BookService.ts';

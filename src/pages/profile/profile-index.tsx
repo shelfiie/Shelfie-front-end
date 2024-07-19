@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "../layout/index.js";
 // import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme.ts";
-import { useGetUserData } from "../../api/hooks/useGetUserData.ts";
+import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
 import { EditProfile } from "./edit-profile.tsx";
 import { BookNumber, PhotoWrapper, SettingsImageProfile, UserContent, UserInformation } from "./profile-styles.ts";
 import { Box } from "@mui/material";
@@ -11,7 +11,7 @@ import { ProfileSkeletons } from "./profile-skeletons.tsx";
 export const Profile = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const { user } = useGetUserData();
+  const { user } = useFetchUserData();
 
 
   const BooksInfStyles = {
