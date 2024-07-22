@@ -22,21 +22,20 @@ export const DropDownSelection: React.FC<DropDownSelectionProps> = ({ googleId, 
     const handleOptionClick = async (option: string) => {
         setSelectedOption(option);
         const service = new BookService();
-
         if (option !== 'SELECIONAR') {
-            const response = await service.postBookStatus({ googleId: googleId, bookStatus: selectedOption as BookStatus });
+            console.log('caiu no if')
+            const response = await service.updateBookStatus({ googleId: googleId, bookStatus: option as BookStatus });
 
-            if (response?.statusCode === StatusCode.Created) {
+            if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
                 setSuccess(response?.resolve);
             } else {
                 setError(response?.reject);
             }
             console.log(response);
-        }
-
+        } else return;
 
         setIsOpen(false);
-    };
+    } 
 
     return (
         <DropDownStyles
