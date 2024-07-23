@@ -9,14 +9,14 @@ import { BookService } from '../../api/services/BookService.ts';
 import { Alert, Snackbar } from '@mui/material';
 import { StatusCode } from '../../api/client/IHttpClient.ts';
 
-type BookResumeProps = {
-  // bookId
-  id: BookData['id'];
-  status: BookData['bookStatus'];
-  myBookId: string | undefined;
-}
+// type BookResumeProps = {
+//   // bookId
+//   id: BookData['id'];
+//   status: BookData['bookStatus'];
+//   myBookId: string | undefined;
+// }
 
-export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
+export const BookResume = (book : BookData) => {
   const [isOpen, setIsOpen] = useState(false);
   const [success, setSuccess] = useState<string | undefined>();
   const [error, setError] = useState<string | undefined>();
@@ -25,7 +25,7 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
 
   const handleDisable = async () => {
     const bookService = new BookService();
-    const response = await bookService.disableBook(myBookId ?? '');
+    const response = await bookService.disableBook(book.id ?? '');
     if (response.statusCode === StatusCode.Ok) {
       setSuccess(response?.resolve);
       setTimeout(() => setSuccess(undefined), 3000);
@@ -40,7 +40,7 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
     <StyledBookResumeContainer id="book-resume-container" >
       <StyledOptions>
         <ButtonWrapper>
-          {(status === BookStatus.LIDO || status === BookStatus.ABANDONADO) ? (
+          {(book.bookStatus === BookStatus.LIDO || book.bookStatus === BookStatus.ABANDONADO) ? (
             <Botao
               backgroundColor={Theme.colors.green}
               color={Theme.colors.white}
@@ -64,11 +64,11 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
           <DeleteRoundedIcon onClick={handleDisable} />
         </ButtonWrapper>
 
-        <ProgressionModal id={id} isOpen={isOpen} handleModal={handleProgressionModal} />
+        <ProgressionModal id={book.bookId} isOpen={isOpen} handleModal={handleProgressionModal} />
       </StyledOptions>
 
       <ResumeTitle>
-        {id}
+        {book.bookId}
       </ResumeTitle>
 
       <StyledBookCover src='https://centrodametropole.fflch.usp.br/sites/centrodametropole.fflch.usp.br/files/user_files/livros/imagem/capa-no-book-cover.png' alt="Book Cover" />
