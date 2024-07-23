@@ -9,8 +9,9 @@ export class BookService {
         this.client = new ShelfieHttpClient();
     }
 
-    async isBookEnabled(googleId: BookData): Promise<HttpResponse<any>> {
-        const base = `/api/mybooks/is-enabled/${googleId}/`;
+    async isBookEnabled({ googleId }: BookData): Promise<HttpResponse<any>> {
+        console.log(googleId);
+        const base = `/api/mybooks/is-enabled/${googleId}`;
 
         const response = await this.client.get({ url: base });
         return response;
@@ -25,20 +26,27 @@ export class BookService {
         return response;
     }
 
-    async putBookStatus({ bookId, bookStatus }: BookData): Promise<HttpResponse<any>> {
-        const base = `/api/mybooks/${bookId}/update/${bookStatus}`;
+    async putBookStatus({ googleId, bookStatus }: BookData): Promise<HttpResponse<any>> {
+        const base = `/api/mybooks/${googleId}/update/${bookStatus}`;
 
         const response = await this.client.put({ url: base });
         return response;
     }
 
-    async updateBookStatus({ bookId, googleId, bookStatus }: BookData): Promise<HttpResponse<any>> {
-        const base = `/api/mybooks/${bookId}/update/${bookStatus}`;
+    async updateBookStatus({ googleId, bookStatus }: BookData): Promise<HttpResponse<any>> {
+        const formattedBookStatus = (bookStatus ?? '').toUpperCase().replace(' ', '_');
+        const base = `/api/mybooks/${googleId}/update/${formattedBookStatus}`;
+
+        if(bookStatus && bookStatus.includes('SELECIONAR')) {
+            return {
+                statusCode: StatusCode.BadRequest,
+            };
+        };
 
         const isEnabledResponse = await this.isBookEnabled({ googleId })
-
+        console.log('isEnabled: ', isEnabledResponse); 
         // se retornar 200, o livro esta associado ao usuário, mesmo que desabilitado
-        if (isEnabledResponse.resolve) {
+        if (isEnabledResponse.statusCode === StatusCode.Ok) {
             const response = await this.client.put({ url: base });
             if (response.statusCode === StatusCode.Ok) {
                 return {
@@ -54,6 +62,7 @@ export class BookService {
         } // se não, o livro não esta associado ao usuário e pode ser feito post
         else {
             const response = await this.postBookStatus({ googleId, bookStatus });
+            console.log('response post: ', response);
             if (response.statusCode === StatusCode.Created) {
                 return {
                     ...response,
