@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { UserData } from "../../types/userType";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 
-const useGetUserData = () => {
+const useFetchUserData = () => {
     const [user, setUser] = useState<UserData | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
+    
     useEffect(() => {
         const getUserData = async () => {
             setIsLoading(true);
@@ -23,4 +23,4 @@ const useGetUserData = () => {
     return { user, isLoading };
 }
 
-export { useGetUserData };
+export { useFetchUserData };

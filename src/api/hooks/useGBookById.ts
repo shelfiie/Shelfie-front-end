@@ -9,6 +9,7 @@ const useGBookById = (id: string) => {
     const [loading, setLoading] = useState(true);
 
     const filterDescription = (description: string) => {
+        if (!description) return 'Descrição não fornecida';
         return description.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '').replace("'", " ").replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<i>/g, '').replace(/<\/i>/g, '');
     }
 
@@ -24,8 +25,8 @@ const useGBookById = (id: string) => {
                     authors: response.body.volumeInfo.authors ?? 'Autor não informado',
                     publishedDate: new Date(response.body.volumeInfo.publishedDate).toLocaleDateString('pt-BR') ?? response.body.volumeInfo.publishedDate,
                     publisher: response.body.volumeInfo.publisher ?? 'Editora não informada',
-                    isbn10: response.body.volumeInfo.industryIdentifiers?.find(identifier => identifier.type === 'ISBN_10')?.identifier ?? 'ISBN não informado',
-                    isbn13: response.body.volumeInfo.industryIdentifiers?.find(identifier => identifier.type === 'ISBN_13')?.identifier ?? 'ISBN não informado',
+                    isbn10: response.body.volumeInfo.industryIdentifiers?.find((identifier: { type: string; }) => identifier.type === 'ISBN_10')?.identifier ?? 'ISBN não informado',
+                    isbn13: response.body.volumeInfo.industryIdentifiers?.find((identifier: { type: string; }) => identifier.type === 'ISBN_13')?.identifier ?? 'ISBN não informado',
                     description: filterDescription(response.body.volumeInfo.description) ?? 'Descrição não fornecida',
                     pageCount: response.body.volumeInfo.pageCount ?? 'Número de páginas não informado',
                     smallThumbnail: response.body.volumeInfo.imageLinks?.smallThumbnail ?? '',

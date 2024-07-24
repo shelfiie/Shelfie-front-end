@@ -3,7 +3,7 @@ import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
 import { Input } from "../../components/globals/input.style.ts";
 import { ErrorText, Globals } from "../../styles/globals.ts";
 import { Theme } from "../../styles/theme.ts";
-import { CheckBox, Form, ItemsForm, LoginDiv } from "./login-styles.ts";
+import { Form, ItemsForm, LoginDiv } from "./login-styles.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserLoginFilter, userLoginFilter } from "../../types/authType.ts";
@@ -13,6 +13,7 @@ import { Alert } from "@mui/material";
 import { Botao } from "../../components/globals/Button.style.tsx";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TemContaP } from "../registro/registro-styles.ts";
+import { UserData } from "../../types/userType.ts";
 
 export function Login() {
     const [error, setError] = useState('');
@@ -39,7 +40,7 @@ export function Login() {
             password: watch('password')
         }
 
-        const response = await login(data);
+        const response = await login(data as UserData);
 
         if (response?.statusCode != 200) {
             setLoading(false);
@@ -94,13 +95,13 @@ export function Login() {
                             {error}
                         </Alert>}
 
-                    <CheckBox>
+                    {/* <CheckBox>
                         <div>
                             <input type="checkbox" placeholder="Lembre de mim" id="rememberMe" />
                             <span>Lembre de mim</span>
                         </div>
                         <a href="#"><u>Esqueceu a senha?</u></a>
-                    </CheckBox>
+                    </CheckBox> */}
 
                     <Botao
                         isError={hasErrors}

@@ -1,5 +1,3 @@
-// @import url('https://fonts.googleapis.com/css2?family=Syne:wght@300..700&display=swap');
-
 export const Theme = {
     colors: {
         deep: '#000',
@@ -8,7 +6,9 @@ export const Theme = {
         light: '#F3F3F7',
         lightDark: '#8A8A8A',
         pink: '#FB7DA8',
+        lightBlue: '#4D7CFE',
         blue: '#2565ED',
+        deepBlue: '#1A237E',
         green: '#00995E',
         orange: '#FF8F00',
         deepOrange: '#FF6D00',

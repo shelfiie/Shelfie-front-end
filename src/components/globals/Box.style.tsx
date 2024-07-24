@@ -11,7 +11,7 @@ interface BoxProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Box = styled.div<BoxProps>`
     border-radius: ${Theme.borders.radiusRound};
 
-    height: 100%;
+    height: max-content;
     text-align: center;
     
     background-color: ${props => props.backgroundcolor};

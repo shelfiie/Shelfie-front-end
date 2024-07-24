@@ -12,13 +12,27 @@ export class UserService {
     async getUserData(): Promise<HttpResponse<unknown>> {
         const base = `/api/users/me`;
         const response = await this.client.get({ url: base });
-        console.log(response);
         return response;
     }
 
     async updateUserData(data: UserData): Promise<HttpResponse<unknown>> {
         const base = `/api/users/me`;
         const response = await this.client.put({ url: base, body: data });
+        return response;
+    }
+
+    async disableUser(id : UserData): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/${id}/disable`;
+        const response = await this.client.put({ url: base });
+        return {
+            ...response,
+            resolve: 'Usuário desativado com sucesso!',
+        };
+    }
+
+    async fetchAllUsers(): Promise<HttpResponse<unknown>> {
+        const base = `/api/users`;
+        const response = await this.client.get({ url: base });
         return response;
     }
 
