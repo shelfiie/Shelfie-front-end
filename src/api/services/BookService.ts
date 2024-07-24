@@ -37,14 +37,13 @@ export class BookService {
         const formattedBookStatus = (bookStatus ?? '').toUpperCase().replace(' ', '_');
         const base = `/api/mybooks/${googleId}/update/${formattedBookStatus}`;
 
-        if(bookStatus && bookStatus.includes('SELECIONAR')) {
+        if (bookStatus && bookStatus.includes('SELECIONAR')) {
             return {
                 statusCode: StatusCode.BadRequest,
             };
         };
 
         const isEnabledResponse = await this.isBookEnabled({ googleId })
-        console.log('isEnabled: ', isEnabledResponse); 
         // se retornar 200, o livro esta associado ao usuário, mesmo que desabilitado
         if (isEnabledResponse.statusCode === StatusCode.Ok) {
             const response = await this.client.put({ url: base });
@@ -103,8 +102,7 @@ export class BookService {
 
         if (response.statusCode === StatusCode.Ok) {
             return {
-                statusCode: StatusCode.Ok,
-                body: response.body,
+                ...response,
                 resolve: 'Sucesso ao buscar livros',
             }
 
@@ -115,6 +113,54 @@ export class BookService {
             };
         }
     }
+
+    async fetchBookById(id: string): Promise<HttpResponse<any>> {
+        const base = `/api/books/${id}`;
+
+        const response = await this.client.get({ url: base });
+        if (response.statusCode === StatusCode.Ok) {
+            return {
+                ...response,
+                body: response.body,
+                resolve: 'Sucesso ao buscar livro',
+            }
+
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livro'
+            }
+        }
+    }
+
+    async fetchCombinedBooksByUser(): Promise<HttpResponse<any>> {
+        const response = await this.fetchBooksByUser();
+
+        if (response.statusCode !== StatusCode.Ok) {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livros do usuário',
+            };
+        }
+
+        const userBooks = response.body;
+
+        const combinedBooks = await Promise.all(userBooks.map(async (userBook: any) => {
+            const bookDetailsResponse = await this.fetchBookById(userBook.bookId);
+            if (bookDetailsResponse.statusCode === StatusCode.Ok) {
+                return { ...userBook, ...bookDetailsResponse.body };
+            } else {
+                return userBook;
+            }
+        }));
+
+        return {
+            ...response,
+            body: combinedBooks,
+            resolve: 'Sucesso ao buscar livros combinados do usuário',
+        };
+    }
+
 
     async fetchBooksByStatus(status: string): Promise<HttpResponse<any>> {
         const base = `/api/mybooks/status/${status}`;
@@ -136,7 +182,7 @@ export class BookService {
         }
     }
 
-    disableBook = async (myBooksId: string): Promise<HttpResponse<any>> => {
+    async disableBook(myBooksId: string): Promise<HttpResponse<any>> {
         const base = `/api/mybooks/${myBooksId}/disable`;
 
         const response = await this.client.put({ url: base });
