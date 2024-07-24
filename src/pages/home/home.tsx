@@ -11,7 +11,7 @@ import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 export function Home() {
   const { allBooks, lendo, lidos, queroler, abandonados, isLoading } = useFetchBooksByUser();
   const [value, setValue] = useState('1');
-
+  console.log(allBooks)
   const itemsPerPage = 8; // Número de itens por página
   const [page, setPage] = useState({
     allBooks: 1,
@@ -40,10 +40,18 @@ export function Home() {
     <Carrousel id="carrossel">
       <BooksWrapper id="books-wrapper">
         {items.length > 0 ? paginatedItems(items, page).map((book) => (
-          <BookResume key={book.id} id={book.bookId} myBookId={book.id} status={book.bookStatus} />
+          <BookResume
+            bookId={book.bookId}
+            googleId={book.googleId}
+            title={book.title}
+            thumbnail={book.smallThumbnail}
+            smallThumbnail={book.smallThumbnail}
+            bookStatus={book.bookStatus} />
+
         )) : (<p>Você não tem livros nessa lista</p>)}
+        
       </BooksWrapper>
-      <Pagination
+      <Pagination style={{alignSelf: 'center'}}
         count={Math.ceil(items.length / itemsPerPage)}
         page={page}
         onChange={(event, newPage) => handlePageChange(category, event, newPage)}

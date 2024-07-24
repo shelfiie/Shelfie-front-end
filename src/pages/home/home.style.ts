@@ -9,13 +9,13 @@ const Carrousel = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    
     height: 100%;
+    justify-content: space-between;
 `
 
 const BooksWrapper = styled.div`
-    height: 100%;
     display: inline-flex;
+    flex-wrap: wrap;
 `
 
 const TabListStyle = {
