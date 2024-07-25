@@ -21,7 +21,7 @@ export class UserService {
         return response;
     }
 
-    async disableUser(id : UserData): Promise<HttpResponse<unknown>> {
+    async disableUser(id: UserData): Promise<HttpResponse<unknown>> {
         const base = `/api/users/${id}/disable`;
         const response = await this.client.put({ url: base });
         return {
@@ -33,6 +33,18 @@ export class UserService {
     async fetchAllUsers(): Promise<HttpResponse<unknown>> {
         const base = `/api/users`;
         const response = await this.client.get({ url: base });
+        return response;
+    }
+
+    async fetchAllReviewsMyReviews(): Promise<HttpResponse<any>> {
+        const base = `/api/review/mine`;
+        const response = await this.client.get({ url: base });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao buscar avaliações. Tente novamente mais tarde.',
+            }
+        }
         return response;
     }
 
