@@ -17,23 +17,22 @@ const useFetchBooksByUser = () => {
         const fetchAllBooksByUser = async () => {
             setIsLoading(true);
 
-            const response = await bookService.fetchBooksByUser();
-            setAllBooks(response.body.filter((item: any) => item.enabled === true));
+            const response = await bookService.fetchCombinedBooksByUser();
 
-            await fetchBooksByStatus(BookStatus.LENDO, setLendo);
-            await fetchBooksByStatus(BookStatus.LIDO, setLidos);
-            await fetchBooksByStatus(BookStatus.QUERO_LER, setQueroler);
-            await fetchBooksByStatus(BookStatus.ABANDONADO, setAbandonados);
+            if(response.statusCode === StatusCode.Ok) {
+                setAllBooks(response.body);
+                fetchBooksByStatus(response.body)
+            } 
 
             setIsLoading(false);
             return response;
         }
 
-        const fetchBooksByStatus = async (status: BookStatus, setState: React.Dispatch<React.SetStateAction<BookData[]>>) => {
-            const response = await bookService.fetchBooksByStatus(status);
-            if (response.statusCode === StatusCode.Ok && response.body) {
-                setState(response?.body?.filter((item : any) => item.enabled === true));
-            }
+        const fetchBooksByStatus = async (books: BookData[]) => {
+            setLendo(books.filter(book => book.bookStatus === BookStatus.LENDO && book.enabled));
+            setLidos(books.filter(book => book.bookStatus === BookStatus.LIDO && book.enabled));
+            setQueroler(books.filter(book => book.bookStatus === BookStatus.QUERO_LER && book.enabled));
+            setAbandonados(books.filter(book => book.bookStatus === BookStatus.ABANDONADO && book.enabled));
         };
         fetchAllBooksByUser();
     }, [])

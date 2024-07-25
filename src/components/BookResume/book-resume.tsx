@@ -8,24 +8,23 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { BookService } from '../../api/services/BookService.ts';
 import { Alert, Snackbar } from '@mui/material';
 import { StatusCode } from '../../api/client/IHttpClient.ts';
+import { Link } from 'react-router-dom';
+import { ReviewModal } from '../Review/review.tsx';
 
-type BookResumeProps = {
-  // bookId
-  id: BookData['id'];
-  status: BookData['bookStatus'];
-  myBookId: string | undefined;
-}
-
-export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
+export const BookResume = (Bookzin: BookData) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [reviewIsOpen, setReviewIsOpen] = useState(false);
+
   const [success, setSuccess] = useState<string | undefined>();
   const [error, setError] = useState<string | undefined>();
 
+
   const handleProgressionModal = () => setIsOpen(!isOpen);
+  const handleReviewModal = () => setReviewIsOpen(!reviewIsOpen);
 
   const handleDisable = async () => {
     const bookService = new BookService();
-    const response = await bookService.disableBook(myBookId ?? '');
+    const response = await bookService.disableBook(Bookzin.id ?? '');
     if (response.statusCode === StatusCode.Ok) {
       setSuccess(response?.resolve);
       setTimeout(() => setSuccess(undefined), 3000);
@@ -40,13 +39,14 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
     <StyledBookResumeContainer id="book-resume-container" >
       <StyledOptions>
         <ButtonWrapper>
-          {(status === BookStatus.LIDO || status === BookStatus.ABANDONADO) ? (
+          {(Bookzin.bookStatus === BookStatus.LIDO || Bookzin.bookStatus === BookStatus.ABANDONADO) ? (
             <Botao
               backgroundColor={Theme.colors.green}
               color={Theme.colors.white}
               fontSize={Theme.font.sizes.xsmall}
               padding={'.525rem 1rem'}
               borderRadius={Theme.borders.radius}
+              onClick={handleReviewModal}
             >
               REVIEW
             </Botao>
@@ -64,14 +64,28 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
           <DeleteRoundedIcon onClick={handleDisable} />
         </ButtonWrapper>
 
-        <ProgressionModal id={id} isOpen={isOpen} handleModal={handleProgressionModal} />
+        <ReviewModal
+          isOpen={reviewIsOpen}
+          handleModal={handleReviewModal}
+          bookId={Bookzin.bookId}
+          title={Bookzin.title}
+          key={Bookzin.bookId} />
+
+        <ProgressionModal
+          id={Bookzin.bookId}
+          isOpen={isOpen}
+          handleModal={handleProgressionModal}
+          title={Bookzin.title}
+          key={Bookzin.googleId} />
       </StyledOptions>
 
       <ResumeTitle>
-        {id}
+        {Bookzin.title}
       </ResumeTitle>
 
-      <StyledBookCover src='https://centrodametropole.fflch.usp.br/sites/centrodametropole.fflch.usp.br/files/user_files/livros/imagem/capa-no-book-cover.png' alt="Book Cover" />
+      <Link to={`/bookdetails/${Bookzin.googleId}`} style={{ textDecoration: 'none' }}>
+        <StyledBookCover src={Bookzin.thumbnail || Bookzin.smallThumbnail} alt="Book Cover" />
+      </Link>
 
       {success &&
         <Snackbar
@@ -80,12 +94,12 @@ export const BookResume = ({ id, myBookId, status }: BookResumeProps) => {
           autoHideDuration={5000}
           onClose={() => setSuccess(undefined)}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          <Alert  severity="success">
+          <Alert severity="success">
             {success}
           </Alert>
         </Snackbar>}
 
-      {error && 
+      {error &&
         <Snackbar
           sx={{ marginRight: '4rem' }}
           open={!!error}
