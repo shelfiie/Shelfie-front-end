@@ -91,7 +91,23 @@ export class BookService {
             };
         } else return {
             ...response,
-            reject: 'Erro ao salvar progressão',
+            reject: 'Erro ao salvar progressão'
+        }
+    }
+
+    async postReview({ bookId, reviews }: BookData): Promise<HttpResponse<any>> {
+        const base = `/api/review/${bookId}`;
+
+        const response = await this.client.post({ url: base, body: reviews });
+
+        if (response.statusCode === StatusCode.Created) {
+            return {
+                ...response,
+                resolve: 'Review salvo com sucesso!',
+            };
+        } else return {
+            ...response,
+            reject: 'Erro ao salvar review.',
         }
     }
 

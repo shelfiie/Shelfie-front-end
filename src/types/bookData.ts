@@ -21,7 +21,10 @@ type BookData = {
     thumbnail?: string;
     smallThumbnail?: string;
     pageCount?: number;
-    rating?: number;
+    reviews? : {
+        rating?: number;
+        review?: string;
+    }
     bookStatus?: BookStatus;
     progression?: {
         commentary: string;

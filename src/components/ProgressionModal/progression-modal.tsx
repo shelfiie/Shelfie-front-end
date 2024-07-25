@@ -75,7 +75,7 @@ export const ProgressionModal = (
                             {...register('bookId')}
                             value={id} />
 
-                        {title && <p>{title}</p>}
+                        <h3>{title}</h3>
 
                         <ProgressionSpan>
                             Conte um pouco sobre sobre o que está achando do livro e da leitura.

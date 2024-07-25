@@ -9,13 +9,18 @@ import { BookService } from '../../api/services/BookService.ts';
 import { Alert, Snackbar } from '@mui/material';
 import { StatusCode } from '../../api/client/IHttpClient.ts';
 import { Link } from 'react-router-dom';
+import { ReviewModal } from '../Review/review.tsx';
 
 export const BookResume = (Bookzin: BookData) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [reviewIsOpen, setReviewIsOpen] = useState(false);
+
   const [success, setSuccess] = useState<string | undefined>();
   const [error, setError] = useState<string | undefined>();
-  // console.log(Bookzin)
+
+
   const handleProgressionModal = () => setIsOpen(!isOpen);
+  const handleReviewModal = () => setReviewIsOpen(!reviewIsOpen);
 
   const handleDisable = async () => {
     const bookService = new BookService();
@@ -41,6 +46,7 @@ export const BookResume = (Bookzin: BookData) => {
               fontSize={Theme.font.sizes.xsmall}
               padding={'.525rem 1rem'}
               borderRadius={Theme.borders.radius}
+              onClick={handleReviewModal}
             >
               REVIEW
             </Botao>
@@ -58,7 +64,19 @@ export const BookResume = (Bookzin: BookData) => {
           <DeleteRoundedIcon onClick={handleDisable} />
         </ButtonWrapper>
 
-        <ProgressionModal id={Bookzin.bookId} isOpen={isOpen} handleModal={handleProgressionModal} />
+        <ReviewModal
+          isOpen={reviewIsOpen}
+          handleModal={handleReviewModal}
+          bookId={Bookzin.bookId}
+          title={Bookzin.title}
+          key={Bookzin.bookId} />
+
+        <ProgressionModal
+          id={Bookzin.bookId}
+          isOpen={isOpen}
+          handleModal={handleProgressionModal}
+          title={Bookzin.title}
+          key={Bookzin.googleId} />
       </StyledOptions>
 
       <ResumeTitle>
