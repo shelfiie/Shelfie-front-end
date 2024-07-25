@@ -1,6 +1,10 @@
+import { Layout } from "../layout"
+import { ReviewsBox } from "./reviews-box"
 
 export const Reviews = () => {
   return (
-    <div>reviews</div>
+    <Layout>
+      <ReviewsBox />
+    </Layout>
   )
 }
