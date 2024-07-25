@@ -90,7 +90,7 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
             <Box width={500} height={'max-content'}
                 sx={styledBox}>
                 <Box>
-                    <ProgressionForm>
+                    <ProgressionForm onSubmit={handleSubmit(onSubmit)}>
                         <h3>{title}</h3>
                         <ProgressionSpan>
                             Agora que você terminou de ler, que tal avaliar o livro? Conte para nós o que achou!
@@ -132,7 +132,6 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
                                 borderRadius={Theme.borders.radius}
                                 color={Theme.colors.white}
                                 fontSize={Theme.font.sizes.xsmall}
-                                onClick={handleSubmit(onSubmit)}
                             >{loading ? 'Carregando' : 'Salvar'}</Botao>
 
                         </ButtonsDiv>
