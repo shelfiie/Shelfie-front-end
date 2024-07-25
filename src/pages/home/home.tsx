@@ -11,8 +11,8 @@ import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 export function Home() {
   const { allBooks, lendo, lidos, queroler, abandonados, isLoading } = useFetchBooksByUser();
   const [value, setValue] = useState('1');
-  console.log(allBooks)
-  const itemsPerPage = 8; // Número de itens por página
+  const itemsPerPage = 10; // Número de itens por página
+
   const [page, setPage] = useState({
     allBooks: 1,
     lendo: 1,
@@ -41,6 +41,7 @@ export function Home() {
       <BooksWrapper id="books-wrapper">
         {items.length > 0 ? paginatedItems(items, page).map((book) => (
           <BookResume
+            id={book.id}
             bookId={book.bookId}
             googleId={book.googleId}
             title={book.title}
