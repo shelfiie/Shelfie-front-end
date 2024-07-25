@@ -7,6 +7,8 @@ import { BookDetails } from "../pages/bookdetails/book-details.tsx";
 import { PrivateRoute } from "./privateRoute.tsx";
 import { Registro } from "../pages/registro/registro.tsx";
 import { AdminDashboard } from "../pages/admin/admin-dashboard.tsx";
+import { Progressions } from "../pages/progressions/progressions.tsx";
+import { Reviews } from "../pages/reviews/reviews.tsx";
 
 export function Rotas() {
   return (
@@ -20,6 +22,8 @@ export function Rotas() {
           <Route path="/me" element={<Profile />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/progressions" element={<Progressions />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
