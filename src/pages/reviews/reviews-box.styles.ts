@@ -5,6 +5,7 @@ const BoxWrapper = styled.div`
     background-color: white;
     margin-top: ${Theme.margins.margin1rem};
     border-radius: ${Theme.borders.radius};
+    border: ${Theme.borders.border2px} solid ${Theme.colors.deep};
     padding: ${Theme.margins.margin1rem};
 
     display: inline-flex;
@@ -52,5 +53,9 @@ const Icons = styled.div`
     gap: 1rem
 `
 
+const BoxesWrappers = styled.div`
 
-export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons }
+`
+
+
+export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers }
