@@ -13,7 +13,7 @@ export const Reviews = () => {
   console.log(reviews);
   const [page, setPage] = useState(1);
 
-  const charsPerPage = 3000; // Defina um limite de caracteres por página
+  const charsPerPage = 2200; // Defina um limite de caracteres por página
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => setPage(value);
 

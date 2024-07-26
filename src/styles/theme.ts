@@ -1,14 +1,17 @@
+import { green } from "@mui/material/colors"
 export const Theme = {
     colors: {
         deep: '#000',
         dark: '#4C4C4C',
         white: '#FFF',
         light: '#F3F3F7',
+        lightGrey: '#E5E5E5',
         lightDark: '#8A8A8A',
         pink: '#FB7DA8',
         lightBlue: '#4D7CFE',
         blue: '#2565ED',
         deepBlue: '#1A237E',
+        darkGreen: '#0B8043',
         green: '#00995E',
         orange: '#FF8F00',
         deepOrange: '#FF6D00',
