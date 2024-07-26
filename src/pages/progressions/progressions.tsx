@@ -1,10 +1,9 @@
 import { LinearProgress, Typography } from "@mui/material"
-import { LinearProgress, Typography } from "@mui/material"
 import { BoxShadow } from "../../components/globals/Box.style"
 import { Theme } from "../../styles/theme"
 import { Layout } from "../layout"
 import { BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionPageCount, StatusTag } from "./progressions.styles"
-import { BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionPageCount, StatusTag } from "./progressions.styles"
+
 
 
 export const Progressions = () => {
