@@ -64,11 +64,11 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
 
         const service = new BookService();
 
-        const data : BookData['reviews'] = {
+        const data: BookData['reviews'] = {
             review: watch('review'),
             rating: value
         }
-        const response = await service.postReview({ bookId, reviews: data});
+        const response = await service.postReview({ bookId, reviews: data });
 
         if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
@@ -97,10 +97,10 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
                         </ProgressionSpan>
                         <p>Nota</p>
 
-                        <Box sx={{display: 'inline-flex'}}>
+                        <Box sx={{ display: 'inline-flex' }}>
                             <Rating
                                 precision={0.5}
-                                onChange={(event, newValue) => setValue(newValue ?? undefined)}
+                                onChange={(_event, newValue) => setValue(newValue ?? undefined)}
                                 getLabelText={getLabelText}
                                 icon={<StarRoundedIcon fontSize="inherit" />}
                                 emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} fontSize="inherit" />} />
@@ -109,11 +109,12 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
                             )}
                         </Box>
 
-                        <p>Escreva sua review</p>
+                        <p>Escreva sua review:</p>
                         <TextField
                             {...register('review')}
                             multiline
                             minRows={4}
+                            error={!!errors.review}
                             placeholder="Escreva aqui o que você achou desse livro." />
 
                         <ButtonsDiv>
