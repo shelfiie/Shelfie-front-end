@@ -130,6 +130,20 @@ export class BookService {
         }
     }
 
+    async fetchBooksByBookId(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/mybooks/${bookId}/list`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) return response;
+        else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livro',
+            }
+        }
+    }
+
     async fetchBookById(id: string): Promise<HttpResponse<any>> {
         const base = `/api/books/${id}`;
 
@@ -146,6 +160,22 @@ export class BookService {
                 ...response,
                 reject: 'Erro ao buscar livro'
             }
+        }
+    }
+
+    async fetchBooksByGoogleId(googleId: string): Promise<HttpResponse<any>> {
+        const base = `/api/books/google/${googleId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livro'
+            };
         }
     }
 
@@ -194,6 +224,20 @@ export class BookService {
             return {
                 ...response,
                 reject: 'Erro ao buscar livros',
+            };
+        }
+    }
+
+    // PROGRESSIONS
+    async fetchProgressions(): Promise<HttpResponse<any>> {
+        const base = '/api/reading';
+
+        const response = await this.client.get({ url: base });
+        if (response.statusCode === StatusCode.Ok) return response;
+        else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar progressões',
             };
         }
     }

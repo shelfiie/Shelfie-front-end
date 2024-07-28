@@ -26,9 +26,16 @@ type BookData = {
         review?: string;
     }
     bookStatus?: BookStatus;
-    progression?: {
+    progressions?: {
+        bookId: BookData['bookId'];
+        googleId: BookData['googleId'];
+        thumbnailUrl: BookData['thumbnailUrl'];
+        smallThumbnailUrl: BookData['smallThumbnailUrl'];
+        title: BookData['title'];
+        status: BookStatus;
         commentary: string;
-        pages: number;
+        page: number;
+        createdAt: string;
     }
 }
 
