@@ -21,7 +21,7 @@ export class UserService {
         return response;
     }
 
-    async disableUser(id: UserData): Promise<HttpResponse<unknown>> {
+    async disableUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
         const base = `/api/users/${id}/disable`;
         const response = await this.client.put({ url: base });
         return {

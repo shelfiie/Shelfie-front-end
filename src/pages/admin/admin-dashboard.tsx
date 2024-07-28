@@ -6,6 +6,7 @@ import { AdminSpan, DashboardWrapper, ItemWrapper, PageWrapper, UserDiv, UserInf
 import { Alert, Pagination, Snackbar } from "@mui/material";
 import { Botao } from "../../components/globals/Button.style";
 import { Theme } from "../../styles/theme";
+import { BookData } from "../../types/bookData";
 
 
 export const AdminDashboard = () => {
@@ -33,14 +34,16 @@ export const AdminDashboard = () => {
     }, [page]);
 
 
-    const handleDisableUser = async (id: UserData) => {
-        const response = await userService.disableUser(id);
-        if (response.statusCode === 200) {
-            setSuccess(response?.resolve);
-            setTimeout(() => setSuccess(undefined), 3000);
-        } else {
-            setError(response?.reject);
-            setTimeout(() => setError(undefined), 3000);
+    const handleDisableUser = async (id: BookData['id']) => {
+        if (id) {
+            const response = await userService.disableUser(id);
+            if (response.statusCode === 200) {
+                setSuccess(response?.resolve);
+                setTimeout(() => setSuccess(undefined), 3000);
+            } else {
+                setError(response?.reject);
+                setTimeout(() => setError(undefined), 3000);
+            }
         }
     }
 
@@ -85,7 +88,7 @@ export const AdminDashboard = () => {
                                         color={Theme.colors.white}
                                         borderRadius={Theme.borders.radius}
                                         padding={`${Theme.margins.margin1rem} ${Theme.margins.margin2rem}`}
-                                        onClick={() => handleDisableUser(user.id)}>
+                                        onClick={() => user.id && handleDisableUser(user.id)}>
                                         Desabilitar
                                     </Botao>
                                 </div>
