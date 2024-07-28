@@ -3,8 +3,11 @@ import { BoxShadow } from "../../components/globals/Box.style"
 import { Theme } from "../../styles/theme"
 import { Layout } from "../layout"
 import { BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionPageCount, StatusTag } from "./progressions.styles"
+import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions"
 
 export const Progressions = () => {
+  const {progressions} = useFetchAllProgressions();
+console.log(progressions)
   return (
     <Layout>
       <h2>Progressões</h2>
