@@ -45,8 +45,8 @@ export function Home() {
             bookId={book.bookId}
             googleId={book.googleId}
             title={book.title}
-            thumbnail={book.smallThumbnail}
-            smallThumbnail={book.smallThumbnail}
+            thumbnailUrl={book.smallThumbnailUrl}
+            smallThumbnailUrl={book.smallThumbnailUrl}
             bookStatus={book.bookStatus} />
 
         )) : (<p>Você não tem livros nessa lista</p>)}

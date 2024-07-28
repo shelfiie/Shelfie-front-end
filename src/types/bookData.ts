@@ -18,8 +18,8 @@ type BookData = {
     description?: string;
     isbn10?: string;
     isbn13?: string; 
-    thumbnail?: string;
-    smallThumbnail?: string;
+    thumbnailUrl?: string;
+    smallThumbnailUrl?: string;
     pageCount?: number;
     reviews? : {
         rating?: number;
@@ -45,8 +45,8 @@ type BooksResultsType = {
         description?: string;
         pageCount?: number;
         imageLinks?: {
-            smallThumbnail?: string;
-            thumbnail?: string;
+            smallThumbnailUrl?: string;
+            thumbnailUrl?: string;
         }
     };
 };

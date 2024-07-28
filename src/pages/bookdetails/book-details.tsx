@@ -32,7 +32,7 @@ export const BookDetails = () => {
         padding={Theme.margins.margin1rem}
         backgroundcolor={Theme.colors.blue}>
 
-        <BookCoverImage src={book.thumbnail} alt="book cover" />
+        <BookCoverImage src={book.thumbnailUrl} alt="book cover" />
 
         <BookContent>
           <div>

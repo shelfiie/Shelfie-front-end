@@ -29,8 +29,8 @@ const useGBookById = (id: string) => {
                     isbn13: response.body.volumeInfo.industryIdentifiers?.find((identifier: { type: string; }) => identifier.type === 'ISBN_13')?.identifier ?? 'ISBN não informado',
                     description: filterDescription(response.body.volumeInfo.description) ?? 'Descrição não fornecida',
                     pageCount: response.body.volumeInfo.pageCount ?? 'Número de páginas não informado',
-                    smallThumbnail: response.body.volumeInfo.imageLinks?.smallThumbnail ?? '',
-                    thumbnail: response.body.volumeInfo.imageLinks?.thumbnail ?? ''
+                    smallThumbnailUrl: response.body.volumeInfo.imageLinks?.smallThumbnailUrl ?? '',
+                    thumbnailUrl: response.body.volumeInfo.imageLinks?.thumbnailUrl ?? ''
                 }
                 setBook(data);
             } else {
