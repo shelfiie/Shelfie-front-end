@@ -6,12 +6,13 @@ import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
 import { BookNumber, PhotoWrapper, SettingsImageProfile, UserContent, UserInformation } from "./profile-styles.ts";
 import { Box } from "@mui/material";
 import { ProfileSkeletons } from "./profile-skeletons.tsx";
+import { useFetchPaginometer } from "../../api/hooks/useFetchPaginometer.ts";
 
 export const Profile = () => {
   // const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const { user } = useFetchUserData();
-
+  const { quantity } = useFetchPaginometer();
   // to - do editar perfil
 
   const BooksInfStyles = {
@@ -76,18 +77,14 @@ export const Profile = () => {
             Desativar conta
           </Botao> */}
 
-            <Box sx={{ display: 'flex', flex: '1', flexWrap: 'wrap', gap: '1rem', fontWeight: Theme.font.weight.semiBold }}>
-              <Box sx={BooksInfStyles}>Quero ler
-                <BookNumber>
-                  32
-                </BookNumber>
-              </Box>
-              <Box sx={BooksInfStyles}>Lendo <BookNumber>4</BookNumber></Box>
-              <Box sx={BooksInfStyles}>Abandonados <BookNumber>32</BookNumber></Box>
-              <Box sx={BooksInfStyles}>Favoritos <BookNumber>32</BookNumber></Box>
-              <Box sx={BooksInfStyles}>Lidos <BookNumber>15</BookNumber></Box>
-              <Box sx={BooksInfStyles}>Resenhas <BookNumber>7</BookNumber></Box>
-              <Box sx={BooksInfStyles}>Paginômetro <BookNumber>15485748458</BookNumber></Box>
+            <Box sx={{ display: 'flex', flex: '1', flexWrap: 'wrap', gap: '1rem', fontWeight: Theme.font.weight.semiBold }}>          
+              <Box sx={BooksInfStyles}> Quero ler <BookNumber> {quantity?.queroLer} </BookNumber></Box>
+              <Box sx={BooksInfStyles}>Lendo <BookNumber>{quantity?.lendo}</BookNumber></Box>
+              <Box sx={BooksInfStyles}>Abandonados <BookNumber>{quantity?.abandonado}</BookNumber></Box>
+              <Box sx={BooksInfStyles}>Favoritos <BookNumber>{quantity?.favorite}</BookNumber></Box>
+              <Box sx={BooksInfStyles}>Lidos <BookNumber>{quantity?.lido}</BookNumber></Box>
+              <Box sx={BooksInfStyles}>Resenhas <BookNumber>{quantity?.review}</BookNumber></Box>
+              <Box sx={BooksInfStyles}>Paginômetro <BookNumber>{quantity?.paginometer}</BookNumber></Box>
             </Box>
           </UserContent>
         </>

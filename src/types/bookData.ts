@@ -17,11 +17,20 @@ type BookData = {
     publishedDate?: string;
     description?: string;
     isbn10?: string;
-    isbn13?: string; 
+    isbn13?: string;
     thumbnailUrl?: string;
     smallThumbnailUrl?: string;
     pageCount?: number;
-    reviews? : {
+    quantity?: {
+        review?: number;
+        favorite?: number;
+        paginometer?: number;
+        lido?: number;
+        lendo?: number;
+        queroLer?: number;
+        abandonado?: number;
+    };
+    reviews?: {
         rating?: number;
         review?: string;
     }
@@ -34,6 +43,7 @@ type BookData = {
         title: BookData['title'];
         status: BookStatus;
         commentary: string;
+        porcentage?: number;
         page: number;
         createdAt: string;
     }
