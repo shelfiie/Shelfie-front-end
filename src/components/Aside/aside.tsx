@@ -11,6 +11,8 @@ import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
 import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 import { UserRole } from "../../types/userType.ts";
 
 export const Aside = () => {
@@ -20,7 +22,8 @@ export const Aside = () => {
     const navItems = [
         { src: MenuBookRoundedIcon, name: "Biblioteca", route: "/home" },
         { src: PersonRoundedIcon, name: "Perfil", route: "/me" },
-        // { src: Bookmark, name: "Bookmarks", route: "/bookmarks" },
+        { src: EditNoteRoundedIcon, name: "Progressões", route: "/progressions" },
+        { src: ReviewsIcon, name: "Avaliações", route: "/reviews" },
     ];
 
     if (user?.role === UserRole.ADMIN) {

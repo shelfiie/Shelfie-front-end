@@ -61,8 +61,8 @@ const useBookSearch = () => {
                         isbn13: item.volumeInfo.industryIdentifiers?.find((identifier: { type: string; }) => identifier.type === 'ISBN_13')?.identifier ?? 'ISBN não informado',
                         description: item.volumeInfo.description ?? 'Descrição não fornecida',
                         pageCount: item.volumeInfo.pageCount ?? 'Número de páginas não informado',
-                        smallThumbnail: item.volumeInfo.imageLinks?.smallThumbnail ?? '',
-                        thumbnail: item.volumeInfo.imageLinks?.thumbnail ?? ''
+                        smallThumbnailUrl: item.volumeInfo.imageLinks?.smallThumbnail ?? '',
+                        thumbnailUrl: item.volumeInfo.imageLinks?.thumbnailUrl ?? ''
                     }));
 
                     allBooks = [...allBooks, ...newBooks];

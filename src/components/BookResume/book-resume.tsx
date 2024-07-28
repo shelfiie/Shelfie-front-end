@@ -84,7 +84,7 @@ export const BookResume = (Bookzin: BookData) => {
       </ResumeTitle>
 
       <Link to={`/bookdetails/${Bookzin.googleId}`} style={{ textDecoration: 'none' }}>
-        <StyledBookCover src={Bookzin.thumbnail || Bookzin.smallThumbnail} alt="Book Cover" />
+        <StyledBookCover src={Bookzin.thumbnailUrl || Bookzin.smallThumbnailUrl} alt="Book Cover" />
       </Link>
 
       {success &&

@@ -12,6 +12,7 @@ import { DropDownSelection } from '../../components/DropDownSelection/dropdown-s
 export const BookDetails = () => {
   const { id } = useParams();
   const { book } = useGBookById(id ?? '');
+  console.log(book)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export const BookDetails = () => {
         padding={Theme.margins.margin1rem}
         backgroundcolor={Theme.colors.blue}>
 
-        <BookCoverImage src={book.thumbnail} alt="book cover" />
+        <BookCoverImage src={book.thumbnailUrl} alt="book cover" />
 
         <BookContent>
           <div>
