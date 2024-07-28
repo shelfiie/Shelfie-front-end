@@ -95,7 +95,7 @@ export const ProgressionModal = (
                             placeholder="Fale um pouco sobre o que você leu"
                         />
 
-                        <p>Quantidade de páginas lidas: </p>
+                        <p>Total da quantidade de páginas lidas: </p>
                         <TextField
                             {...register('page')}
                             required
