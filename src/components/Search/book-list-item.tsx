@@ -32,7 +32,7 @@ export const BookListItem: React.FC<BookListItemProps> = ({ option, navigate, ..
 
     const date = option.publishedDate ? new Date(option.publishedDate).toLocaleDateString('pt-BR', { year: 'numeric' }) : 'Data de publicação não informada';
 
-    const verifThumb = option.thumbnail ? option.thumbnail : option.smallThumbnail ? option.smallThumbnail : placeholderImage;
+    const verifThumb = option.thumbnailUrl ? option.thumbnailUrl : option.smallThumbnailUrl ? option.smallThumbnailUrl : placeholderImage;
 
     return (
         <StyledListItem

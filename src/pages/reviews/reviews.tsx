@@ -58,8 +58,9 @@ export const Reviews = () => {
         <BoxesWrappers id="boxes-wrapper">
 
           {paginatedReviews[page - 1].map((review: any) => (
+            console.log(review),
             <BoxWrapper key={review.id} id="box-wrapper">
-              <img src={review.thumbnail ?? review.smallThumbnail} alt={review.title} />
+              <img src={review.thumbnailUrl ?? review.smallThumbnailUrl} alt={review.title} />
               <ReviewDetails id="review-details">
                 <TitleRating>
                   <p>{review.title}</p>
