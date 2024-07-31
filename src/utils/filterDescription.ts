@@ -3,4 +3,11 @@ const filterDescription = (description: string) => {
     return description.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '').replace("'", " ").replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<i>/g, '').replace(/<\/i>/g, '');
 }
 
-export { filterDescription }
+const limitedDescription = (description: string) => {
+    let maxLength = 250;
+    if (description.length <= maxLength) {
+        return filterDescription(description);
+    }
+    return filterDescription(description.substring(0, maxLength) + '...');
+}
+export { filterDescription, limitedDescription }

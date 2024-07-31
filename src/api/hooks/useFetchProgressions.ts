@@ -4,50 +4,52 @@ import { StatusCode } from "../client/IHttpClient";
 import { BookData } from "../../types/bookData";
 
 const useFetchAllProgressions = () => {
-    const [progressions, setProgressions] = useState<BookData['progressions']>();
+    const [progressions, setProgressions] = useState<BookData['progressions'][]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const service = new BookService();
 
     useEffect(() => {
         const fetchAllProgressions = async () => {
-            // pega todas as progressions
-            const progressions = await service.fetchProgressions();
-            // se tiver progressions
-            if (progressions.statusCode === StatusCode.Ok) {
-                // mapeia todas as progressões pra buscar os detalhes do livro
-                progressions.body.map(async (progression: BookData['progressions']) => {
-                    if (progression) {
-                        // busca os detalhes do livro
-                        const bookDetails = await service.fetchBooksByGoogleId(progression.googleId as string);
-                        const myBook = await service.fetchBooksByBookId(progression.bookId);
-                        
-                        // se tiver detalhes do livro
-                        if (bookDetails.statusCode === StatusCode.Ok) {
-                            const bookDataNeeded = {
+            setLoading(true);
+            const progressionsResponse = await service.fetchProgressions();
+
+            if (progressionsResponse.statusCode === StatusCode.Ok) {
+                const progressionsArray = await Promise.all(
+                    progressionsResponse.body.map(async (progression: BookData['progressions']) => {
+                        const bookDetails = await service.fetchBooksByGoogleId(progression?.googleId as string);
+                        const myBook = await service.fetchMyBooksByGoogleId(progression?.googleId);
+
+                        const lastPage = await service.fetchLastPage(myBook.body.bookId);
+
+                        if (bookDetails.statusCode === StatusCode.Ok && myBook.statusCode === StatusCode.Ok) {
+                            return {
                                 googleId: bookDetails.body.googleId,
                                 thumbnailUrl: bookDetails.body.thumbnailUrl,
                                 smallThumbnailUrl: bookDetails.body.smallThumbnailUrl,
                                 title: bookDetails.body.title,
-                                status: myBook.body[0].bookStatus,
-                                commentary: progression.commentary,
-                                page: progression.page,
-                                createdAt: progression.createdAt
-                            }
-                            setProgressions(bookDataNeeded as BookData['progressions']);
+                                status: myBook.body.bookStatus,
+                                commentary: progression?.commentary,
+                                page: lastPage?.body.page,
+                                pageCount: bookDetails.body.pages,
+                                createdAt: progression?.createdAt,
+                                description: bookDetails.body.description,
+                                percentage: lastPage.body.porcentage
+                            };
                         } else {
-                            return {
-                                ...progressions,
-                                reject: 'Erro ao buscar progressões'
-                            }
+                            return null;
                         }
-                    }
-                })
-            } else {
-                return progressions
+                    })
+                );
+
+                setProgressions(progressionsArray.filter(Boolean) as BookData['progressions'][]);
+                setLoading(false);
             }
-        }
+        };
+
         fetchAllProgressions();
-    }, [])
-    return { progressions } 
+    }, []);
+
+    return { progressions, loading };
 }
 
 export { useFetchAllProgressions }

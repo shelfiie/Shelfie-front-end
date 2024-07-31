@@ -130,8 +130,8 @@ export class BookService {
         }
     }
 
-    async fetchBooksByBookId(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
-        const base = `/api/mybooks/${bookId}/list`;
+    async fetchMyBooksByGoogleId(googleId: BookData['googleId']): Promise<HttpResponse<any>> {
+        const base = `/api/mybooks/google/${googleId}`;
 
         const response = await this.client.get({ url: base });
 
@@ -140,6 +140,20 @@ export class BookService {
             return {
                 ...response,
                 reject: 'Erro ao buscar livro',
+            }
+        }
+    }
+
+    async fetchLastPage(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/pages/${bookId}`
+
+        const response = await this.client.get({ url: base })
+
+        if(response.statusCode === StatusCode.Ok) return response;
+        else {
+            return {
+                ...response,
+                reject: 'Erro ao pegar última página.'
             }
         }
     }

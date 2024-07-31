@@ -27,11 +27,14 @@ type BookData = {
     }
     bookStatus?: BookStatus;
     progressions?: {
+        description: BookData['description']
         bookId: BookData['bookId'];
         googleId: BookData['googleId'];
         thumbnailUrl: BookData['thumbnailUrl'];
         smallThumbnailUrl: BookData['smallThumbnailUrl'];
         title: BookData['title'];
+        pageCount: BookData['pageCount']
+        percentage: number;
         status: BookStatus;
         commentary: string;
         page: number;
