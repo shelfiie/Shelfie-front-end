@@ -51,14 +51,21 @@ const ProgressionPageCount = styled(PageCount)`
 
 const CompleteProgress = {
     width: '100%',
-    height: 20, 
+    height: 20,
     borderRadius: 2,
     backgroundColor: 'transparent',
     border: `${Theme.borders.border2px} solid ${Theme.colors.deep}`,
-    '& .css-5xe99f-MuiLinearProgress-bar1' : {
+    '& .css-5xe99f-MuiLinearProgress-bar1': {
         backgroundColor: Theme.colors.pink,
         borderRight: `${Theme.borders.border2px} solid ${Theme.colors.deep}`,
-    }, 
+    },
 }
 
-export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount }
+const AllProgressions = styled.div`
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+`
+
+export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions }
