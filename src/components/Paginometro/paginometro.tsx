@@ -4,7 +4,6 @@ import { PaginometroDiv } from './paginometro.styles'
 
 export const Paginometro = () => {
     const { quantity } = useFetchPaginometer();
-    console.log(quantity)
     return (
         <PaginometroDiv>
             <p>Paginômetro</p>

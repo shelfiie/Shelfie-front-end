@@ -145,7 +145,7 @@ export class BookService {
     }
 
     async fetchLastPage(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
-        const base = `/api/pages/${bookId}`
+        const base = `/api/pages/book/${bookId}`
 
         const response = await this.client.get({ url: base })
 
