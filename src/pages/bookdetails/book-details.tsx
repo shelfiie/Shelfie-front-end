@@ -12,7 +12,6 @@ import { DropDownSelection } from '../../components/DropDownSelection/dropdown-s
 export const BookDetails = () => {
   const { id } = useParams();
   const { book } = useGBookById(id ?? '');
-  console.log(book)
   const navigate = useNavigate();
 
   useEffect(() => {

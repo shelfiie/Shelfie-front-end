@@ -10,7 +10,6 @@ import { useState } from "react";
 
 export const Reviews = () => {
   const { reviews } = useFetchReviewsByUser();
-  console.log(reviews);
   const [page, setPage] = useState(1);
 
   const charsPerPage = 2200; // Defina um limite de caracteres por página

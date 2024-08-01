@@ -112,7 +112,7 @@ export class BookService {
     }
 
     async fetchBooksByUser(): Promise<HttpResponse<any>> {
-        const base = '/api/mybooks';
+        const base = '/api/mybooks/mine';
 
         const response = await this.client.get({ url: base });
 
