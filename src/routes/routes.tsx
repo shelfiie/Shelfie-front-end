@@ -7,8 +7,8 @@ import { BookDetails } from "../pages/bookdetails/book-details.tsx";
 import { PrivateRoute } from "./privateRoute.tsx";
 import { Registro } from "../pages/registro/registro.tsx";
 import { AdminDashboard } from "../pages/admin/admin-dashboard.tsx";
-import { Progressions } from "../pages/progressions/progressions.tsx";
 import { Reviews } from "../pages/reviews/reviews.tsx";
+import { Progressions } from "../pages/progressions/progressions.tsx";
 
 export function Rotas() {
   return (

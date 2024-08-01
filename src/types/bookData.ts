@@ -1,4 +1,5 @@
 export enum BookStatus {
+    DEFAULT = 'SELECIONAR',
     LENDO = "LENDO",
     LIDO = "LIDO",
     QUERO_LER = "QUERO_LER",
