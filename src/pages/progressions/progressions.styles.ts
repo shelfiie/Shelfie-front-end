@@ -25,6 +25,17 @@ const BookInfo = styled.div`
     gap: ${Theme.margins.margin1rem};
     text-align: justify;
     color: ${Theme.colors.lightGrey};
+
+    p{
+        font-family: ${Theme.font.family.poppins};
+        font-size: ${Theme.font.sizes.xsmall};
+        font-weight: ${Theme.font.weight.light};
+        color: ${Theme.colors.lightGrey}
+    }
+    span{ 
+        text-decoration:underline;
+        font-weight: ${Theme.font.weight.semiBold};
+      }
     img {
         height: 150px;
     }
