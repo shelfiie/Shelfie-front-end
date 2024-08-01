@@ -4,7 +4,7 @@ const filterDescription = (description: string) => {
 }
 
 const limitedDescription = (description: string) => {
-    let maxLength = 250;
+    let maxLength = 350;
     if (description.length <= maxLength) {
         return filterDescription(description);
     }
