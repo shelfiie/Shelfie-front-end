@@ -1,25 +1,39 @@
 import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions";
-import { BookStatus } from "../../types/bookData";
+import { Layout } from "../layout";
 import { ProgressionsCard } from "./progressions-card";
+import { useState } from "react";
+import { Pagination } from "@mui/material";
+import { ProgressionsStyles } from "./progressions.styles";
 
 export const Progressions = () => {
-    const { progressions } = useFetchAllProgressions();
+  const { progressions } = useFetchAllProgressions();
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 5;
 
-    return progressions.map((progression) => (
-            <ProgressionsCard
-                bookId={progression?.bookId}
-                googleId={progression?.googleId}
-                title={progression?.title}
-                commentary={progression?.commentary ?? ''}
-                description={progression?.description}
-                thumbnailUrl={progression?.thumbnailUrl}
-                smallThumbnailUrl={progression?.smallThumbnailUrl}
-                percentage={progression?.percentage ?? 0}
-                page={progression?.page ?? 0}
-                pageCount={progression?.pageCount}
-                status={progression?.status || BookStatus.DEFAULT}
-                createdAt={progression?.createdAt ?? ''} />
-        ))
-    
+  const handleChange = (_event: any, value: number) => {
+    setPage(value);
+  };
 
-}
+  const paginatedProgressions = progressions.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+
+  return (
+    <Layout>
+      <ProgressionsStyles id="progression-styles">
+        <div>
+          <h2>Progressões</h2>
+          <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
+
+          <ProgressionsCard progressions={paginatedProgressions} />
+        </div>
+
+        <Pagination
+          sx={{ alignSelf: 'center' }}
+          count={Math.ceil(progressions.length / itemsPerPage)}
+          page={page}
+          onChange={handleChange}
+          color="primary"
+        />
+      </ProgressionsStyles>
+    </Layout>
+  );
+};

@@ -79,4 +79,11 @@ const AllProgressions = styled.div`
     gap: 1rem;
 `
 
-export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions }
+const ProgressionsStyles = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+`
+
+export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles }

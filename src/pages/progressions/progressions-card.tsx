@@ -1,59 +1,58 @@
 import { LinearProgress, Typography } from "@mui/material"
 import { BoxShadow } from "../../components/globals/Box.style"
 import { Theme } from "../../styles/theme"
-import { Layout } from "../layout"
 import { AllProgressions, BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionPageCount, StatusTag } from "./progressions.styles"
-import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions"
 import { limitedDescription } from "../../utils/filterDescription"
 import { Link } from "react-router-dom"
 import { BookData } from "../../types/bookData"
 
-export const ProgressionsCard = ( progressions : BookData['progressions']) => {
+type ProgressionsCardProps = {
+  progressions: BookData['progressions'][]
+}
 
-  // const { progressions } = useFetchAllProgressions();
-
+export const ProgressionsCard = ({ progressions }: ProgressionsCardProps) => {
   return (
-    <Layout>
-      <h2>Progressões</h2>
-      <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
+    <AllProgressions id='all-progressions'>
+      {progressions.map((progression: BookData['progressions'], index: number) => (
+        <BoxShadow
+          index={index}
+          display="flex"
+          flexDirection="column"
+          gap={Theme.margins.marginhalfrem}
+          width="35%"
+          color={Theme.colors.white}
+          padding={Theme.margins.margin1rem}
+          backgroundcolor={Theme.colors.green}
+          borderRadius={Theme.borders.radius}>
 
-      <AllProgressions id='all-progressions'>
-            <BoxShadow
-              display="flex"
-              flexDirection="column"
-              gap={Theme.margins.marginhalfrem}
-              width="35%"
-              color={Theme.colors.white}
-              padding={Theme.margins.margin1rem}
-              backgroundcolor={Theme.colors.green}
-              borderRadius={Theme.borders.radius}>
+          <BookProgression id="book-progression">
+            <StatusTag>{progression?.status}</StatusTag>
 
-              <BookProgression id="book-progression">
-                <StatusTag>{progressions?.status}</StatusTag>
+            <LinearProgress
+              sx={CompleteProgress}
+              variant="determinate" value={progression?.percentage} />
+            <Typography sx={PercentageStyle}>{progression?.percentage}%</Typography>
 
-                <LinearProgress
-                  sx={CompleteProgress}
-                  variant="determinate" value={progressions?.percentage} />
-                <Typography sx={PercentageStyle}>{progressions?.percentage}%</Typography>
+            <ProgressionPageCount>{progression?.page}/{progression?.pageCount}</ProgressionPageCount>
+          </BookProgression>
 
-                <ProgressionPageCount>{progressions?.page}/{progressions?.pageCount}</ProgressionPageCount>
-              </BookProgression>
+          <Commentary>
+            <p>{progression?.commentary}</p>
+          </Commentary>
 
-              <Commentary>
-                <p>{progressions?.commentary}</p>
-              </Commentary>
-
-              <BookInfo>
-                <Link to={`/bookdetails/${progressions?.googleId}`}>
-                  <img src={progressions?.thumbnailUrl ? progressions?.thumbnailUrl : progressions?.smallThumbnailUrl} />
+          <BookInfo>
+            <img src={progression?.thumbnailUrl ? progression?.thumbnailUrl : progression?.smallThumbnailUrl} />
+            <div>
+              <h4>{progression?.title}</h4>
+              <p>{limitedDescription(progression?.description ?? "")}
+                <Link to={`/bookdetails/${progression?.googleId}`}>
+                  <span>Ver mais</span>
                 </Link>
-                <div>
-                  <h4>{progressions?.title}</h4>
-                  <p>{limitedDescription(progressions?.description ?? "")} <span>Ver mais</span> </p>
-                </div>
-              </BookInfo>
-            </BoxShadow>
-      </AllProgressions>
-    </Layout>
+              </p>
+            </div>
+          </BookInfo>
+        </BoxShadow>
+      ))}
+    </AllProgressions>
   )
 }

@@ -37,6 +37,7 @@ type BookData = {
     }
     bookStatus?: BookStatus;
     progressions?: {
+        id?: string;
         description: BookData['description']
         bookId: BookData['bookId'];
         googleId: BookData['googleId'];

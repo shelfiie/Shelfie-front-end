@@ -23,6 +23,7 @@ const useFetchAllProgressions = () => {
 
                         if (bookDetails.statusCode === StatusCode.Ok && myBook.statusCode === StatusCode.Ok) {
                             return {
+                                id: progression?.id,
                                 googleId: bookDetails.body.googleId,
                                 thumbnailUrl: bookDetails.body.thumbnailUrl,
                                 smallThumbnailUrl: bookDetails.body.smallThumbnailUrl,
