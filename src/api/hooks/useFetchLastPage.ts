@@ -11,7 +11,6 @@ const useFetchLastPage = (bookId : BookData['bookId']) => {
         const fetchLastPage = async () => {
             const lastPage = await service.fetchLastPage(bookId);
             if (lastPage.statusCode === 200) {
-                console.log(lastPage.body.page);
                 setActualPage(lastPage.body.page);
             } 
         };
