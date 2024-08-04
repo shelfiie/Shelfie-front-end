@@ -15,7 +15,6 @@ import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
 
-// refactor pelo amor de deus q nem eu to entendendo mais
 export const BookDetails = () => {
   const { id } = useParams();
 
@@ -83,7 +82,7 @@ export const BookDetails = () => {
             </div>
 
             <div>
-              <Heart />
+                <Heart bookId={bookId} />
               {bookStatus === 'LENDO' ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}

@@ -2,33 +2,54 @@ import Coracao from '../../assets/icons/coracao.png';
 import CoracaoPreenchido from '../../assets/icons/coracao-preenchido.png';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { BookData } from '../../types/bookData';
+import { BookService } from '../../api/services/BookService';
+import { StatusCode } from '../../api/client/IHttpClient';
+import { Alert, Snackbar } from '@mui/material';
 
 export const HeartStyle = styled.img`
   width: 20px;
   height: 20px;
   transition: 0.3s ease-in-out;
 `;
-// to do - favoritar o livro e coloca na lista de favoritos
-export const Heart = () => {
-    const [isClicked, setIsClicked] = useState(false);
-    var [ src, setSrc ] = useState(Coracao);
 
-    const handleClick = () => {
-        setIsClicked(!isClicked);
-      }
+export const Heart = ({ bookId }: { bookId: BookData['bookId'] }) => {
+  const [src, setSrc] = useState(Coracao);
+  const [success, setSuccess] = useState<string | null>();
+  const [error, setError] = useState<string | null>();
+  const service = new BookService();
 
-    useEffect(() => {
-      if(isClicked){
-        setSrc(CoracaoPreenchido);
-      } else {
-        setSrc(Coracao);
-      }
-    }, [isClicked]);
+  const handleIsFavorite = async () => {
+    const isFavorited = await service.isFavorited(bookId);
+    if (isFavorited.body === true) setSrc(CoracaoPreenchido);
+    else setSrc(Coracao);
+  };
 
-  return(
-    <HeartStyle 
-      onClick={handleClick}
-      src={src}
-    />
+  useEffect(() => {
+    handleIsFavorite();
+  });
+
+  const handleFavorite = async () => {
+
+    const response = await service.favoriteBook(bookId);
+
+    if (response.statusCode === StatusCode.Ok) setSuccess(response?.resolve);
+    else setError(response?.reject);
+
+  }
+
+  return (
+    <>
+      <HeartStyle
+        onClick={handleFavorite}
+        src={src}
+      />
+      {success && <Snackbar open={true} onClose={() => setSuccess(null)} autoHideDuration={4000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <Alert severity="success">{success}</Alert>
+      </Snackbar>}
+      {error && <Snackbar open={true} onClose={() => setError(null)} autoHideDuration={4000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <Alert severity="error">{error}</Alert>
+      </Snackbar>}
+    </>
   )
 }

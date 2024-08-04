@@ -9,7 +9,7 @@ const StyledLixeira = styled.img`
 `
 
 const StyledBookCover = styled.img`
-    width: 7rem;
+    height: ${Theme.margins.margin10rem};
     transition: transform 0.3s ease-in-out;
 `
 
@@ -34,7 +34,7 @@ const StyledBookResumeContainer = styled(BoxShadow)`
     border: ${Theme.borders.border3px} solid ${Theme.colors.deep};
     box-shadow: 0px 0px 0 0px;
     background-color: ${Theme.colors.white};
-    width: 15%;
+    width: 18%;
     height: min-content;
 `
 

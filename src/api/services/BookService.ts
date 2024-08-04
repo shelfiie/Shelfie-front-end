@@ -147,7 +147,7 @@ export class BookService {
 
         const response = await this.client.get({ url: base })
 
-        if(response.statusCode === StatusCode.Ok) return response;
+        if (response.statusCode === StatusCode.Ok) return response;
         else {
             return {
                 ...response,
@@ -156,7 +156,7 @@ export class BookService {
         }
     }
 
-    async fetchBookById(bookId : BookData['bookId']): Promise<HttpResponse<any>> {
+    async fetchBookById(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
         const base = `/api/books/${bookId}`;
 
         const response = await this.client.get({ url: base });
@@ -261,6 +261,59 @@ export class BookService {
             return {
                 ...response,
                 reject: 'Erro ao buscar progressões do livro',
+            };
+        }
+    }
+
+    async isFavorited(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/books/favorite/is-favorited/${bookId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+        }
+        return response;
+
+    }
+
+    async favoriteBook(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/books/favorite/${bookId}`;
+
+        const isFavorited = await this.isFavorited(bookId);
+
+        const response = await this.client.put({ url: base });
+
+        if (isFavorited.body === false) return {
+            ...response,
+            resolve: 'Livro favoritado com sucesso'
+        };
+        else if (isFavorited.statusCode === StatusCode.Ok) return {
+            ...response,
+            resolve: 'Livro desfavoritado com sucesso'
+        };
+
+        return {
+            ...response,
+            reject: 'Erro ao favoritar livro',
+        }
+
+    }
+
+    async fetchFavoriteBooks(): Promise<HttpResponse<any>> {
+        const base = '/api/books/favorite/mine';
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return {
+                ...response,
+                resolve: 'Sucesso ao buscar livros favoritos',
+            };
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livros favoritos',
             };
         }
     }
