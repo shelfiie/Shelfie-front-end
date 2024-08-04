@@ -21,10 +21,22 @@ const BookProgression = styled.div`
 `
 
 const BookInfo = styled.div`
+    width: 330px;
     display: inline-flex;
     gap: ${Theme.margins.margin1rem};
     text-align: justify;
     color: ${Theme.colors.lightGrey};
+
+    p{
+        font-family: ${Theme.font.family.poppins};
+        font-size: ${Theme.font.sizes.xsmall};
+        font-weight: ${Theme.font.weight.light};
+        color: ${Theme.colors.lightGrey}
+    }
+    span{ 
+        text-decoration:underline;
+        font-weight: ${Theme.font.weight.semiBold};
+      }
     img {
         height: 150px;
     }
@@ -49,16 +61,41 @@ const ProgressionPageCount = styled(PageCount)`
     border: ${Theme.borders.border2px} solid ${Theme.colors.white};
 `
 
+const BookDescriptionNDate = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${Theme.margins.marginhalfrem};
+`
+
+const ProgressionDate = styled.p`
+    align-self: flex-end;
+    font-size: ${Theme.font.sizes.xxsmall};
+`
+
 const CompleteProgress = {
-    width: '100%',
-    height: 20, 
+    width: '30%',
+    height: 20,
     borderRadius: 2,
     backgroundColor: 'transparent',
     border: `${Theme.borders.border2px} solid ${Theme.colors.deep}`,
-    '& .css-5xe99f-MuiLinearProgress-bar1' : {
+    '& .css-5xe99f-MuiLinearProgress-bar1': {
         backgroundColor: Theme.colors.pink,
         borderRight: `${Theme.borders.border2px} solid ${Theme.colors.deep}`,
-    }, 
+    },
 }
 
-export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount }
+const AllProgressions = styled.div`
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+`
+
+const ProgressionsStyles = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+`
+
+export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }

@@ -1,4 +1,5 @@
 export enum BookStatus {
+    DEFAULT = 'SELECIONAR',
     LENDO = "LENDO",
     LIDO = "LIDO",
     QUERO_LER = "QUERO_LER",
@@ -17,18 +18,40 @@ type BookData = {
     publishedDate?: string;
     description?: string;
     isbn10?: string;
-    isbn13?: string; 
+    isbn13?: string;
     thumbnailUrl?: string;
     smallThumbnailUrl?: string;
+    //paginas que o livro tem
     pageCount?: number;
-    reviews? : {
+    quantity?: {
+        review?: number;
+        favorite?: number;
+        paginometer?: number;
+        lido?: number;
+        lendo?: number;
+        queroLer?: number;
+        abandonado?: number;
+    };
+    reviews?: {
         rating?: number;
         review?: string;
     }
     bookStatus?: BookStatus;
-    progression?: {
+    progressions?: {
+        id?: string;
+        description: BookData['description']
+        bookId: BookData['bookId'];
+        googleId: BookData['googleId'];
+        thumbnailUrl: BookData['thumbnailUrl'];
+        smallThumbnailUrl: BookData['smallThumbnailUrl'];
+        title: BookData['title'];
+        pageCount: BookData['pageCount']
+        percentage: number;
+        status: BookStatus;
         commentary: string;
-        pages: number;
+        porcentage?: number;
+        page: number;
+        createdAt: string;
     }
 }
 

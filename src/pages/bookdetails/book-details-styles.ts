@@ -90,6 +90,10 @@ const Carregando = styled.div`
     display: grid;
     margin: 0 auto;
 `
+const TitleWrapper = styled.div`
+    display: flex;
+    gap: ${Theme.margins.margin1rem};
+`
 
-export { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails, Carregando, BookCoverImage };
+export { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails, Carregando, BookCoverImage, TitleWrapper };;
 

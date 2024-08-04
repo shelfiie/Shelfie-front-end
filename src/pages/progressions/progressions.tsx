@@ -1,48 +1,38 @@
-import { LinearProgress, Typography } from "@mui/material"
-import { BoxShadow } from "../../components/globals/Box.style"
-import { Theme } from "../../styles/theme"
-import { Layout } from "../layout"
-import { BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionPageCount, StatusTag } from "./progressions.styles"
+import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions";
+import { Layout } from "../layout";
+import { ProgressionsCard } from "./progressions-card";
+import { useState } from "react";
+import { Pagination } from "@mui/material";
+import { ProgressionsStyles } from "./progressions.styles";
+import { ProgressionSkeleton } from "./progressions-skeleton";
 
 export const Progressions = () => {
+  const { progressions, loading } = useFetchAllProgressions();
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const handleChange = (_event: any, value: number) => {
+    setPage(value);
+  };
+
+  const paginatedProgressions = progressions.slice((page - 1) * itemsPerPage, page * itemsPerPage);
   return (
     <Layout>
-      <h2>Progressões</h2>
-      <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
+      <ProgressionsStyles id="progression-styles">
+        <div>
+          <h2>Progressões</h2>
+          <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
 
-      <BoxShadow
-        display="flex"
-        flexDirection="column"
-        gap={Theme.margins.marginhalfrem}
-        width="35%"
-        color={Theme.colors.white}
-        padding={Theme.margins.margin1rem}
-        backgroundcolor={Theme.colors.green}
-        borderRadius={Theme.borders.radius}>
-
-        <BookProgression id="book-progression">
-          <StatusTag>LENDO</StatusTag>
-          {/* <LinearProgressDiv> */}
-          <LinearProgress
-            sx={CompleteProgress}
-            variant="determinate" value={55} />
-          <Typography sx={PercentageStyle}>55%</Typography>
-          {/* </LinearProgressDiv> */}
-
-          <ProgressionPageCount>50/100</ProgressionPageCount>
-        </BookProgression>
-        <Commentary>
-          <p>Esse livro é muito bom, estou gostando bastante da leitura!</p>
-        </Commentary>
-        <BookInfo>
-          <img src="https://centrodametropole.fflch.usp.br/sites/centrodametropole.fflch.usp.br/files/user_files/livros/imagem/capa-no-book-cover.png" />
-          <div>
-            <h4>título abençoado</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla ratione magni quidem amet voluptatum et. Ab aspernatur architecto dolore suscipit, nostrum consequuntur tempore vero in adipisci vel odit! Facilis, tenetur.</p>
-          </div>
-        </BookInfo>
-
-      </BoxShadow>
+          {loading ? <ProgressionSkeleton />: <ProgressionsCard progressions={paginatedProgressions} />}
+        </div>
+        <Pagination
+          sx={{ alignSelf: 'center' }}
+          count={Math.ceil(progressions.length / itemsPerPage)}
+          page={page}
+          onChange={handleChange}
+          color="primary"
+        />
+      </ProgressionsStyles>
     </Layout>
-  )
-}
+  );
+};

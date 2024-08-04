@@ -48,6 +48,7 @@ export const Theme = {
         sizes: {
             xxsmall: '.625rem',
             xsmall: '.8rem',
+            almostXSmall: '1.0rem',
             small: '1.2rem',
             regular: '1.6rem',
             big1x: '2rem',

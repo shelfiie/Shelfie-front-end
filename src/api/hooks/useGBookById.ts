@@ -2,16 +2,12 @@ import { useEffect, useState } from "react";
 import { BookData } from "../../types/bookData";
 import { GoogleBooksService } from "../services/GBookService";
 import { StatusCode } from "../client/IHttpClient";
+import { filterDescription } from "../../utils/filters";
 
 const useGBookById = (id: string) => {
     const [book, setBook] = useState<BookData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
-
-    const filterDescription = (description: string) => {
-        if (!description) return 'Descrição não fornecida';
-        return description.replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<br>/g, '').replace("'", " ").replace(/<b>/g, '').replace(/<\/b>/g, '').replace(/<i>/g, '').replace(/<\/i>/g, '');
-    }
 
     useEffect(() => {
         const fetchBook = async () => {

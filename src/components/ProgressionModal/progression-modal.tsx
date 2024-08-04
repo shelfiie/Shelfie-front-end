@@ -9,27 +9,25 @@ import { BookData } from "../../types/bookData";
 import { ButtonsDiv, ProgressionForm, ProgressionSpan, styledBox } from "./progression-modal.styles";
 import { BookService } from "../../api/services/BookService";
 import { StatusCode } from "../../api/client/IHttpClient";
+import { useFetchLastPage } from "../../api/hooks/useFetchLastPage";
 
 type ProgressionModalProps = {
     isOpen: boolean;
     handleModal: () => void | undefined;
-    id: BookData['id'];
+    bookId: BookData['bookId'];
     title?: BookData['title'];
 }
 
-const progressionFilter = z.object({
-    commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }),
-    page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser inteiro' }).int({ message: 'Número deve ser inteiro' }),
-    bookId: z.string()
-})
-
-type ProgressionFilter = z.infer<typeof progressionFilter>
-
 export const ProgressionModal = (
-    { isOpen, handleModal, id, title }: ProgressionModalProps) => {
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState<string | null>();
-    const [error, setError] = useState<string | null>();
+    { isOpen, handleModal, bookId, title }: ProgressionModalProps) => {
+    const { actualPage, maxPage } = useFetchLastPage(bookId);
+    const progressionFilter = z.object({
+        commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
+        page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(maxPage as number, { message: `Número deve ser menor ou igual a ${maxPage}` }),
+        bookId: z.string()
+    })
+
+    type ProgressionFilter = z.infer<typeof progressionFilter>
 
     const {
         register,
@@ -40,6 +38,10 @@ export const ProgressionModal = (
         reValidateMode: 'onChange',
         resolver: zodResolver(progressionFilter)
     });
+
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState<string | null>();
+    const [error, setError] = useState<string | null>();
 
     const onSubmit: SubmitHandler<ProgressionFilter> = async (data) => {
         setLoading(true);
@@ -53,6 +55,7 @@ export const ProgressionModal = (
             setError(null);
             setSuccess(response?.resolve);
             setTimeout(() => setSuccess(null), 3000);
+            window.location.reload();
         } else {
             setSuccess(null);
             setError(response?.reject);
@@ -73,7 +76,7 @@ export const ProgressionModal = (
                     <ProgressionForm onSubmit={handleSubmit(onSubmit)}>
                         <TextField sx={{ display: 'none' }}
                             {...register('bookId')}
-                            value={id} />
+                            value={bookId} />
 
                         <h3>{title}</h3>
 
@@ -81,7 +84,7 @@ export const ProgressionModal = (
                             Conte um pouco sobre sobre o que está achando do livro e da leitura.
                         </ProgressionSpan>
                         <p>
-                            Progressão da leitura:
+                            Progressão da leitura [{actualPage}/{maxPage}]:
                         </p>
 
                         <TextField
@@ -121,7 +124,7 @@ export const ProgressionModal = (
                                 color={Theme.colors.white}
                                 fontSize={Theme.font.sizes.xsmall}
                             >{loading ? 'Carregando' : 'Salvar'}</Botao>
-                            
+
                         </ButtonsDiv>
 
                         {success && <Alert severity="success">{success}</Alert>}

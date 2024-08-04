@@ -10,7 +10,6 @@ export class BookService {
     }
 
     async isBookEnabled({ googleId }: BookData): Promise<HttpResponse<any>> {
-        console.log(googleId);
         const base = `/api/mybooks/is-enabled/${googleId}`;
 
         const response = await this.client.get({ url: base });
@@ -61,7 +60,6 @@ export class BookService {
         } // se não, o livro não esta associado ao usuário e pode ser feito post
         else {
             const response = await this.postBookStatus({ googleId, bookStatus });
-            console.log('response post: ', response);
             if (response.statusCode === StatusCode.Created) {
                 return {
                     ...response,
@@ -112,7 +110,7 @@ export class BookService {
     }
 
     async fetchBooksByUser(): Promise<HttpResponse<any>> {
-        const base = '/api/mybooks';
+        const base = '/api/mybooks/mine';
 
         const response = await this.client.get({ url: base });
 
@@ -130,22 +128,62 @@ export class BookService {
         }
     }
 
-    async fetchBookById(id: string): Promise<HttpResponse<any>> {
-        const base = `/api/books/${id}`;
+    async fetchMyBooksByGoogleId(googleId: BookData['googleId']): Promise<HttpResponse<any>> {
+        const base = `/api/mybooks/google/${googleId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) return response;
+        else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livro',
+            }
+        }
+    }
+
+    async fetchLastPage(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/pages/book/${bookId}`
+
+        const response = await this.client.get({ url: base })
+
+        if (response.statusCode === StatusCode.Ok) return response;
+        else {
+            return {
+                ...response,
+                reject: 'Erro ao pegar última página.'
+            }
+        }
+    }
+
+    async fetchBookById(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/books/${bookId}`;
 
         const response = await this.client.get({ url: base });
         if (response.statusCode === StatusCode.Ok) {
-            return {
-                ...response,
-                body: response.body,
-                resolve: 'Sucesso ao buscar livro',
-            }
+            return response;
 
         } else {
             return {
                 ...response,
                 reject: 'Erro ao buscar livro'
             }
+        }
+    }
+
+    async fetchBooksByGoogleId(googleId: string): Promise<HttpResponse<any>> {
+        const base = `/api/books/google/${googleId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livro'
+            };
         }
     }
 
@@ -198,7 +236,89 @@ export class BookService {
         }
     }
 
-    async disableBook(myBooksId: string): Promise<HttpResponse<any>> {
+    // PROGRESSIONS
+    async fetchProgressions(): Promise<HttpResponse<any>> {
+        const base = '/api/reading';
+
+        const response = await this.client.get({ url: base });
+        if (response.statusCode === StatusCode.Ok) return response;
+        else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar progressões',
+            };
+        }
+    }
+
+    async fetchProgressionsPages(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/pages/rp/${bookId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar progressões do livro',
+            };
+        }
+    }
+
+    async isFavorited(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/books/favorite/is-favorited/${bookId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+        }
+        return response;
+
+    }
+
+    async favoriteBook(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/books/favorite/${bookId}`;
+
+        const isFavorited = await this.isFavorited(bookId);
+
+        const response = await this.client.put({ url: base });
+
+        if (isFavorited.body === false) return {
+            ...response,
+            resolve: 'Livro favoritado com sucesso'
+        };
+        else if (isFavorited.statusCode === StatusCode.Ok) return {
+            ...response,
+            resolve: 'Livro desfavoritado com sucesso'
+        };
+
+        return {
+            ...response,
+            reject: 'Erro ao favoritar livro',
+        }
+
+    }
+
+    async fetchFavoriteBooks(): Promise<HttpResponse<any>> {
+        const base = '/api/books/favorite/mine';
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return {
+                ...response,
+                resolve: 'Sucesso ao buscar livros favoritos',
+            };
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar livros favoritos',
+            };
+        }
+    }
+
+    async disableBook(myBooksId: BookData['id']): Promise<HttpResponse<any>> {
         const base = `/api/mybooks/${myBooksId}/disable`;
 
         const response = await this.client.put({ url: base });

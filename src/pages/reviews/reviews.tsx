@@ -7,25 +7,15 @@ import { useFetchReviewsByUser } from "../../api/hooks/useFetchReviewsByUser";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { Theme } from "../../styles/theme";
 import { useState } from "react";
+import { formatDate } from "../../utils/filters";
 
 export const Reviews = () => {
   const { reviews } = useFetchReviewsByUser();
-  console.log(reviews);
   const [page, setPage] = useState(1);
 
-  const charsPerPage = 2200; // Defina um limite de caracteres por página
+  const charsPerPage = 1800; // Defina um limite de caracteres por página
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => setPage(value);
-
-
-  const formatDate = (date: string) => {
-    const newDate = new Date(date);
-    return newDate.toLocaleDateString('pt-BR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-  };
 
   const getPagedReviews = (reviews: any[], charsPerPage: number) => {
     let currentPageChars = 0;

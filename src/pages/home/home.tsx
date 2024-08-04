@@ -9,7 +9,7 @@ import { BookData } from "../../types/bookData.ts";
 import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 
 export function Home() {
-  const { allBooks, lendo, lidos, queroler, abandonados, isLoading } = useFetchBooksByUser();
+  const { allBooks, lendo, lidos, queroler, abandonados, isLoading, favoritos } = useFetchBooksByUser();
   const [value, setValue] = useState('1');
   const itemsPerPage = 10; // Número de itens por página
 
@@ -19,6 +19,7 @@ export function Home() {
     lidos: 1,
     queroler: 1,
     abandonados: 1,
+    favoritos: 1
   });
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
@@ -41,6 +42,7 @@ export function Home() {
       <BooksWrapper id="books-wrapper">
         {items.length > 0 ? paginatedItems(items, page).map((book) => (
           <BookResume
+            key={book.id}
             id={book.id}
             bookId={book.bookId}
             googleId={book.googleId}
@@ -71,6 +73,7 @@ export function Home() {
             <Tab sx={TabStyle} label="Lidos" value='3' />
             <Tab sx={TabStyle} label="Quero Ler" value='4' />
             <Tab sx={TabStyle} label="Abandonados" value='5' />
+            <Tab sx={TabStyle} label="Favoritos" value='6' />
           </TabList>
 
           <TabPanel sx={{ height: '100%' }} value='1'>
@@ -91,6 +94,10 @@ export function Home() {
 
           <TabPanel sx={{ height: '100%' }} value='5'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={abandonados} page={page.abandonados} category="abandonados" />}
+          </TabPanel>
+
+          <TabPanel sx={{ height: '100%' }} value='6'>
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={favoritos} page={page.favoritos} category="favoritos" />}
           </TabPanel>
 
         </TabContext>
