@@ -21,6 +21,7 @@ const BookProgression = styled.div`
 `
 
 const BookInfo = styled.div`
+    width: 330px;
     display: inline-flex;
     gap: ${Theme.margins.margin1rem};
     text-align: justify;
@@ -61,7 +62,7 @@ const ProgressionPageCount = styled(PageCount)`
 `
 
 const CompleteProgress = {
-    width: '100%',
+    width: '30%',
     height: 20,
     borderRadius: 2,
     backgroundColor: 'transparent',

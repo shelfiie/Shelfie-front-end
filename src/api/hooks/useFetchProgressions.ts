@@ -13,15 +13,15 @@ const useFetchAllProgressions = () => {
         const fetchAllProgressions = async () => {
             setLoading(true);
             const progressionsResponse = await service.fetchProgressions();
-
+            // pega as paginas daquela progressão em específico
+            
             if (progressionsResponse.statusCode === StatusCode.Ok) {
                 const progressionsArray = await Promise.all(
                     progressionsResponse.body.map(async (progression: BookData['progressions']) => {
+                        const progressionPageDetails = await service.fetchProgressionsPages(progression?.id);
                         const bookDetails = await service.fetchBookById(progression?.bookId as string);
-                        // console.log('bookdetails: ', bookDetails);
                         const myBook = await service.fetchMyBooksByGoogleId(progression?.googleId);
-                        const lastPage = await service.fetchLastPage(myBook.body.bookId);
-
+                        
                         if (bookDetails.statusCode === StatusCode.Ok && myBook.statusCode === StatusCode.Ok) {
                             setLoading(false);
                             return {
@@ -32,11 +32,11 @@ const useFetchAllProgressions = () => {
                                 title: bookDetails.body.title,
                                 status: myBook.body.bookStatus,
                                 commentary: progression?.commentary,
-                                page: lastPage?.body.page,
+                                page: progression?.page,
                                 pageCount: bookDetails.body.pages,
                                 createdAt: progression?.createdAt,
                                 description: bookDetails.body.description && limitedDescription(bookDetails.body.description),
-                                percentage: lastPage.body.porcentage
+                                percentage: progressionPageDetails.body.porcentage
                             };
                         } else {
                             setLoading(false);

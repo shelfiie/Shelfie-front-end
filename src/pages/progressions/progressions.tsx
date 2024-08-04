@@ -9,7 +9,7 @@ import { ProgressionSkeleton } from "./progressions-skeleton";
 export const Progressions = () => {
   const { progressions, loading } = useFetchAllProgressions();
   const [page, setPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
 
   const handleChange = (_event: any, value: number) => {
     setPage(value);

@@ -2,7 +2,6 @@ import { LinearProgress, Typography } from "@mui/material"
 import { BoxShadow } from "../../components/globals/Box.style"
 import { Theme } from "../../styles/theme"
 import { AllProgressions, BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionPageCount, StatusTag } from "./progressions.styles"
-import { limitedDescription } from "../../utils/filterDescription"
 import { Link } from "react-router-dom"
 import { BookData } from "../../types/bookData"
 
@@ -15,12 +14,12 @@ export const ProgressionsCard = ({ progressions }: ProgressionsCardProps) => {
   return (
     <AllProgressions id='all-progressions'>
       {progressions.map((progression: BookData['progressions'], index: number) => (
-        <BoxShadow
+        <BoxShadow id="progression-card" key={index}
           index={index}
           display="flex"
           flexDirection="column"
           gap={Theme.margins.marginhalfrem}
-          width="35%"
+          width="max-content"
           color={Theme.colors.white}
           padding={Theme.margins.margin1rem}
           backgroundcolor={Theme.colors.green}

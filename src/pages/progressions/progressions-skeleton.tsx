@@ -11,10 +11,10 @@ const styles = {
 export const ProgressionSkeleton = () => {
     return (
         <Box sx={styles}>
-            <Skeleton variant="rectangular" animation="wave" width={480} height={250} />
-            <Skeleton variant="rectangular" animation="wave" width={480} height={250} />
-            <Skeleton variant="rectangular" animation="wave" width={480} height={250} />
-            <Skeleton variant="rectangular" animation="wave" width={480} height={250} />
+            <Skeleton variant="rectangular" animation="wave" width={330} height={250} />
+            <Skeleton variant="rectangular" animation="wave" width={330} height={250} />
+            <Skeleton variant="rectangular" animation="wave" width={330} height={250} />
+            <Skeleton variant="rectangular" animation="wave" width={330} height={250} />
         </Box>
     );
 }

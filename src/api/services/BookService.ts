@@ -10,7 +10,6 @@ export class BookService {
     }
 
     async isBookEnabled({ googleId }: BookData): Promise<HttpResponse<any>> {
-        console.log(googleId);
         const base = `/api/mybooks/is-enabled/${googleId}`;
 
         const response = await this.client.get({ url: base });
@@ -61,7 +60,6 @@ export class BookService {
         } // se não, o livro não esta associado ao usuário e pode ser feito post
         else {
             const response = await this.postBookStatus({ googleId, bookStatus });
-            console.log('response post: ', response);
             if (response.statusCode === StatusCode.Created) {
                 return {
                     ...response,
@@ -249,6 +247,21 @@ export class BookService {
             return {
                 ...response,
                 reject: 'Erro ao buscar progressões',
+            };
+        }
+    }
+
+    async fetchProgressionsPages(bookId: BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/pages/rp/${bookId}`;
+
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return response;
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao buscar progressões do livro',
             };
         }
     }
