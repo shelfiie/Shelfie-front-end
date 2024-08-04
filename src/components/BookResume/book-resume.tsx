@@ -8,12 +8,15 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { Link } from 'react-router-dom';
 import { ReviewModal } from '../Review/review.tsx';
 import { DeleteDialog } from './delete-dialog.tsx';
+import { Heart } from '../globals/Heart.style.tsx';
+import { useFetchLastPage } from '../../api/hooks/useFetchLastPage.ts';
 
-export const BookResume = (Bookzin: BookData & { refetch: () => void }) => {
+export const BookResume = (Bookzin: BookData) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const { actualPage, maxPage } = useFetchLastPage(Bookzin.bookId);
 
   const handleProgressionModal = () => setIsOpen(!isOpen);
   const handleDeleteDialog = () => setConfirmOpen(!confirmOpen);
@@ -45,32 +48,33 @@ export const BookResume = (Bookzin: BookData & { refetch: () => void }) => {
               LER
             </Botao>
           )}
-          <DeleteRoundedIcon onClick={handleDeleteDialog} />
-          <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} refetch={Bookzin.refetch} />
         </ButtonWrapper>
-
-        <ReviewModal
-          isOpen={reviewIsOpen}
-          handleModal={handleReviewModal}
-          bookId={Bookzin.bookId}
-          title={Bookzin.title}
-          key={Bookzin.bookId} />
-
-        <ProgressionModal
-          bookId={Bookzin.bookId}
-          isOpen={isOpen}
-          handleModal={handleProgressionModal}
-          title={Bookzin.title}
-          key={Bookzin.googleId} />
+        <Heart bookId={Bookzin.bookId} />
+        <DeleteRoundedIcon onClick={handleDeleteDialog} />
+        <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
       </StyledOptions>
 
-      <ResumeTitle>
-        {Bookzin.title}
-      </ResumeTitle>
 
       <Link to={`/bookdetails/${Bookzin.googleId}`} style={{ textDecoration: 'none' }}>
         <StyledBookCover src={Bookzin.thumbnailUrl || Bookzin.smallThumbnailUrl} alt="Book Cover" />
       </Link>
+
+      <ResumeTitle>
+        {Bookzin.title} [{actualPage}/{maxPage}]
+      </ResumeTitle>
+      <ReviewModal
+        isOpen={reviewIsOpen}
+        handleModal={handleReviewModal}
+        bookId={Bookzin.bookId}
+        title={Bookzin.title}
+        key={Bookzin.bookId} />
+
+      <ProgressionModal
+        bookId={Bookzin.bookId}
+        isOpen={isOpen}
+        handleModal={handleProgressionModal}
+        title={Bookzin.title}
+        key={Bookzin.googleId} />
 
     </StyledBookResumeContainer>
   )
