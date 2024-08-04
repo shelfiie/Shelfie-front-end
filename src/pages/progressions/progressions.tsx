@@ -4,9 +4,10 @@ import { ProgressionsCard } from "./progressions-card";
 import { useState } from "react";
 import { Pagination } from "@mui/material";
 import { ProgressionsStyles } from "./progressions.styles";
+import { ProgressionSkeleton } from "./progressions-skeleton";
 
 export const Progressions = () => {
-  const { progressions } = useFetchAllProgressions();
+  const { progressions, loading } = useFetchAllProgressions();
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -15,7 +16,6 @@ export const Progressions = () => {
   };
 
   const paginatedProgressions = progressions.slice((page - 1) * itemsPerPage, page * itemsPerPage);
-
   return (
     <Layout>
       <ProgressionsStyles id="progression-styles">
@@ -23,9 +23,8 @@ export const Progressions = () => {
           <h2>Progressões</h2>
           <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
 
-          <ProgressionsCard progressions={paginatedProgressions} />
+          {loading ? <ProgressionSkeleton />: <ProgressionsCard progressions={paginatedProgressions} />}
         </div>
-
         <Pagination
           sx={{ alignSelf: 'center' }}
           count={Math.ceil(progressions.length / itemsPerPage)}

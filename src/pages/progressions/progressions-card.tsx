@@ -10,6 +10,7 @@ type ProgressionsCardProps = {
   progressions: BookData['progressions'][]
 }
 
+
 export const ProgressionsCard = ({ progressions }: ProgressionsCardProps) => {
   return (
     <AllProgressions id='all-progressions'>
@@ -44,7 +45,7 @@ export const ProgressionsCard = ({ progressions }: ProgressionsCardProps) => {
             <img src={progression?.thumbnailUrl ? progression?.thumbnailUrl : progression?.smallThumbnailUrl} />
             <div>
               <h4>{progression?.title}</h4>
-              <p>{limitedDescription(progression?.description ?? "")}
+              <p>{progression?.description}
                 <Link to={`/bookdetails/${progression?.googleId}`}>
                   <span>Ver mais</span>
                 </Link>
