@@ -4,7 +4,7 @@ import { BookData } from "../../types/bookData";
 
 const useFetchLastPage = (bookId : BookData['bookId']) => {
     const service = new BookService();
-    const [maxPage, setMaxPage] = useState<BookData['pageCount']>();
+    const [maxPage, setMaxPage] = useState<BookData['pageCount']>(0);
     const [actualPage, setActualPage] = useState<number>(0);
 
     useEffect(() => {

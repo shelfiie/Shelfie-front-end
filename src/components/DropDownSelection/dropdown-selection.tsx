@@ -28,6 +28,7 @@ export const DropDownSelection: React.FC<DropDownSelectionProps> = ({ googleId, 
 
             if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
                 setSuccess(response?.resolve);
+                window.location.reload();
             } else {
                 setError(response?.reject);
             }

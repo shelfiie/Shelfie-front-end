@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BookData } from "../../types/bookData";
 import { GoogleBooksService } from "../services/GBookService";
 import { StatusCode } from "../client/IHttpClient";
-import { filterDescription } from "../../utils/filterDescription";
+import { filterDescription } from "../../utils/filters";
 
 const useGBookById = (id: string) => {
     const [book, setBook] = useState<BookData | null>(null);

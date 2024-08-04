@@ -47,7 +47,6 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
     const [value, setValue] = useState<number | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
     const [error, setError] = useState<string | undefined>();
-
     const {
         watch,
         register,
@@ -75,6 +74,7 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
             setError(undefined);
             setSuccess(response?.resolve);
             setTimeout(() => setSuccess(undefined), 3000);
+            window.location.reload();
         } else {
             setSuccess(undefined);
             setError(response?.reject);

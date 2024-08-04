@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Theme } from "../../styles/theme";
+import React from "react";
 
 interface BoxProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     color?: string;
@@ -29,7 +30,7 @@ const Box = styled.div<BoxProps>`
     padding: ${(props) => props.padding};
 `
 
-export const BoxShadow = ({ ...props }) => {
+export const BoxShadow: React.FC<BoxProps> = ({ ...props }) => {
     return (
         <Box
             {...props}
