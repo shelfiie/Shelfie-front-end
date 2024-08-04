@@ -9,7 +9,7 @@ import { BookData } from "../../types/bookData.ts";
 import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 
 export function Home() {
-  const { allBooks, lendo, lidos, queroler, abandonados, isLoading } = useFetchBooksByUser();
+  const { allBooks, lendo, lidos, queroler, abandonados, isLoading, refetch } = useFetchBooksByUser();
   const [value, setValue] = useState('1');
   const itemsPerPage = 10; // Número de itens por página
 
@@ -41,13 +41,15 @@ export function Home() {
       <BooksWrapper id="books-wrapper">
         {items.length > 0 ? paginatedItems(items, page).map((book) => (
           <BookResume
+            key={book.id}
             id={book.id}
             bookId={book.bookId}
             googleId={book.googleId}
             title={book.title}
             thumbnailUrl={book.smallThumbnailUrl}
             smallThumbnailUrl={book.smallThumbnailUrl}
-            bookStatus={book.bookStatus} />
+            bookStatus={book.bookStatus}
+            refetch={refetch} />
 
         )) : (<p>Você não tem livros nessa lista</p>)}
         

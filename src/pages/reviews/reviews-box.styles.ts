@@ -12,7 +12,7 @@ const BoxWrapper = styled.div`
     width: 100%;
 
     img{
-        flex: 1
+        margin-right: ${Theme.margins.margin1rem};
     }
 `
 

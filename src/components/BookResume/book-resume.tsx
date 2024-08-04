@@ -5,35 +5,19 @@ import { ButtonWrapper, ResumeTitle, StyledBookCover, StyledBookResumeContainer,
 import { ProgressionModal } from '../ProgressionModal/progression-modal.tsx';
 import { BookData, BookStatus } from '../../types/bookData.ts';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { BookService } from '../../api/services/BookService.ts';
-import { Alert, Snackbar } from '@mui/material';
-import { StatusCode } from '../../api/client/IHttpClient.ts';
 import { Link } from 'react-router-dom';
 import { ReviewModal } from '../Review/review.tsx';
+import { DeleteDialog } from './delete-dialog.tsx';
 
-export const BookResume = (Bookzin: BookData) => {
+export const BookResume = (Bookzin: BookData & { refetch: () => void }) => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
-
-  const [success, setSuccess] = useState<string | undefined>();
-  const [error, setError] = useState<string | undefined>();
-
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleProgressionModal = () => setIsOpen(!isOpen);
+  const handleDeleteDialog = () => setConfirmOpen(!confirmOpen);
   const handleReviewModal = () => setReviewIsOpen(!reviewIsOpen);
-
-  const handleDisable = async () => {
-    const bookService = new BookService();
-    const response = await bookService.disableBook(Bookzin.id ?? '');
-    if (response.statusCode === StatusCode.Ok) {
-      setSuccess(response?.resolve);
-      setTimeout(() => setSuccess(undefined), 3000);
-
-    } else {
-      setError(response?.reject);
-      setTimeout(() => setError(undefined), 3000);
-    }
-  }
 
   return (
     <StyledBookResumeContainer id="book-resume-container" >
@@ -61,7 +45,8 @@ export const BookResume = (Bookzin: BookData) => {
               LER
             </Botao>
           )}
-          <DeleteRoundedIcon onClick={handleDisable} />
+          <DeleteRoundedIcon onClick={handleDeleteDialog} />
+          <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} refetch={Bookzin.refetch} />
         </ButtonWrapper>
 
         <ReviewModal
@@ -72,7 +57,7 @@ export const BookResume = (Bookzin: BookData) => {
           key={Bookzin.bookId} />
 
         <ProgressionModal
-          id={Bookzin.bookId}
+          bookId={Bookzin.bookId}
           isOpen={isOpen}
           handleModal={handleProgressionModal}
           title={Bookzin.title}
@@ -87,29 +72,6 @@ export const BookResume = (Bookzin: BookData) => {
         <StyledBookCover src={Bookzin.thumbnailUrl || Bookzin.smallThumbnailUrl} alt="Book Cover" />
       </Link>
 
-      {success &&
-        <Snackbar
-          sx={{ marginRight: '4rem' }}
-          open={!!success}
-          autoHideDuration={5000}
-          onClose={() => setSuccess(undefined)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          <Alert severity="success">
-            {success}
-          </Alert>
-        </Snackbar>}
-
-      {error &&
-        <Snackbar
-          sx={{ marginRight: '4rem' }}
-          open={!!error}
-          autoHideDuration={5000}
-          onClose={() => setError(undefined)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          <Alert severity="error">
-            {error}
-          </Alert>
-        </Snackbar>}
     </StyledBookResumeContainer>
   )
 }
