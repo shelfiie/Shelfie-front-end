@@ -158,8 +158,8 @@ export class BookService {
         }
     }
 
-    async fetchBookById(id: string): Promise<HttpResponse<any>> {
-        const base = `/api/books/${id}`;
+    async fetchBookById(bookId : BookData['bookId']): Promise<HttpResponse<any>> {
+        const base = `/api/books/${bookId}`;
 
         const response = await this.client.get({ url: base });
         if (response.statusCode === StatusCode.Ok) {
@@ -256,7 +256,7 @@ export class BookService {
         }
     }
 
-    async disableBook(myBooksId: string): Promise<HttpResponse<any>> {
+    async disableBook(myBooksId: BookData['id']): Promise<HttpResponse<any>> {
         const base = `/api/mybooks/${myBooksId}/disable`;
 
         const response = await this.client.put({ url: base });

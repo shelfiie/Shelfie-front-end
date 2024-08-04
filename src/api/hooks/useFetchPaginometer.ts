@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { UserService } from "../services/UserService"
 import { BookData } from "../../types/bookData";
+import { BookService } from "../services/BookService";
 
 const useFetchPaginometer = () => {
     const [quantity, setQuantity] = useState<BookData['quantity']>({ abandonado: 0, favorite: 0, lendo: 0, lido: 0, queroLer: 0, review: 0, paginometer: 0 });
 
-    const service = new UserService();
+    const userService = new UserService();
+    const bookService = new BookService();
 
     useEffect(() => {
         const fetchPaginometro = async () => {
-            const response = await service.fetchBooksQuantity();
+            const response = await userService.fetchBooksQuantity();
             setQuantity((prevState: BookData['quantity']) => ({
                 ...prevState,
                 paginometer: response.body?.paginometer,
@@ -21,6 +23,7 @@ const useFetchPaginometer = () => {
                 abandonado: response.body?.abandonado,
             }))
         };
+
         fetchPaginometro();
     }, []);
 

@@ -21,6 +21,7 @@ type BookData = {
     isbn13?: string;
     thumbnailUrl?: string;
     smallThumbnailUrl?: string;
+    //paginas que o livro tem
     pageCount?: number;
     quantity?: {
         review?: number;

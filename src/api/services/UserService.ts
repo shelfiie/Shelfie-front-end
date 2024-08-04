@@ -48,12 +48,6 @@ export class UserService {
         return response;
     }
 
-    // async fetchPaginometro(): Promise<HttpResponse<any>> {
-    //     const base = '/api/pages/paginometer';
-    //     const response = await this.client.get({ url: base });
-    //     return response;
-    // }
-
     async fetchBooksQuantity(): Promise<HttpResponse<any>> {
         const base = '/api/pages/mine';
         const response = await this.client.get({ url: base });
