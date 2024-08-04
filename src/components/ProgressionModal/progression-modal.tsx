@@ -22,9 +22,10 @@ export const ProgressionModal = (
     { isOpen, handleModal, bookId, title }: ProgressionModalProps) => {
 
     const { actualPage, maxPage } = useFetchLastPage(bookId);
+
     const progressionFilter = z.object({
         commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
-        page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(actualPage, { message: `Número deve ser menor ou igual a ${maxPage}` }),
+        page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(maxPage as number, { message: `Número deve ser menor ou igual a ${maxPage}` }),
         bookId: z.string()
     })
 
