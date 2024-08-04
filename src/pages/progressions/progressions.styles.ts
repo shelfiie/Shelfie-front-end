@@ -61,6 +61,17 @@ const ProgressionPageCount = styled(PageCount)`
     border: ${Theme.borders.border2px} solid ${Theme.colors.white};
 `
 
+const BookDescriptionNDate = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${Theme.margins.marginhalfrem};
+`
+
+const ProgressionDate = styled.p`
+    align-self: flex-end;
+    font-size: ${Theme.font.sizes.xxsmall};
+`
+
 const CompleteProgress = {
     width: '30%',
     height: 20,
@@ -87,4 +98,4 @@ const ProgressionsStyles = styled.div`
     justify-content: space-between;
 `
 
-export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles }
+export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }

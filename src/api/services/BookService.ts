@@ -160,7 +160,6 @@ export class BookService {
         const base = `/api/books/${bookId}`;
 
         const response = await this.client.get({ url: base });
-        console.log('response: ', response);
         if (response.statusCode === StatusCode.Ok) {
             return response;
 
