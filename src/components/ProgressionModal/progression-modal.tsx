@@ -18,19 +18,17 @@ type ProgressionModalProps = {
     title?: BookData['title'];
 }
 
-const progressionFilter = z.object({
-    commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }),
-    page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }),
-    bookId: z.string()
-})
-
-type ProgressionFilter = z.infer<typeof progressionFilter>
-
 export const ProgressionModal = (
     { isOpen, handleModal, bookId, title }: ProgressionModalProps) => {
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState<string | null>();
-    const [error, setError] = useState<string | null>();
+
+    const { actualPage, maxPage } = useFetchLastPage(bookId);
+    const progressionFilter = z.object({
+        commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
+        page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(actualPage, { message: `Número deve ser menor ou igual a ${maxPage}` }),
+        bookId: z.string()
+    })
+
+    type ProgressionFilter = z.infer<typeof progressionFilter>
 
     const {
         register,
@@ -42,7 +40,9 @@ export const ProgressionModal = (
         resolver: zodResolver(progressionFilter)
     });
 
-    const { actualPage, maxPage } = useFetchLastPage(bookId);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState<string | null>();
+    const [error, setError] = useState<string | null>();
 
     const onSubmit: SubmitHandler<ProgressionFilter> = async (data) => {
         setLoading(true);
@@ -124,7 +124,7 @@ export const ProgressionModal = (
                                 color={Theme.colors.white}
                                 fontSize={Theme.font.sizes.xsmall}
                             >{loading ? 'Carregando' : 'Salvar'}</Botao>
-                            
+
                         </ButtonsDiv>
 
                         {success && <Alert severity="success">{success}</Alert>}
