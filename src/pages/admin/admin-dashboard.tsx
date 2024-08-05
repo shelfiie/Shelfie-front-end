@@ -1,6 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 import { UserService } from "../../api/services/UserService";
-import { Layout } from "../layout"
+import { Layout } from "../layout/layout"
 import { UserData } from "../../types/userType";
 import { AdminSpan, DashboardWrapper, ItemWrapper, PageWrapper, UserDiv, UserInformation, UsersWrapper } from "./admin-dashboard.styles";
 import { Alert, Pagination, Snackbar } from "@mui/material";
@@ -25,7 +25,7 @@ export const AdminDashboard = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             const response = await userService.fetchAllUsers();
-    
+
             setUsers(response?.body as UserData[]);
             console.log(response?.body);
             setTotalPages(Math.ceil((response?.body as any[]).length / pageSize));

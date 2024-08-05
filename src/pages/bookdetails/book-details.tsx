@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
-import { Layout } from '../layout/index';
+import { Layout } from '../layout/layout';
 import { BookContent, BookDescription, BoxBook, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage, TitleWrapper } from './book-details-styles';
 import { Heart } from '../../components/globals/Heart.style'
 import { useGBookById } from '../../api/hooks/useGBookById';
@@ -82,7 +82,7 @@ export const BookDetails = () => {
             </div>
 
             <div>
-                <Heart bookId={bookId} />
+              <Heart bookId={bookId} />
               {bookStatus === 'LENDO' ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}

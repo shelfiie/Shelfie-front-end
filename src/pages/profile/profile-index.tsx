@@ -1,4 +1,4 @@
-import { Layout } from "../layout/index.js";
+import { Layout } from "../layout/layout.js";
 // import { Botao } from "../../components/globals/Button.style.tsx";
 import { Theme } from "../../styles/theme.ts";
 import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
@@ -77,7 +77,7 @@ export const Profile = () => {
             Desativar conta
           </Botao> */}
 
-            <Box sx={{ display: 'flex', flex: '1', flexWrap: 'wrap', gap: '1rem', fontWeight: Theme.font.weight.semiBold }}>          
+            <Box sx={{ display: 'flex', flex: '1', flexWrap: 'wrap', gap: '1rem', fontWeight: Theme.font.weight.semiBold }}>
               <Box sx={BooksInfStyles}> Quero ler <BookNumber> {quantity?.queroLer} </BookNumber></Box>
               <Box sx={BooksInfStyles}>Lendo <BookNumber>{quantity?.lendo}</BookNumber></Box>
               <Box sx={BooksInfStyles}>Abandonados <BookNumber>{quantity?.abandonado}</BookNumber></Box>

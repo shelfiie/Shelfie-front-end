@@ -1,4 +1,4 @@
-import { Layout } from "../layout"
+import { Layout } from "../layout/layout"
 import { Pagination, Rating } from "@mui/material";
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
@@ -45,35 +45,35 @@ export const Reviews = () => {
           <h2>Reviews</h2>
           <p>Confira aqui suas avaliações de livros que você leu e/ou abandonou!</p>
 
-        <BoxesWrappers id="boxes-wrapper">
+          <BoxesWrappers id="boxes-wrapper">
 
-          {paginatedReviews[page - 1].map((review: any) => (
-            console.log(review),
-            <BoxWrapper key={review.id} id="box-wrapper">
-              <img src={review.thumbnailUrl ?? review.smallThumbnailUrl} alt={review.title} />
-              <ReviewDetails id="review-details">
-                <TitleRating>
-                  <p>{review.title}</p>
-                  <Icons>
-                    <Rating
-                      name="read-only"
-                      value={review.rating} readOnly
-                      icon={<StarRoundedIcon fontSize="inherit" />}
-                      emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} />}
-                    />
-                    {/* to-do - editar review */}
-                    <a>
-                      <EditRoundedIcon
-                        sx={{ fill: `${Theme.colors.pink}` }} />
-                    </a>
+            {paginatedReviews[page - 1].map((review: any) => (
+              console.log(review),
+              <BoxWrapper key={review.id} id="box-wrapper">
+                <img src={review.thumbnailUrl ?? review.smallThumbnailUrl} alt={review.title} />
+                <ReviewDetails id="review-details">
+                  <TitleRating>
+                    <p>{review.title}</p>
+                    <Icons>
+                      <Rating
+                        name="read-only"
+                        value={review.rating} readOnly
+                        icon={<StarRoundedIcon fontSize="inherit" />}
+                        emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} />}
+                      />
+                      {/* to-do - editar review */}
+                      <a>
+                        <EditRoundedIcon
+                          sx={{ fill: `${Theme.colors.pink}` }} />
+                      </a>
 
-                  </Icons>
-                </TitleRating>
-                <p>{review.review}</p>
-                <ReviewDate>{formatDate(review.createdAt)}</ReviewDate>
-              </ReviewDetails>
-            </BoxWrapper>
-          ))}
+                    </Icons>
+                  </TitleRating>
+                  <p>{review.review}</p>
+                  <ReviewDate>{formatDate(review.createdAt)}</ReviewDate>
+                </ReviewDetails>
+              </BoxWrapper>
+            ))}
           </BoxesWrappers>
         </div>
         <Pagination
