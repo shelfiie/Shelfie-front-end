@@ -2,9 +2,10 @@ import { Layout } from "../layout/layout"
 import { ReviewsContent } from "./reviews-box.styles";
 import { useFetchReviewsByUser } from "../../api/hooks/useFetchReviewsByUser";
 import { ReviewsCard } from "./reviews-card";
+import { ReviewsSkeleton } from "./reviews-skeleton";
 
 export const Reviews = () => {
-  const { reviews } = useFetchReviewsByUser();
+  const { reviews, loading } = useFetchReviewsByUser();
 
   return (
     <Layout>
@@ -14,7 +15,11 @@ export const Reviews = () => {
           <h2>Reviews</h2>
           <p>Confira aqui suas avaliações de livros que você leu e/ou abandonou!</p>
 
-          <ReviewsCard review={reviews ?? []} />
+          {loading ? (
+            <ReviewsSkeleton />
+          ) : (
+            <ReviewsCard review={reviews ?? []} />
+          )}
 
         </div>
       </ReviewsContent>
