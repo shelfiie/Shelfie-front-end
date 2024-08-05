@@ -11,23 +11,22 @@ export const Globals = createGlobalStyle`
         background-repeat: no-repeat;
         background-size: max(100vw, 90vh);
     }
-
+     
     body, * {
         box-sizing: border-box;
         padding: 0;
         margin: 0;
-        font: 1.2rem ${Theme.font.family.syne};
+        font: 1.2rem ${Theme.font.family.syne}; 
     }
 
-
     a {
-    color: inherit;
-    text-decoration: none;
+        color: inherit;
+        text-decoration: none;
     }
 
     label{
-    display: block;
-    text-align: left;
+        display: block;
+        text-align: left;
     }
 `;
 

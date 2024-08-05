@@ -54,7 +54,6 @@ export const Aside = () => {
                         <Link to={item.route} key={index}>
                             <li key={item.name}>
                                 <item.src />
-                                {/* <img src={item.src} alt="" /> */}
                                 {item.name}
                             </li>
                         </Link>

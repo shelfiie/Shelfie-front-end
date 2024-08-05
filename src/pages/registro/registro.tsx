@@ -1,5 +1,5 @@
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
-import { Input } from "../../components/globals/input.style.ts";
+import { Input } from "../../components/globals/Input.style.ts";
 import { ErrorText, Globals } from "../../styles/globals.ts";
 import { Theme } from "../../styles/theme.ts";
 import { Form, ItemsForm } from "../login/login-styles.ts";
@@ -41,7 +41,7 @@ export function Registro() {
         }
 
         const response = await auth.register(data);
-        if(response?.statusCode === StatusCode.Created) {
+        if (response?.statusCode === StatusCode.Created) {
             setSuccess(response.resolve);
             console.log(response.resolve);
             setTimeout(() => navigate('/'), 5000);
@@ -132,7 +132,7 @@ export function Registro() {
                     </a>
                 </TemContaP>
             </RegisterDiv>
-            {success && <Alert sx={{width: 300, margin: '0 auto', marginTop: Theme.margins.margin2rem}} variant="filled" severity="success">{success}</Alert>}
+            {success && <Alert sx={{ width: 300, margin: '0 auto', marginTop: Theme.margins.margin2rem }} variant="filled" severity="success">{success}</Alert>}
             {error && <Alert variant="filled" severity="error">{error}</Alert>}
             <Globals />
         </>

@@ -1,5 +1,5 @@
 import { BookResume } from "../../components/BookResume/book-resume.tsx";
-import { Layout } from "../layout/index.js";
+import { Layout } from "../layout/layout.js";
 import { Carrousel, BooksWrapper, TabListStyle, TabStyle } from "./home.style.ts";
 import { useFetchBooksByUser } from "../../api/hooks/useFetchBooksByUser.ts";
 import { Pagination, Tab } from "@mui/material";
@@ -52,9 +52,9 @@ export function Home() {
             bookStatus={book.bookStatus} />
 
         )) : (<p>Você não tem livros nessa lista</p>)}
-        
+
       </BooksWrapper>
-      <Pagination style={{alignSelf: 'center'}}
+      <Pagination style={{ alignSelf: 'center' }}
         count={Math.ceil(items.length / itemsPerPage)}
         page={page}
         onChange={(event, newPage) => handlePageChange(category, event, newPage)}

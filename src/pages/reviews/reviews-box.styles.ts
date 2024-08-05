@@ -54,7 +54,7 @@ const Icons = styled.div`
 `
 
 const BoxesWrappers = styled.div`
-
+    height: 100%;
 `
 
 
