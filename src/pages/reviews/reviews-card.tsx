@@ -6,9 +6,23 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { formatDate } from "../../utils/filters";
 import { Theme } from "../../styles/theme";
-
+import { useState } from "react";
+import { ReviewModal } from "./edit-review";
 
 export const ReviewsCard = ({ review }: { review: BookData['reviews'][] }) => {
+    const [selectedReview, setSelectedReview] = useState<BookData['reviews'] | null>(null);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+
+    const handleEditClick = (review: BookData['reviews']) => {
+        setSelectedReview(review);
+        setIsEditOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsEditOpen(false);
+        setSelectedReview(null);
+    };
+
     const sortedReviews = review.sort((a, b) => {
         const dateA = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
         const dateB = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
@@ -30,7 +44,7 @@ export const ReviewsCard = ({ review }: { review: BookData['reviews'][] }) => {
                                     emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} />}
                                 />
                                 {/* to-do - editar review */}
-                                <a>
+                                <a onClick={() => handleEditClick(review)}>
                                     <EditRoundedIcon
                                         sx={{ fill: `${Theme.colors.pink}` }} />
                                 </a>
@@ -42,6 +56,16 @@ export const ReviewsCard = ({ review }: { review: BookData['reviews'][] }) => {
                     </ReviewDetails>
                 </BoxWrapper>
             ))}
+            {selectedReview && (
+                <ReviewModal
+                    isOpen={isEditOpen}
+                    handleModal={handleModalClose}
+                    bookId={selectedReview.bookId}
+                    title={selectedReview.title}
+                    reviewData={selectedReview}
+                    isEditing={true}
+                />
+            )}
         </>
     )
 }

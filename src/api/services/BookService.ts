@@ -121,6 +121,22 @@ export class BookService {
         }
     }
 
+    async updateReview({ bookId, reviews }: BookData): Promise<HttpResponse<any>> {
+        const base = `/api/review/${bookId}`;
+
+        const response = await this.client.put({ url: base, body: reviews });
+
+        if (response.statusCode === StatusCode.Ok) {
+            return {
+                ...response,
+                resolve: 'Review atualizado com sucesso!',
+            };
+        } else return {
+            ...response,
+            reject: 'Erro ao atualizar review.',
+        }
+    }
+
     async fetchBooksByUser(): Promise<HttpResponse<any>> {
         const base = '/api/mybooks/mine';
 
