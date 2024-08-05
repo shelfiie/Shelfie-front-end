@@ -70,6 +70,7 @@ export const BookResume = (Bookzin: BookData) => {
         key={Bookzin.bookId} />
 
       <ProgressionModal
+        googleId={Bookzin.googleId}
         bookId={Bookzin.bookId}
         isOpen={isOpen}
         handleModal={handleProgressionModal}

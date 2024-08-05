@@ -1,4 +1,4 @@
-import { BookData } from "../../types/bookData";
+import { BookData, BookStatus } from "../../types/bookData";
 import { HttpResponse, StatusCode } from "../client/IHttpClient";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 
@@ -82,17 +82,29 @@ export class BookService {
             body: data
         });
 
-        if (response.statusCode === StatusCode.Created) {
-            return {
-                ...response,
-                resolve: 'Progressão salva com sucesso!',
-            };
-        } else return {
+        if (response.statusCode === StatusCode.BadRequest) {
+            this.putBookStatus({ googleId: data.googleId, bookStatus: BookStatus.LENDO })
+
+            const response = await this.client.post({
+                url: base,
+                body: data
+            });
+
+            if (response.statusCode === StatusCode.Created) {
+                return {
+                    ...response,
+                    resolve: 'Status do livro alterado e progressão salva com sucesso!',
+                };
+
+            }
+
+        } else if (response.statusCode === StatusCode.Created) return { ...response, resolve: 'Progressão salva com sucesso!' };
+
+        return {
             ...response,
             reject: 'Erro ao salvar progressão'
         }
     }
-
     async postReview({ bookId, reviews }: BookData): Promise<HttpResponse<any>> {
         const base = `/api/review/${bookId}`;
 
