@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   height: 100vh;
   display: grid;
 
-  grid-template-columns: 1fr 7fr;
+  grid-template-columns: 1fr 6fr;
   background-color: ${Theme.colors.orange};
 `
 
@@ -44,6 +44,7 @@ const SearchNContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 `
 
 type LayoutChildrenProps = {
@@ -53,6 +54,12 @@ type LayoutChildrenProps = {
 const LayoutChildren = styled.div<LayoutChildrenProps>`
   padding: ${Theme.margins.margin2rem};
   height: ${(props) => props.height || '100%'};
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: ${Theme.colors.deep} transparent;
+  scroll-behavior: smooth;
+
+
 `
 
 
