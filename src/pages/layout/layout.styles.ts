@@ -16,8 +16,6 @@ const Global = createGlobalStyle`
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  position: relative;
-
   display: grid;
 
   grid-template-columns: 1fr 7fr;
@@ -25,22 +23,27 @@ const Wrapper = styled.div`
 `
 
 const PageContent = styled.div`
-  width: 95%;
-  height: 85%;
+  width: 90%;
+  height: 90%;
   background-color: ${Theme.colors.light};
 
   border-radius: ${Theme.borders.radiusRound};
   border: .3rem solid ${Theme.colors.deep};
-  margin-top: ${Theme.margins.margin2rem};
+  margin-top: ${Theme.margins.margin1rem};
 `
 
 const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0.5rem 0 0 14rem;
-  position: absolute;
-  width: 78%;
+  width: 90%;
 
+`
+
+const SearchNContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 type LayoutChildrenProps = {
@@ -53,5 +56,5 @@ const LayoutChildren = styled.div<LayoutChildrenProps>`
 `
 
 
-export { Global, LayoutChildren, PageContent, TopWrapper, Wrapper };
+export { Global, LayoutChildren, PageContent, TopWrapper, Wrapper, SearchNContentWrapper };
 
