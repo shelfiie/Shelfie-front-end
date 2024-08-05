@@ -16,15 +16,17 @@ type ProgressionModalProps = {
     handleModal: () => void | undefined;
     bookId: BookData['bookId'];
     title?: BookData['title'];
+    googleId?: BookData['googleId'];
 }
 
 export const ProgressionModal = (
-    { isOpen, handleModal, bookId, title }: ProgressionModalProps) => {
+    { isOpen, handleModal, bookId, title, googleId }: ProgressionModalProps) => {
     const { actualPage, maxPage } = useFetchLastPage(bookId);
     const progressionFilter = z.object({
         commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
         page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(maxPage as number, { message: `Número deve ser menor ou igual a ${maxPage}` }),
-        bookId: z.string()
+        bookId: z.string(),
+        googleId: z.string()
     })
 
     type ProgressionFilter = z.infer<typeof progressionFilter>
@@ -47,7 +49,7 @@ export const ProgressionModal = (
         setLoading(true);
 
         const service = new BookService()
-
+        console.log(data)
         const response = await service.postProgression(data as BookData);
 
         if (response?.statusCode === StatusCode.Created) {
@@ -77,6 +79,10 @@ export const ProgressionModal = (
                         <TextField sx={{ display: 'none' }}
                             {...register('bookId')}
                             value={bookId} />
+
+                        <TextField sx={{ display: 'none' }}
+                            {...register('googleId')}
+                            value={googleId} />
 
                         <h3>{title}</h3>
 
