@@ -55,6 +55,7 @@ const LayoutChildren = styled.div<LayoutChildrenProps>`
   padding: ${Theme.margins.margin2rem};
   height: ${(props) => props.height || '100%'};
   overflow-y: scroll;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: ${Theme.colors.deep} transparent;
   scroll-behavior: smooth;

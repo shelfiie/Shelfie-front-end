@@ -14,7 +14,8 @@ export const Reviews = () => {
           <h2>Reviews</h2>
           <p>Confira aqui suas avaliações de livros que você leu e/ou abandonou!</p>
 
-          <ReviewsCard review={reviews} />
+          <ReviewsCard review={reviews ?? []} />
+
         </div>
       </ReviewsContent>
     </Layout>
