@@ -69,7 +69,7 @@ export const Profile = () => {
 
           <ProfileBookInfo>
             <div>
-            <h2>Últimas avaliações</h2>
+              <h2>Últimas avaliações</h2>
               <ProfilerReviews id="profile-reviews">
                 <ReviewsCard review={reviews?.slice(0, 10) ?? []} />
               </ProfilerReviews>

@@ -57,7 +57,7 @@ const ProfilerReviews = styled(BoxesWrappers)`
     #review-date {font-size: ${Theme.font.sizes.xsmall}}
     p {font-size: ${Theme.font.sizes.xsmall}}
     img {
-        height: 120px;
+        height: 150px;
         border-radius: ${Theme.borders.radius};
     }
     `
