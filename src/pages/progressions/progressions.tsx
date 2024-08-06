@@ -1,5 +1,5 @@
 import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions";
-import { Layout } from "../layout";
+import { Layout } from "../layout/layout";
 import { ProgressionsCard } from "./progressions-card";
 import { useState } from "react";
 import { Pagination } from "@mui/material";
@@ -23,7 +23,7 @@ export const Progressions = () => {
           <h2>Progressões</h2>
           <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
 
-          {loading ? <ProgressionSkeleton />: <ProgressionsCard progressions={paginatedProgressions} />}
+          {loading ? <ProgressionSkeleton /> : <ProgressionsCard progressions={paginatedProgressions} />}
         </div>
         <Pagination
           sx={{ alignSelf: 'center' }}

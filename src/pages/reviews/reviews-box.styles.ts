@@ -21,7 +21,9 @@ const TitleRating = styled.div`
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    
+    span {
+        scale: 0.9;
+    }
     p {
         font-size: ${Theme.font.sizes.small};
         font-family: ${Theme.font.family.poppins};
@@ -50,11 +52,10 @@ const ReviewDetails = styled.div`
 
 const Icons = styled.div`
     display: inline-flex;
-    gap: 1rem
 `
 
 const BoxesWrappers = styled.div`
-
+    height: 100%;
 `
 
 

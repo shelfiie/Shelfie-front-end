@@ -33,6 +33,12 @@ type BookData = {
         abandonado?: number;
     };
     reviews?: {
+        id?: string;
+        createdAt?: string;
+        bookId?: BookData['bookId'];
+        thumbnailUrl?: BookData['thumbnailUrl'];
+        smallThumbnailUrl?: BookData['smallThumbnailUrl'];
+        title?: BookData['title'];
         rating?: number;
         review?: string;
     }

@@ -18,6 +18,12 @@ export const ProfileSkeletons = () => {
           <Box sx={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'row', gap: '1rem', justifyContent: 'space-between', overflow: 'hidden' }}>
             <Skeleton animation="wave" variant="rounded" width={'45%'} height={140} />
             <Skeleton animation="wave" variant="rounded" width={'55%'} height={140} />
+            <Skeleton animation="wave" variant="rounded" width={'55%'} height={140} />
+          </Box>
+          <Box sx={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'row', gap: '1rem', justifyContent: 'space-between', overflow: 'hidden' }}>
+            <Skeleton animation="wave" variant="rounded" width={'45%'} height={140} />
+            <Skeleton animation="wave" variant="rounded" width={'55%'} height={140} />
+            <Skeleton animation="wave" variant="rounded" width={'55%'} height={140} />
           </Box>
         </Box>
     )

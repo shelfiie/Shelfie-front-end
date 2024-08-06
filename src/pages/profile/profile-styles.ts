@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Theme } from "../../styles/theme";
+import { BoxesWrappers } from "../reviews/reviews-box.styles";
 
 const SettingsImageProfile = styled.img`
     width: 100px;
@@ -31,7 +32,7 @@ const PhotoWrapper = styled.div`
 const UserContent = styled.div`
     display: flex;
     gap: 1rem;
-    margin-top: ${Theme.margins.margin1rem};
+    margin: ${Theme.margins.margin1rem} 0;
 `
 
 const BookNumber = styled.p`
@@ -40,4 +41,33 @@ const BookNumber = styled.p`
     margin: auto 5px;
 `
 
-export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber }
+const ProfilerReviews = styled(BoxesWrappers)`
+    height: min-content;
+    grid-auto-columns: max-content;
+    grid-template-columns: repeat(1, min-content);
+    display: grid;
+    gap: 1rem;
+    
+    #box-wrapper {
+        width: 400px;
+        height: 220px;
+
+    }
+
+    #review-date {font-size: ${Theme.font.sizes.xsmall}}
+    p {font-size: ${Theme.font.sizes.xsmall}}
+    img {
+        height: 150px;
+        border-radius: ${Theme.borders.radius};
+    }
+    `
+
+const ProfileBookInfo = styled.div`
+    h2 {
+        margin: ${Theme.margins.margin1rem} 0;
+    }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+`
+
+export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo }

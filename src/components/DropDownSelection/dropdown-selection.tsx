@@ -23,12 +23,11 @@ export const DropDownSelection: React.FC<DropDownSelectionProps> = ({ googleId, 
         setSelectedOption(option);
         const service = new BookService();
         if (option !== 'SELECIONAR') {
-            console.log('caiu no if')
             const response = await service.updateBookStatus({ googleId: googleId, bookStatus: option as BookStatus });
 
             if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
                 setSuccess(response?.resolve);
-                window.location.reload();
+                setTimeout(() => window.location.reload(), 2000);
             } else {
                 setError(response?.reject);
             }

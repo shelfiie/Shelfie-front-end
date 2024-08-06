@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BoxShadow } from "../../components/globals/Box.style";
 import { Theme } from "../../styles/theme";
-import { PageContent } from "../layout/index.styles";
+import { PageContent } from "../layout/layout.styles";
 
 
 const BoxBook = styled(BoxShadow)`
