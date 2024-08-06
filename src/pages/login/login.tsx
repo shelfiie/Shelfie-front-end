@@ -1,6 +1,5 @@
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
-import { Input } from "../../components/globals/Input.style.ts";
 import { ErrorText, Globals } from "../../styles/globals.ts";
 import { Theme } from "../../styles/theme.ts";
 import { Form, ItemsForm, LoginDiv } from "./login-styles.ts";
@@ -14,6 +13,7 @@ import { Botao } from "../../components/globals/Button.style.tsx";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TemContaP } from "../registro/registro-styles.ts";
 import { UserData } from "../../types/userType.ts";
+import { Input } from "../../components/globals/input.style.ts";
 
 export function Login() {
     const [error, setError] = useState('');

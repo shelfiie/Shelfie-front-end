@@ -63,6 +63,7 @@ export const BookResume = (Bookzin: BookData) => {
         {Bookzin.title} [{actualPage}/{maxPage}]
       </ResumeTitle>
       <ReviewModal
+        isEditing={false}
         isOpen={reviewIsOpen}
         handleModal={handleReviewModal}
         bookId={Bookzin.bookId}
