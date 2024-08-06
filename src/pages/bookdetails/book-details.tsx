@@ -148,6 +148,7 @@ export const BookDetails = () => {
                 </Tooltip>
               }
               <ReviewModal
+                isEditing={false}
                 isOpen={reviewIsOpen}
                 handleModal={handleReviewModal}
                 bookId={bookId}

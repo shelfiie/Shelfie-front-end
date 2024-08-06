@@ -1,5 +1,5 @@
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
-import { Input } from "../../components/globals/Input.style.ts";
+import { Input } from "../../components/globals/input.style.ts";
 import { ErrorText, Globals } from "../../styles/globals.ts";
 import { Theme } from "../../styles/theme.ts";
 import { Form, ItemsForm } from "../login/login-styles.ts";
