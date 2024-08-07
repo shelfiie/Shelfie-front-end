@@ -122,8 +122,8 @@ export class BookService {
         }
     }
 
-    async updateReview({ bookId, reviews }: BookData): Promise<HttpResponse<any>> {
-        const base = `/api/review/${bookId}`;
+    async updateReview({ id, reviews }: BookData): Promise<HttpResponse<any>> {
+        const base = `/api/review/${id}`;
 
         const response = await this.client.put({ url: base, body: reviews });
 

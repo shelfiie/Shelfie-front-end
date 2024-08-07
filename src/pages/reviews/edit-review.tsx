@@ -48,8 +48,9 @@ type ReviewFilter = z.infer<typeof reviewFilter>;
 export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, isEditing }: ReviewModalProps) => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<number | undefined>(reviewData?.rating);
-    const [success, setSuccess] = useState<string | undefined>();
-    const [error, setError] = useState<string | undefined>();
+    const [success, setSuccess] = useState<string | null>();
+    const [error, setError] = useState<string | null>();
+
     const { watch, register, handleSubmit, setValue: setFormValue, formState: { errors } } = useForm<ReviewFilter>({
         mode: 'all',
         reValidateMode: 'onChange',
@@ -77,21 +78,22 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, is
         };
 
         const response = isEditing
-            ? await service.updateReview({ bookId: reviewData?.bookId, reviews: data })
+            ? await service.updateReview({ id: reviewData?.id, reviews: data })
             : await service.postReview({ bookId, reviews: data });
 
         if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
             setLoading(false);
-            setError(undefined);
+            setError(null);
             setSuccess(response?.resolve);
             setTimeout(() => {
-                setSuccess(undefined);
+                setSuccess(null);
                 window.location.reload();
             }, 3000);
         } else {
-            setSuccess(undefined);
+            setSuccess(null);
             setError(response?.reject);
-            setTimeout(() => setError(undefined), 3000);
+            setTimeout(() => setError(null), 3000);
+            window.location.reload();
         }
     };
 
@@ -148,20 +150,9 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, is
                             >{loading ? 'Carregando' : 'Salvar'}</Botao>
                         </ButtonsDiv>
 
-                        {success && <Snackbar
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            open={!!success}
-                            autoHideDuration={3000}
-                            onClose={() => setSuccess(undefined)}>
-                            <Alert severity="success">{success}</Alert>
-                        </Snackbar>}
-                        {error && <Snackbar
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            open={!!error}
-                            autoHideDuration={3000}
-                            onClose={() => setError(undefined)}>
-                            <Alert severity="error">{error}</Alert>
-                        </Snackbar>}
+                        {success && <Alert severity="success">{success}</Alert>}
+                        {error && <Alert severity="error">{error}</Alert>}
+
                     </ProgressionForm>
                 </Box>
             </Box>
