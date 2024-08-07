@@ -1,14 +1,17 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useCallback, useEffect, useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { UserData } from "../../types/userType";
 import { HttpResponse, StatusCode } from "../client/IHttpClient";
+import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 
 type AuthContextProps = {
     signed: boolean;
     token: string;
+    user: UserData | null;
     login: (body: UserData) => Promise<HttpResponse<unknown> | undefined>;
     register: (body: UserData) => Promise<HttpResponse<unknown> | undefined>;
     logout: () => void;
+    refetchUser?: () => Promise<HttpResponse<unknown>>;
 };
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -17,6 +20,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const authService = new AuthService();
     const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:token'));
     const [token, setToken] = useState('');
+    const [user, setUser] = useState<UserData | null>(null!);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const loadingStoreData = () => {
@@ -35,6 +40,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         const response = await authService.loginUser({ email, password });
         
         if (response.statusCode === StatusCode.Ok) {
+            getUserData();
             localStorage.setItem('@Auth:token', response.body.token);
             setToken(response.body.token);
 
@@ -90,13 +96,25 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setSigned(false);
     };
 
+    const getUserData = useCallback(async () => {
+        setIsLoading(true);
+        const shelfieService = new ShelfieHttpClient();
+        const response = await shelfieService.get({ url: '/api/users/me' });
+        setUser(response.body as UserData);
+        setIsLoading(false);
+        
+        return response
+    }, [user]);
+
     return (
         <AuthContext.Provider value={{
             register,
             signed,
             login,
             logout,
-            token
+            token,
+            user,
+            refetchUser: getUserData
         }}>
             {children}
         </AuthContext.Provider>
