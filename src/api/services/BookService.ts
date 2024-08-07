@@ -85,18 +85,19 @@ export class BookService {
         if (response.statusCode === StatusCode.BadRequest) {
             this.putBookStatus({ googleId: data.googleId, bookStatus: BookStatus.LENDO })
 
-            const response = await this.client.post({
-                url: base,
-                body: data
-            });
-
-            if (response.statusCode === StatusCode.Created) {
-                return {
-                    ...response,
-                    resolve: 'Status do livro alterado e progressão salva com sucesso!',
-                };
-
-            }
+            setTimeout(async () => {
+                const response = await this.client.post({
+                    url: base,
+                    body: data
+                });
+                if (response.statusCode === StatusCode.Created) {
+                    return {
+                        ...response,
+                        resolve: 'Status do livro alterado e progressão salva com sucesso!',
+                    };
+    
+                }
+            }, 2000)
 
         } else if (response.statusCode === StatusCode.Created) return { ...response, resolve: 'Progressão salva com sucesso!' };
 
