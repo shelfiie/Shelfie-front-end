@@ -11,16 +11,11 @@ import { BookData } from "../../types/bookData";
 
 export const AdminDashboard = () => {
     const [users, setUsers] = useState<UserData[]>([]);
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-
     const [error, setError] = useState<string | undefined>(undefined);
     const [success, setSuccess] = useState<string | undefined>(undefined);
 
-    const pageSize = 4; // Número de usuários por página
     const userService = new UserService();
 
-    const handleChange = (_event: any, value: SetStateAction<number>) => setPage(value);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -28,10 +23,9 @@ export const AdminDashboard = () => {
 
             setUsers(response?.body as UserData[]);
             console.log(response?.body);
-            setTotalPages(Math.ceil((response?.body as any[]).length / pageSize));
         };
         fetchUsers();
-    }, [page]);
+    });
 
 
     const handleDisableUser = async (id: BookData['id']) => {
@@ -47,7 +41,6 @@ export const AdminDashboard = () => {
         }
     }
 
-    const usersToDisplay = users.slice((page - 1) * pageSize, page * pageSize);
 
     return (
         <Layout>
@@ -55,7 +48,7 @@ export const AdminDashboard = () => {
                 <h2>Admin Dashboard</h2>
                 <PageWrapper id="page-wrapper" >
                     <UsersWrapper>
-                        {usersToDisplay.map((user, index) => (
+                        {users.map((user, index) => (
                             <UserDiv id="user-div" key={index}>
                                 <UserInformation>
                                     <ItemWrapper>
@@ -95,9 +88,6 @@ export const AdminDashboard = () => {
                             </UserDiv>
                         ))}
                     </UsersWrapper>
-
-                    <Pagination id="pagination" sx={{ display: 'flex', justifyContent: 'center' }} count={totalPages} page={page} onChange={handleChange} />
-
 
                     {success &&
                         <Snackbar

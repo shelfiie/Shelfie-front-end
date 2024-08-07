@@ -17,10 +17,11 @@ type ProgressionModalProps = {
     bookId: BookData['bookId'];
     title?: BookData['title'];
     googleId?: BookData['googleId'];
+    refetchPages?: () => void;
 }
 
 export const ProgressionModal = (
-    { isOpen, handleModal, bookId, title, googleId }: ProgressionModalProps) => {
+    { isOpen, handleModal, bookId, title, googleId, refetchPages }: ProgressionModalProps) => {
     const { actualPage, maxPage } = useFetchLastPage(bookId);
     const progressionFilter = z.object({
         commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
@@ -49,19 +50,22 @@ export const ProgressionModal = (
         setLoading(true);
 
         const service = new BookService()
-        console.log(data)
         const response = await service.postProgression(data as BookData);
 
         if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);
-            setTimeout(() => setSuccess(null), 3000);
-            window.location.reload();
+            refetchPages && refetchPages();
+            setTimeout(() => {
+                setSuccess(null);
+                handleModal();
+            }, 2000);
         } else {
             setSuccess(null);
             setError(response?.reject);
             setTimeout(() => setError(null), 3000);
+            handleModal();
         }
     }
 

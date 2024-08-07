@@ -1,29 +1,29 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from "@mui/material"
 import { StatusCode } from "../../api/client/IHttpClient";
-import { BookData } from "../../types/bookData";
-import { BookService } from "../../api/services/BookService";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserData } from "../../types/userType";
+import { UserService } from "../../api/services/UserService";
+import { AuthContext } from "../../api/context/auth";
 
 type DialogProps = {
-    myBookId: BookData['id'];
+    id: UserData['id'];
     open: boolean;
     handleDeleteDialog: () => void;
-    refetchBooks?: () => void;
 }
 
-const DeleteDialog = ({ open, handleDeleteDialog, myBookId, refetchBooks }: DialogProps) => {
+const DeleteDialog = ({ open, handleDeleteDialog, id }: DialogProps) => {
     const [success, setSuccess] = useState<string | undefined>();
     const [error, setError] = useState<string | undefined>();
-
+    const { logout } = useContext(AuthContext)
     const handleDisable = async () => {
-        const bookService = new BookService();
-        const response = await bookService.disableBook(myBookId ?? '');
+        const service = new UserService();
+        const response = await service.disableUser(id ?? '');
 
         if (response.statusCode === StatusCode.Ok) {
             setSuccess(response?.resolve);
             setTimeout(() => setSuccess(undefined), 3000);
             handleDeleteDialog();
-            refetchBooks && refetchBooks();
+            logout();
         } else {
             setError(response?.reject);
             setTimeout(() => setError(undefined), 3000);
@@ -38,9 +38,9 @@ const DeleteDialog = ({ open, handleDeleteDialog, myBookId, refetchBooks }: Dial
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Você tem certeza que deseja deletar esse livro?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Você tem certeza que deseja deletar a sua conta?"}</DialogTitle>
                 <DialogContent>
-                    Ao realizar essa ação, o livro será tirado da sua lista juntamente com o restante de seus dados. Mas não se preocupe, essa ação não é irreversível.
+                    Essa ação é irreversível.
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDeleteDialog}>Cancelar</Button>

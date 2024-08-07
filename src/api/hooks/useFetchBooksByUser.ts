@@ -48,7 +48,7 @@ const useFetchBooksByUser = () => {
     useEffect(() => {
         fetchAllBooksByUser();
     }, [])
-    return { isLoading, allBooks, lendo, lidos, queroler, abandonados, favoritos };
+    return { isLoading, allBooks, lendo, lidos, queroler, abandonados, favoritos, refetchBooks: fetchAllBooksByUser };
 }
 
 export { useFetchBooksByUser };

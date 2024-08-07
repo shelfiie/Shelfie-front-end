@@ -14,12 +14,13 @@ import { ReviewModal } from '../../components/Review/review';
 import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
+import { BookStatus } from '../../types/bookData';
 
 export const BookDetails = () => {
   const { id } = useParams();
 
   const { book, loading } = useGBookById(id ?? '');
-  const { page, bookStatus, bookId } = useBookDetails(id);
+  const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
 
   const navigate = useNavigate();
 
@@ -76,6 +77,7 @@ export const BookDetails = () => {
               </PageCount>
 
               <DropDownSelection
+                refreshBookDetails={refetchBookDetails}
                 googleId={book?.googleId}
                 content='SELECIONAR'
               />
@@ -83,7 +85,7 @@ export const BookDetails = () => {
 
             <div>
               <Heart bookId={bookId} />
-              {bookStatus === 'LENDO' ? (
+              {bookStatus === BookStatus.LENDO || bookStatus === BookStatus.QUERO_LER ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
                   color={Theme.colors.light}
@@ -114,9 +116,9 @@ export const BookDetails = () => {
                   </span>
                 </Tooltip>}
 
-              <ProgressionModal bookId={bookId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
+              <ProgressionModal refetchPages={refetchBookDetails} bookId={bookId} googleId={book?.googleId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
 
-              {bookStatus === 'LIDO' || bookStatus === 'ABANDONADO' ? (
+              {bookStatus === BookStatus.LIDO || bookStatus === BookStatus.ABANDONADO ? (
                 <Botao
                   backgroundColor={Theme.colors.pink}
                   color={Theme.colors.light}
@@ -148,6 +150,7 @@ export const BookDetails = () => {
                 </Tooltip>
               }
               <ReviewModal
+                refreshBookDetails={refetchBookDetails}
                 isEditing={false}
                 isOpen={reviewIsOpen}
                 handleModal={handleReviewModal}

@@ -10,13 +10,19 @@ import { ReviewModal } from '../Review/review.tsx';
 import { DeleteDialog } from './delete-dialog.tsx';
 import { Heart } from '../globals/Heart.style.tsx';
 import { useFetchLastPage } from '../../api/hooks/useFetchLastPage.ts';
+import { CircularProgress } from '@mui/material';
 
-export const BookResume = (Bookzin: BookData) => {
+type BookResumeProps = {
+  Bookzin: BookData;
+  refetchBooks: () => void;
+}
+
+export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const { actualPage, maxPage } = useFetchLastPage(Bookzin.bookId);
+  const { actualPage, maxPage, loading, refetchPages } = useFetchLastPage(Bookzin.bookId);
 
   const handleProgressionModal = () => setIsOpen(!isOpen);
   const handleDeleteDialog = () => setConfirmOpen(!confirmOpen);
@@ -49,9 +55,13 @@ export const BookResume = (Bookzin: BookData) => {
             </Botao>
           )}
         </ButtonWrapper>
-        <Heart bookId={Bookzin.bookId} />
-        <DeleteRoundedIcon onClick={handleDeleteDialog} />
-        <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
+        {loading ? <CircularProgress size={20} /> :
+          <>
+            <Heart bookId={Bookzin.bookId} />
+            <DeleteRoundedIcon onClick={handleDeleteDialog} />
+            <DeleteDialog refetchBooks={refetchBooks} open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
+          </>
+        }
       </StyledOptions>
 
 
@@ -60,7 +70,7 @@ export const BookResume = (Bookzin: BookData) => {
       </Link>
 
       <ResumeTitle>
-        {Bookzin.title} [{actualPage}/{maxPage}]
+        <p>{Bookzin.title}</p> {!loading ? `[${actualPage}/${maxPage}]` : <CircularProgress size={20} />}
       </ResumeTitle>
       <ReviewModal
         isEditing={false}
@@ -71,6 +81,7 @@ export const BookResume = (Bookzin: BookData) => {
         key={Bookzin.bookId} />
 
       <ProgressionModal
+        refetchPages={refetchPages}
         googleId={Bookzin.googleId}
         bookId={Bookzin.bookId}
         isOpen={isOpen}

@@ -26,6 +26,8 @@ const TesteSettings = styled.div`
 const PhotoWrapper = styled.div`
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: ${Theme.margins.margin1rem};
 `
 
@@ -43,10 +45,10 @@ const BookNumber = styled.p`
 
 const ProfilerReviews = styled(BoxesWrappers)`
     height: min-content;
-    grid-auto-columns: max-content;
-    grid-template-columns: repeat(1, min-content);
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
+    margin-bottom: ${Theme.margins.margin1rem};
     
     #box-wrapper {
         width: 400px;
@@ -66,8 +68,21 @@ const ProfileBookInfo = styled.div`
     h2 {
         margin: ${Theme.margins.margin1rem} 0;
     }
-    display: grid;
-    grid-template-columns: 1fr 1fr;
 `
+const BooksInfStyles = {
+    backgroundColor: Theme.colors.pink,
+    color: Theme.colors.white,
+    width: 'max-content',
+    padding: '1rem',
+    borderRadius: Theme.borders.radius,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '1rem',
+    transition: 'background-color 0.3s',
+    '&:hover': {
+      backgroundColor: Theme.colors.deepOrange
+    }
+}
 
-export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo }
+export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles }

@@ -1,5 +1,4 @@
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
-import { Input } from "../../components/globals/input.style.ts";
 import { ErrorText, Globals } from "../../styles/globals.ts";
 import { Theme } from "../../styles/theme.ts";
 import { Form, ItemsForm } from "../login/login-styles.ts";
@@ -14,6 +13,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
 import { StatusCode } from "../../api/client/IHttpClient.ts";
 import { Alert } from "@mui/material";
+import { Input } from "../../components/globals/Input.style.ts";
 
 export function Registro() {
     const auth = useContext(AuthContext);

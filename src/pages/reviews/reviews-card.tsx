@@ -9,7 +9,7 @@ import { Theme } from "../../styles/theme";
 import { useState } from "react";
 import { ReviewModal } from "./edit-review";
 
-export const ReviewsCard = ({ review }: { review: BookData['reviews'][] }) => {
+export const ReviewsCard = ({ review, isEditable }: { review: BookData['reviews'][]; isEditable: boolean }) => {
     const [selectedReview, setSelectedReview] = useState<BookData['reviews'] | null>(null);
     const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -43,11 +43,13 @@ export const ReviewsCard = ({ review }: { review: BookData['reviews'][] }) => {
                                     icon={<StarRoundedIcon fontSize="inherit" />}
                                     emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} />}
                                 />
-                                {/* to-do - editar review */}
-                                <a onClick={() => handleEditClick(review)}>
-                                    <EditRoundedIcon
-                                        sx={{ fill: `${Theme.colors.pink}` }} />
-                                </a>
+                                
+                                {isEditable &&
+                                    <a onClick={() => handleEditClick(review)}>
+                                        <EditRoundedIcon
+                                            sx={{ fill: `${Theme.colors.pink}` }} />
+                                    </a>
+                                }
 
                             </Icons>
                         </TitleRating>

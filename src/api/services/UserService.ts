@@ -15,9 +15,15 @@ export class UserService {
         return response;
     }
 
-    async updateUserData(data: UserData): Promise<HttpResponse<unknown>> {
-        const base = `/api/users/me`;
+    async editUser(data : UserData): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/${data.id}/update`;
         const response = await this.client.put({ url: base, body: data });
+        if(response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao atualizar usuário. Tente novamente mais tarde.',
+            }
+        }
         return response;
     }
 
@@ -53,5 +59,6 @@ export class UserService {
         const response = await this.client.get({ url: base });
         return response;
     }
+
 
 }
