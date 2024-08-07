@@ -8,12 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserLoginFilter, userLoginFilter } from "../../types/authType.ts";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
-import { Alert } from "@mui/material";
+import { Alert, Input } from "@mui/material";
 import { Botao } from "../../components/globals/Button.style.tsx";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TemContaP } from "../registro/registro-styles.ts";
 import { UserData } from "../../types/userType.ts";
-import { Input } from "../../components/globals/Input.style.ts";
 
 export function Login() {
     const [error, setError] = useState('');
