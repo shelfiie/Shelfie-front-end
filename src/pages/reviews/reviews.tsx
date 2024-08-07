@@ -1,5 +1,5 @@
 import { Layout } from "../layout/layout"
-import { ReviewsContent } from "./reviews-box.styles";
+import { ReviewsContent, ReviewsWrapper } from "./reviews-box.styles";
 import { useFetchReviewsByUser } from "../../api/hooks/useFetchReviewsByUser";
 import { ReviewsCard } from "./reviews-card";
 import { ReviewsSkeleton } from "./reviews-skeleton";
@@ -18,7 +18,9 @@ export const Reviews = () => {
           {loading ? (
             <ReviewsSkeleton />
           ) : (
-            <ReviewsCard isEditable={true} review={reviews ?? []} />
+            <ReviewsWrapper id='reviews-wrapper'>
+              <ReviewsCard isEditable={true} review={reviews ?? []} />
+            </ReviewsWrapper>
           )}
 
         </div>

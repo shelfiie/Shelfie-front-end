@@ -58,5 +58,9 @@ const BoxesWrappers = styled.div`
     height: 100%;
 `
 
+const ReviewsWrapper = styled.div`
+    margin-bottom: ${Theme.margins.margin1rem};
+`
 
-export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers }
+
+export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, ReviewsWrapper }

@@ -2,45 +2,24 @@ import { BookResume } from "../../components/BookResume/book-resume.tsx";
 import { Layout } from "../layout/layout.js";
 import { Carrousel, BooksWrapper, TabListStyle, TabStyle } from "./home.style.ts";
 import { useFetchBooksByUser } from "../../api/hooks/useFetchBooksByUser.ts";
-import { Pagination, Tab } from "@mui/material";
+import { Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { BookData } from "../../types/bookData.ts";
 import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 
 export function Home() {
   const { allBooks, lendo, lidos, queroler, abandonados, isLoading, favoritos } = useFetchBooksByUser();
   const [value, setValue] = useState('1');
-  const itemsPerPage = 10; // Número de itens por página
-
-  const [page, setPage] = useState({
-    allBooks: 1,
-    lendo: 1,
-    lidos: 1,
-    queroler: 1,
-    abandonados: 1,
-    favoritos: 1
-  });
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  const handlePageChange = (category: string, _event: ChangeEvent<unknown>, newPage: number) => {
-    setPage(prev => ({ ...prev, [category]: newPage }));
-  };
-
-  // Função para calcular os itens a serem exibidos com base na página atual
-  const paginatedItems = (items: BookData[], currentPage: number) => {
-    const indexLastItem = currentPage * itemsPerPage;
-    const indexFirstItem = indexLastItem - itemsPerPage;
-    return items.slice(indexFirstItem, indexLastItem);
-  };
-
-  const TabPanelContent = ({ items, page, category }: { items: BookData[], page: number, category: string }) => (
+  const TabPanelContent = ({ items }: { items: BookData[] }) => (
     <Carrousel id="carrossel">
       <BooksWrapper id="books-wrapper">
-        {items.length > 0 ? paginatedItems(items, page).map((book) => (
+        {items.length > 0 ? items.map((book) => (
           <BookResume
             key={book.id}
             id={book.id}
@@ -54,11 +33,6 @@ export function Home() {
         )) : (<p>Você não tem livros nessa lista</p>)}
 
       </BooksWrapper>
-      <Pagination style={{ alignSelf: 'center' }}
-        count={Math.ceil(items.length / itemsPerPage)}
-        page={page}
-        onChange={(event, newPage) => handlePageChange(category, event, newPage)}
-      />
     </Carrousel>
   );
 
@@ -77,27 +51,27 @@ export function Home() {
           </TabList>
 
           <TabPanel sx={{ height: '100%' }} value='1'>
-            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={allBooks} page={page.allBooks} category="allBooks" />}
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={allBooks} />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='2'>
-            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lendo} page={page.lendo} category="lendo" />}
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lendo} />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='3'>
-            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lidos} page={page.lidos} category="lidos" />}
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lidos} />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='4'>
-            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={queroler} page={page.queroler} category="queroler" />}
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={queroler} />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='5'>
-            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={abandonados} page={page.abandonados} category="abandonados" />}
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={abandonados} />}
           </TabPanel>
 
           <TabPanel sx={{ height: '100%' }} value='6'>
-            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={favoritos} page={page.favoritos} category="favoritos" />}
+            {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={favoritos} />}
           </TabPanel>
 
         </TabContext>
