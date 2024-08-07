@@ -12,12 +12,17 @@ import { Heart } from '../globals/Heart.style.tsx';
 import { useFetchLastPage } from '../../api/hooks/useFetchLastPage.ts';
 import { CircularProgress } from '@mui/material';
 
-export const BookResume = (Bookzin: BookData) => {
+type BookResumeProps = {
+  Bookzin: BookData;
+  refetchBooks: () => void;
+}
+
+export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const { actualPage, maxPage, loading } = useFetchLastPage(Bookzin.bookId);
+  const { actualPage, maxPage, loading, refetchPages } = useFetchLastPage(Bookzin.bookId);
 
   const handleProgressionModal = () => setIsOpen(!isOpen);
   const handleDeleteDialog = () => setConfirmOpen(!confirmOpen);
@@ -54,7 +59,7 @@ export const BookResume = (Bookzin: BookData) => {
           <>
             <Heart bookId={Bookzin.bookId} />
             <DeleteRoundedIcon onClick={handleDeleteDialog} />
-            <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
+            <DeleteDialog refetchBooks={refetchBooks} open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
           </>
         }
       </StyledOptions>
@@ -76,6 +81,7 @@ export const BookResume = (Bookzin: BookData) => {
         key={Bookzin.bookId} />
 
       <ProgressionModal
+        refetchPages={refetchPages}
         googleId={Bookzin.googleId}
         bookId={Bookzin.bookId}
         isOpen={isOpen}

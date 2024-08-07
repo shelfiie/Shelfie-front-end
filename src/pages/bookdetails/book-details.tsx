@@ -20,7 +20,7 @@ export const BookDetails = () => {
   const { id } = useParams();
 
   const { book, loading } = useGBookById(id ?? '');
-  const { page, bookStatus, bookId } = useBookDetails(id);
+  const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
 
   const navigate = useNavigate();
 
@@ -77,6 +77,7 @@ export const BookDetails = () => {
               </PageCount>
 
               <DropDownSelection
+                refreshBookDetails={refetchBookDetails}
                 googleId={book?.googleId}
                 content='SELECIONAR'
               />
@@ -115,7 +116,7 @@ export const BookDetails = () => {
                   </span>
                 </Tooltip>}
 
-              <ProgressionModal bookId={bookId} googleId={book?.googleId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
+              <ProgressionModal refetchPages={refetchBookDetails} bookId={bookId} googleId={book?.googleId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
 
               {bookStatus === BookStatus.LIDO || bookStatus === BookStatus.ABANDONADO ? (
                 <Botao
@@ -149,13 +150,13 @@ export const BookDetails = () => {
                 </Tooltip>
               }
               <ReviewModal
+                refreshBookDetails={refetchBookDetails}
                 isEditing={false}
                 isOpen={reviewIsOpen}
                 handleModal={handleReviewModal}
                 bookId={bookId}
                 title={book?.title}
-                key={book?.bookId} 
-                isEditing={false} />
+                key={book?.bookId} />
             </div>
           </UserBookDetails>
         </BookContent>

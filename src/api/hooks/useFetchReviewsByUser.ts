@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { UserService } from "../services/UserService"
 import { StatusCode } from "../client/IHttpClient";
 import { BookService } from "../services/BookService";
@@ -10,34 +10,34 @@ const useFetchReviewsByUser = () => {
     const userService = new UserService();
     const bookService = new BookService();
 
-    useEffect(() => {
-        const fetchReviewsByUser = async () => {
-            setLoading(true);
-            const response = await userService.fetchAllReviewsMyReviews();
-            if (response.statusCode === StatusCode.Ok) {
+    const fetchReviewsByUser = useCallback(async () => {
+        setLoading(true);
+        const response = await userService.fetchAllReviewsMyReviews();
+        if (response.statusCode === StatusCode.Ok) {
 
-                const reviews = response.body;
+            const reviews = response.body;
 
-                const combinedReviews = await Promise.all(reviews.map(async (review: BookData['reviews']) => {
-                    if (review) {
-                        const booksDetailsResponse = await bookService.fetchBookById(review.bookId);
-                        if (booksDetailsResponse.statusCode === StatusCode.Ok) {
-                            return { ...review, ...booksDetailsResponse.body }
-                        } else {
-                            return {
-                                ...response,
-                                reject: 'Ocorreu um erro no caminho.'
-                            }
+            const combinedReviews = await Promise.all(reviews.map(async (review: BookData['reviews']) => {
+                if (review) {
+                    const booksDetailsResponse = await bookService.fetchBookById(review.bookId);
+                    if (booksDetailsResponse.statusCode === StatusCode.Ok) {
+                        return { ...review, ...booksDetailsResponse.body }
+                    } else {
+                        return {
+                            ...response,
+                            reject: 'Ocorreu um erro no caminho.'
                         }
                     }
-                }))
-                setReviews(combinedReviews);
-                setLoading(false);
-                return combinedReviews;
-            }
+                }
+            }))
+            setReviews(combinedReviews);
+            setLoading(false);
+            return combinedReviews;
         }
+    }, [reviews]);
+    useEffect(() => {
         fetchReviewsByUser();
     }, [])
-    return { reviews, loading }
+    return { reviews, loading, refetchReviews: fetchReviewsByUser }
 }
 export { useFetchReviewsByUser }

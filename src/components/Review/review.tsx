@@ -34,6 +34,7 @@ type ReviewModalProps = {
     handleModal: () => void | undefined;
     bookId: BookData['bookId'];
     title: BookData['title'];
+    refreshBookDetails?: () => void;
 }
 
 const reviewFilter = z.object({
@@ -42,7 +43,7 @@ const reviewFilter = z.object({
 
 type ReviewFilter = z.infer<typeof reviewFilter>
 
-export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalProps & { isEditing: boolean }) => {
+export const ReviewModal = ({ isOpen, handleModal, bookId, title, refreshBookDetails }: ReviewModalProps & { isEditing: boolean }) => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<number | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
@@ -74,7 +75,7 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
             setError(undefined);
             setSuccess(response?.resolve);
             setTimeout(() => setSuccess(undefined), 3000);
-            window.location.reload();
+            refreshBookDetails && refreshBookDetails();
         } else {
             setSuccess(undefined);
             setError(response?.reject);

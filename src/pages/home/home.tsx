@@ -10,7 +10,8 @@ import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
 import { NoItemsFound } from "../../components/globals/NoItemsFound.tsx";
 
 export function Home() {
-  const { allBooks, lendo, lidos, queroler, abandonados, isLoading, favoritos } = useFetchBooksByUser();
+  const { allBooks, lendo, lidos, queroler, abandonados, isLoading, favoritos, refetchBooks } = useFetchBooksByUser();
+
   const [value, setValue] = useState('1');
 
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
@@ -23,13 +24,8 @@ export function Home() {
         {items.length > 0 ? items.map((book) => (
           <BookResume
             key={book.id}
-            id={book.id}
-            bookId={book.bookId}
-            googleId={book.googleId}
-            title={book.title}
-            thumbnailUrl={book.smallThumbnailUrl}
-            smallThumbnailUrl={book.smallThumbnailUrl}
-            bookStatus={book.bookStatus} />
+            Bookzin={book}
+            refetchBooks={refetchBooks} />
 
         )) : (<NoItemsFound>Você não tem livros nessa lista!</NoItemsFound>)}
 

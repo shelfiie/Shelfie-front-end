@@ -23,7 +23,7 @@ const useBookDetails = (googleId: BookData['googleId']) => {
         fetchMybook();
     });
 
-    return { page, bookStatus, bookId };
+    return { page, bookStatus, bookId, refetchBookDetails : fetchMybook };
 }
 
 export { useBookDetails };

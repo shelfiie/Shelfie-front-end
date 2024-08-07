@@ -8,9 +8,10 @@ type DialogProps = {
     myBookId: BookData['id'];
     open: boolean;
     handleDeleteDialog: () => void;
+    refetchBooks?: () => void;
 }
 
-const DeleteDialog = ({ open, handleDeleteDialog, myBookId }: DialogProps) => {
+const DeleteDialog = ({ open, handleDeleteDialog, myBookId, refetchBooks }: DialogProps) => {
     const [success, setSuccess] = useState<string | undefined>();
     const [error, setError] = useState<string | undefined>();
 
@@ -22,7 +23,7 @@ const DeleteDialog = ({ open, handleDeleteDialog, myBookId }: DialogProps) => {
             setSuccess(response?.resolve);
             setTimeout(() => setSuccess(undefined), 3000);
             handleDeleteDialog();
-            window.location.reload();
+            refetchBooks && refetchBooks();
         } else {
             setError(response?.reject);
             setTimeout(() => setError(undefined), 3000);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Arrow } from '../../assets/icons/Arrow.svg.tsx';
 import { Theme } from '../../styles/theme.ts';
 import { DropDownStyles, Option } from './dropdown-selection.styles.ts';
@@ -11,9 +11,10 @@ import { StatusCode } from '../../api/client/IHttpClient.ts';
 type DropDownSelectionProps = {
     content: string;
     googleId: BookData['googleId'];
+    refreshBookDetails?: () => void;
 }
 
-export const DropDownSelection: React.FC<DropDownSelectionProps> = ({ googleId, content, ...rest }) => {
+export const DropDownSelection = ({ googleId, content, refreshBookDetails, ...rest } : DropDownSelectionProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [success, setSuccess] = useState<string | null>();
     const [error, setError] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export const DropDownSelection: React.FC<DropDownSelectionProps> = ({ googleId, 
 
             if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
                 setSuccess(response?.resolve);
-                setTimeout(() => window.location.reload(), 2000);
+                setTimeout(() => refreshBookDetails && refreshBookDetails(), 2000);
             } else {
                 setError(response?.reject);
             }

@@ -22,7 +22,7 @@ const useFetchLastPage = (bookId: BookData['bookId']) => {
     useEffect(() => {
         fetchLastPage();
     }, []);
-    return { maxPage, actualPage, loading };
+    return { maxPage, actualPage, loading, refetchPages: fetchLastPage };
 }
 
 export { useFetchLastPage };
