@@ -95,7 +95,7 @@ const ProgressionsStyles = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between;
+    gap: ${Theme.margins.margin1rem};
 `
 
 export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }

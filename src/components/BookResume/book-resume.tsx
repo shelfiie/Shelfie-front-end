@@ -50,9 +50,13 @@ export const BookResume = (Bookzin: BookData) => {
             </Botao>
           )}
         </ButtonWrapper>
-        <Heart bookId={Bookzin.bookId} />
-        <DeleteRoundedIcon onClick={handleDeleteDialog} />
-        <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
+        {loading ? <CircularProgress size={20} /> :
+          <>
+            <Heart bookId={Bookzin.bookId} />
+            <DeleteRoundedIcon onClick={handleDeleteDialog} />
+            <DeleteDialog open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
+          </>
+        }
       </StyledOptions>
 
 
@@ -61,7 +65,7 @@ export const BookResume = (Bookzin: BookData) => {
       </Link>
 
       <ResumeTitle>
-        <p>{Bookzin.title}</p> {! loading ? `[${actualPage}/${maxPage}]` : <CircularProgress size={20} />}
+        <p>{Bookzin.title}</p> {!loading ? `[${actualPage}/${maxPage}]` : <CircularProgress size={20} />}
       </ResumeTitle>
       <ReviewModal
         isEditing={false}

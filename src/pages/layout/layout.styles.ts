@@ -60,7 +60,6 @@ const LayoutChildren = styled.div<LayoutChildrenProps>`
   scrollbar-color: ${Theme.colors.deep} transparent;
   scroll-behavior: smooth;
 
-
 `
 
 

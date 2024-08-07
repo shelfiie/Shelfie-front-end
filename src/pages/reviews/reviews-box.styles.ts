@@ -43,7 +43,7 @@ const ReviewsContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    `
+`
 
 const ReviewDetails = styled.div`
     flex: 4;
@@ -59,7 +59,7 @@ const BoxesWrappers = styled.div`
 `
 
 const ReviewsWrapper = styled.div`
-    margin-bottom: ${Theme.margins.margin1rem};
+
 `
 
 

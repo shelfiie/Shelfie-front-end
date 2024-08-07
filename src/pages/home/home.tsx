@@ -7,6 +7,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useState } from "react";
 import { BookData } from "../../types/bookData.ts";
 import { TabPanelSkeleton } from "./tab-panel-skeleton.tsx";
+import { NoItemsFound } from "../../components/globals/NoItemsFound.tsx";
 
 export function Home() {
   const { allBooks, lendo, lidos, queroler, abandonados, isLoading, favoritos } = useFetchBooksByUser();
@@ -30,7 +31,7 @@ export function Home() {
             smallThumbnailUrl={book.smallThumbnailUrl}
             bookStatus={book.bookStatus} />
 
-        )) : (<p>Você não tem livros nessa lista</p>)}
+        )) : (<NoItemsFound>Você não tem livros nessa lista!</NoItemsFound>)}
 
       </BooksWrapper>
     </Carrousel>
@@ -50,27 +51,27 @@ export function Home() {
             <Tab sx={TabStyle} label="Favoritos" value='6' />
           </TabList>
 
-          <TabPanel sx={{ height: '100%' }} value='1'>
+          <TabPanel  value='1'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={allBooks} />}
           </TabPanel>
 
-          <TabPanel sx={{ height: '100%' }} value='2'>
+          <TabPanel  value='2'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lendo} />}
           </TabPanel>
 
-          <TabPanel sx={{ height: '100%' }} value='3'>
+          <TabPanel  value='3'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={lidos} />}
           </TabPanel>
 
-          <TabPanel sx={{ height: '100%' }} value='4'>
+          <TabPanel  value='4'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={queroler} />}
           </TabPanel>
 
-          <TabPanel sx={{ height: '100%' }} value='5'>
+          <TabPanel value='5'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={abandonados} />}
           </TabPanel>
 
-          <TabPanel sx={{ height: '100%' }} value='6'>
+          <TabPanel value='6'>
             {isLoading ? <TabPanelSkeleton /> : <TabPanelContent items={favoritos} />}
           </TabPanel>
 
