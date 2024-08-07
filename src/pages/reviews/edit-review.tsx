@@ -40,7 +40,7 @@ type ReviewModalProps = {
 };
 
 const reviewFilter = z.object({
-    review: z.string().min(3, { message: 'Comentário deve ter no mínimo 3 caracteres' }),
+    review: z.string().min(3, { message: 'Comentário deve ter no mínimo 3 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
 });
 
 type ReviewFilter = z.infer<typeof reviewFilter>;
@@ -127,7 +127,7 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, is
                         <p>Escreva sua review:</p>
                         <TextField
                             {...register('review')}
-                            multiline
+                            multiline={true}
                             minRows={4}
                             error={!!errors.review}
                             placeholder="Escreva aqui o que você achou desse livro."
