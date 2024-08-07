@@ -27,7 +27,7 @@ export const Profile = () => {
 
   const handleOpenEditModal = () => setIsEditing(!isEditing);
   const handleConfirmDelete = () => setConfirmDelete(!confirmDelete);
-  
+
   return (
     <Layout>
       {user ?
