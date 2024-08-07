@@ -6,7 +6,7 @@ import { ReviewsSkeleton } from "./reviews-skeleton";
 import { NoItemsFound } from "../../components/globals/NoItemsFound";
 
 export const Reviews = () => {
-  const { reviews, loading, refetchReviews } = useFetchReviewsByUser();
+  const { reviews, loading } = useFetchReviewsByUser();
 
   return (
     <Layout>

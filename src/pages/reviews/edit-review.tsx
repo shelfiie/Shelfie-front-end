@@ -1,4 +1,4 @@
-import { Alert, Box, Modal, Rating, Snackbar, TextField, Typography } from "@mui/material";
+import { Alert, Box, Modal, Rating, TextField, Typography } from "@mui/material";
 
 import { Theme } from "../../styles/theme";
 import { useState, useEffect } from "react";
