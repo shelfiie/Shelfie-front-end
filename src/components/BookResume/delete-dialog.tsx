@@ -1,4 +1,4 @@
-import { Alert, Button, Dialog, DialogActions, DialogTitle, Snackbar } from "@mui/material"
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from "@mui/material"
 import { StatusCode } from "../../api/client/IHttpClient";
 import { BookData } from "../../types/bookData";
 import { BookService } from "../../api/services/BookService";
@@ -38,6 +38,9 @@ const DeleteDialog = ({ open, handleDeleteDialog, myBookId }: DialogProps) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">{"Você tem certeza que deseja deletar esse livro?"}</DialogTitle>
+                <DialogContent>
+                    Ao realizar essa ação, o livro será tirado da sua lista juntamente com o restante de seus dados. Mas não se preocupe, essa ação não é irreversível.
+                </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDeleteDialog}>Cancelar</Button>
                     <Button onClick={handleDisable} autoFocus>Deletar</Button>

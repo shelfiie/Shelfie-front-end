@@ -38,7 +38,7 @@ const StyledBookResumeContainer = styled(BoxShadow)`
     height: min-content;
 `
 
-const ResumeTitle = styled.p`
+const ResumeTitle = styled.div`
     font-size: ${Theme.font.sizes.xsmall};
     font-family: ${Theme.font.family.poppins};
     font-weight: ${Theme.font.weight.semiBold};

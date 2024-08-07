@@ -43,7 +43,7 @@ const ReviewsContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    `
+`
 
 const ReviewDetails = styled.div`
     flex: 4;
@@ -58,5 +58,9 @@ const BoxesWrappers = styled.div`
     height: 100%;
 `
 
+const ReviewsWrapper = styled.div`
 
-export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers }
+`
+
+
+export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, ReviewsWrapper }
