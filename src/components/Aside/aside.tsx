@@ -7,7 +7,6 @@ import { Botao } from "../globals/Button.style.tsx";
 import { AsideStyles, Nav, UlNav } from './aside.styles.ts';
 import { AuthContext } from "../../api/context/auth.tsx";
 import { Perfil } from "../Profile/profile.tsx";
-import { useFetchUserData } from "../../api/hooks/useFetchUserData.ts";
 import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
@@ -16,8 +15,7 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import { UserRole } from "../../types/userType.ts";
 
 export const Aside = () => {
-    const { logout } = useContext(AuthContext);
-    const { user } = useFetchUserData();
+    const { logout, user } = useContext(AuthContext);
 
     const navItems = [
         { src: MenuBookRoundedIcon, name: "Biblioteca", route: "/home" },

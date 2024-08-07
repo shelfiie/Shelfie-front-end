@@ -43,6 +43,7 @@ export const ReviewsCard = ({ review, isEditable }: { review: BookData['reviews'
                                     icon={<StarRoundedIcon fontSize="inherit" />}
                                     emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} />}
                                 />
+                                
                                 {isEditable &&
                                     <a onClick={() => handleEditClick(review)}>
                                         <EditRoundedIcon

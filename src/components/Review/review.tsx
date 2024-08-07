@@ -138,7 +138,7 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title }: ReviewModalP
                         </ButtonsDiv>
 
                         {success &&
-                            <Snackbar open={!!success} autoHideDuration={6000} onClose={() => setSuccess(undefined)}>
+                            <Snackbar open={!!success} autoHideDuration={4000} onClose={() => setSuccess(undefined)}>
                                 <Alert severity="success">{success}</Alert>
                             </Snackbar>
                         }

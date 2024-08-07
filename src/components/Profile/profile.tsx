@@ -1,8 +1,9 @@
-import { useFetchUserData } from '../../api/hooks/useFetchUserData.ts'
+import { useContext } from 'react';
 import { ProfileContainer } from './profile.styles.ts'
+import { AuthContext } from '../../api/context/auth.tsx';
 // to do: pegar as infos do usuario
 export const Perfil = () => {
-  const { user } = useFetchUserData();
+  const { user } = useContext(AuthContext);
   
   return (
     <ProfileContainer>
