@@ -1,9 +1,9 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserService } from "../../api/services/UserService";
 import { Layout } from "../layout/layout"
 import { UserData } from "../../types/userType";
 import { AdminSpan, DashboardWrapper, ItemWrapper, PageWrapper, UserDiv, UserInformation, UsersWrapper } from "./admin-dashboard.styles";
-import { Alert, Pagination, Snackbar } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { Botao } from "../../components/globals/Button.style";
 import { Theme } from "../../styles/theme";
 import { BookData } from "../../types/bookData";
