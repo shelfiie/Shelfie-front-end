@@ -21,7 +21,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [signed, setSigned] = useState(!!localStorage.getItem('@Auth:token'));
     const [token, setToken] = useState('');
     const [user, setUser] = useState<UserData | null>(null!);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [_isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const loadingStoreData = () => {
