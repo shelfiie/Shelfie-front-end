@@ -14,6 +14,7 @@ import { ReviewModal } from '../../components/Review/review';
 import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
+import { BookStatus } from '../../types/bookData';
 
 export const BookDetails = () => {
   const { id } = useParams();
@@ -83,7 +84,7 @@ export const BookDetails = () => {
 
             <div>
               <Heart bookId={bookId} />
-              {bookStatus === 'LENDO' ? (
+              {bookStatus === BookStatus.LENDO || bookStatus === BookStatus.QUERO_LER ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
                   color={Theme.colors.light}
@@ -114,9 +115,9 @@ export const BookDetails = () => {
                   </span>
                 </Tooltip>}
 
-              <ProgressionModal bookId={bookId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
+              <ProgressionModal bookId={bookId} googleId={book?.googleId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
 
-              {bookStatus === 'LIDO' || bookStatus === 'ABANDONADO' ? (
+              {bookStatus === BookStatus.LIDO || bookStatus === BookStatus.ABANDONADO ? (
                 <Botao
                   backgroundColor={Theme.colors.pink}
                   color={Theme.colors.light}
@@ -152,7 +153,8 @@ export const BookDetails = () => {
                 handleModal={handleReviewModal}
                 bookId={bookId}
                 title={book?.title}
-                key={book?.bookId} />
+                key={book?.bookId} 
+                isEditing={false} />
             </div>
           </UserBookDetails>
         </BookContent>

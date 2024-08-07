@@ -18,7 +18,7 @@ export const Reviews = () => {
           {loading ? (
             <ReviewsSkeleton />
           ) : (
-            <ReviewsCard review={reviews ?? []} />
+            <ReviewsCard isEditable={true} review={reviews ?? []} />
           )}
 
         </div>

@@ -71,7 +71,7 @@ export const Profile = () => {
             <div>
               <h2>Últimas avaliações</h2>
               <ProfilerReviews id="profile-reviews">
-                <ReviewsCard review={reviews?.slice(0, 10) ?? []} />
+                <ReviewsCard isEditable={false} review={reviews?.slice(0, 10) ?? []} />
               </ProfilerReviews>
             </div>
 
