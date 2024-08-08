@@ -15,13 +15,24 @@ import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
 import { BookStatus } from '../../types/bookData';
+import { useFetchReviewsByGoogleId } from '../../api/hooks/useFetchReviewsByGoogleId';
+import { ReviewsCard } from '../reviews/reviews-card';
+import { ProfilerReviews } from '../profile/profile-styles';
 
 export const BookDetails = () => {
   const { id } = useParams();
 
   const { book, loading } = useGBookById(id ?? '');
   const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
-
+  const { reviews, loading: reviewsLoading } = useFetchReviewsByGoogleId(bookId);
+  const reviewsCombined = reviews?.map((review) => {
+    return {
+      ...review,
+      title: book?.title,
+      thumbnailUrl: book?.thumbnailUrl,
+      smallThumbnailUrl: book?.smallThumbnailUrl,
+    };
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -161,6 +172,17 @@ export const BookDetails = () => {
           </UserBookDetails>
         </BookContent>
       </BoxBook>
+      <h2>Últimas avaliações</h2>
+      <p>Veja abaixo o que os leitores que já leram esse livro acharam dele!</p>
+      {reviews &&
+        reviewsLoading ? <BookDetailsSkeleton /> :
+        <ProfilerReviews id="profile-reviews">
+          <ReviewsCard
+            isEditable={false}
+            review={reviewsCombined?.slice(0, 10) ?? []}
+          />
+        </ProfilerReviews>
+      }
     </Layout>
   );
 };
