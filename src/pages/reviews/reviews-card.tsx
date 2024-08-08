@@ -8,6 +8,7 @@ import { formatDate } from "../../utils/filters";
 import { Theme } from "../../styles/theme";
 import { useState } from "react";
 import { ReviewModal } from "./edit-review";
+import { Heart } from "../../components/globals/Heart.style";
 
 export const ReviewsCard = ({ review, isEditable }: { review: BookData['reviews'][]; isEditable: boolean }) => {
     const [selectedReview, setSelectedReview] = useState<BookData['reviews'] | null>(null);
@@ -43,7 +44,7 @@ export const ReviewsCard = ({ review, isEditable }: { review: BookData['reviews'
                                     icon={<StarRoundedIcon fontSize="inherit" />}
                                     emptyIcon={<StarBorderRoundedIcon style={{ opacity: 0.55 }} />}
                                 />
-                                
+
                                 {isEditable &&
                                     <a onClick={() => handleEditClick(review)}>
                                         <EditRoundedIcon
@@ -54,7 +55,10 @@ export const ReviewsCard = ({ review, isEditable }: { review: BookData['reviews'
                             </Icons>
                         </TitleRating>
                         <p>{review?.review}</p>
-                        <ReviewDate id="review-date">{formatDate(review?.createdAt ?? '')}</ReviewDate>
+                        <div>
+                            <Heart reviewId={review?.id} />
+                            <ReviewDate id="review-date">{formatDate(review?.createdAt ?? '')}</ReviewDate>
+                        </div>
                     </ReviewDetails>
                 </BoxWrapper>
             ))}

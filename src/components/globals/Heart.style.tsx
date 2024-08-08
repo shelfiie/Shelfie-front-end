@@ -13,7 +13,12 @@ export const HeartStyle = styled.img`
   transition: 0.3s ease-in-out;
 `;
 
-export const Heart = ({ bookId }: { bookId: BookData['bookId'] }) => {
+type HeartProps = {
+  bookId?: BookData['bookId'];
+  reviewId?: string;
+}
+
+export const Heart = ({ bookId, reviewId }: HeartProps) => {
   const [src, setSrc] = useState(Coracao);
   const [success, setSuccess] = useState<string | null>();
   const [error, setError] = useState<string | null>();
@@ -31,7 +36,7 @@ export const Heart = ({ bookId }: { bookId: BookData['bookId'] }) => {
 
   const handleFavorite = async () => {
 
-    const response = await service.favoriteBook(bookId);
+    const response = bookId ? await service.favoriteBook(bookId) : await service.likeReview(reviewId ?? '');
 
     if (response.statusCode === StatusCode.Ok) setSuccess(response?.resolve);
     else setError(response?.reject);
