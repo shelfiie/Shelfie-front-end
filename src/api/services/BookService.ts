@@ -138,6 +138,17 @@ export class BookService {
         }
     }
 
+    async fetchReviewsByBookId(googleId: BookData['googleId']): Promise<HttpResponse<any>> {
+        const base = `/api/review/book/${googleId}`;
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) return response;
+        return {
+            ...response,
+            reject: 'Erro ao buscar reviews',
+        }
+    }
+
     async fetchBooksByUser(): Promise<HttpResponse<any>> {
         const base = '/api/mybooks/mine';
 
@@ -200,7 +211,7 @@ export class BookService {
         }
     }
 
-    async fetchBooksByGoogleId(googleId: string): Promise<HttpResponse<any>> {
+    async fetchBooksByGoogleId(googleId: BookData['googleId']): Promise<HttpResponse<any>> {
         const base = `/api/books/google/${googleId}`;
 
         const response = await this.client.get({ url: base });
