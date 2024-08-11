@@ -16,16 +16,30 @@ export const AdminDashboard = () => {
 
     const userService = new UserService();
 
+    const handlePromoteUser = async (id: BookData['id']) => {
+        if (id) {
+            const response = await userService.promoteUser(id);
+            if (response.statusCode === 200) {
+                setSuccess(response?.resolve);
+                setTimeout(() => setSuccess(undefined), 3000);
+                fetchUsers();
+            } else {
+                setError(response?.reject);
+                setTimeout(() => setError(undefined), 3000);
+            }
+        }
+    }
+
+    const fetchUsers = async () => {
+        const response = await userService.fetchAllUsers();
+
+        setUsers(response?.body as UserData[]);
+        console.log(response?.body);
+    };
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await userService.fetchAllUsers();
-
-            setUsers(response?.body as UserData[]);
-            console.log(response?.body);
-        };
         fetchUsers();
-    });
+    }, []);
 
 
     const handleDisableUser = async (id: BookData['id']) => {
@@ -75,12 +89,20 @@ export const AdminDashboard = () => {
                                         <AdminSpan>Habilitado: </AdminSpan> <p>{String(user.enabled)}</p>
                                     </ItemWrapper>
                                 </UserInformation>
-                                <div>
+                                <div style={{ gap: '1rem', display: 'flex', flexDirection: 'column' }}>
                                     <Botao
                                         fontSize={Theme.font.sizes.xsmall}
                                         color={Theme.colors.white}
                                         borderRadius={Theme.borders.radius}
-                                        padding={`${Theme.margins.margin1rem} ${Theme.margins.margin2rem}`}
+                                        padding={`${Theme.margins.margin1rem} ${Theme.margins.marginhalfrem}`}
+                                        onClick={() => handlePromoteUser(user.id)}>
+                                        Promover ADMIN
+                                    </Botao>
+                                    <Botao
+                                        fontSize={Theme.font.sizes.xsmall}
+                                        color={Theme.colors.white}
+                                        borderRadius={Theme.borders.radius}
+                                        padding={`${Theme.margins.margin1rem} ${Theme.margins.marginhalfrem}`}
                                         onClick={() => user.id && handleDisableUser(user.id)}>
                                         Desabilitar
                                     </Botao>

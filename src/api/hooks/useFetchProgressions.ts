@@ -9,7 +9,7 @@ const useFetchAllProgressions = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const service = new BookService();
 
-    const fetchAllProgressions = useCallback(async () => {
+    const fetchAllProgressions = async () => {
         setLoading(true);
         const progressionsResponse = await service.fetchProgressions();
 
@@ -46,7 +46,7 @@ const useFetchAllProgressions = () => {
             setProgressions(progressionsArray.filter(Boolean) as BookData['progressions'][]);
             setLoading(false);
         }
-    }, []);
+    };
 
     useEffect(() => {
         fetchAllProgressions();

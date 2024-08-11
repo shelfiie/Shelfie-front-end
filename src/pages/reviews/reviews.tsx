@@ -11,18 +11,19 @@ export const Reviews = () => {
   return (
     <Layout>
       <ReviewsContent id='reviews-content'>
-
+        <div>
           <h2>Reviews</h2>
           <p>Confira aqui suas avaliações de livros que você leu e/ou abandonou!</p>
+        </div>
 
-          {loading ? (
-            <ReviewsSkeleton />
-          ) : (
-            reviews?.length ?? 0 > 0 ? 
+        {loading ? (
+          <ReviewsSkeleton />
+        ) : (
+          reviews?.length ?? 0 > 0 ?
             <ReviewsWrapper id='reviews-wrapper'>
               <ReviewsCard isEditable={true} review={reviews ?? []} />
             </ReviewsWrapper> : <NoItemsFound>Você não tem livros avaliados!</NoItemsFound>
-          )}
+        )}
 
       </ReviewsContent>
     </Layout >

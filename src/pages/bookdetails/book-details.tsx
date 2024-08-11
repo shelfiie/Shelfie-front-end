@@ -15,16 +15,25 @@ import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
 import { BookStatus } from '../../types/bookData';
-import { useFetchReviewsByGoogleId } from '../../api/hooks/useFetchReviewsByGoogleId';
 import { ReviewsCard } from '../reviews/reviews-card';
 import { ProfilerReviews } from '../profile/profile-styles';
+import { useFetchReviewsByBookId } from '../../api/hooks/useFetchReviewsByBookId';
 
 export const BookDetails = () => {
   const { id } = useParams();
 
   const { book, loading } = useGBookById(id ?? '');
+
   const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
-  const { reviews, loading: reviewsLoading } = useFetchReviewsByGoogleId(bookId);
+
+  const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(bookId);
+
+  useEffect(() => {
+    if(bookId) {
+      refetchReviews && refetchReviews();
+    }
+  }, [bookId])
+
   const reviewsCombined = reviews?.map((review) => {
     return {
       ...review,
@@ -33,6 +42,7 @@ export const BookDetails = () => {
       smallThumbnailUrl: book?.smallThumbnailUrl,
     };
   });
+
   const navigate = useNavigate();
 
   useEffect(() => {
