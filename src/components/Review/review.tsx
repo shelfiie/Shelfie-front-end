@@ -1,4 +1,4 @@
-import { Alert, Box, Modal, Rating, Snackbar, TextField, Typography } from "@mui/material"
+import { Alert, Box, Modal, Rating, TextField, Typography } from "@mui/material"
 import { ButtonsDiv, ProgressionForm, ProgressionSpan, styledBox } from "../ProgressionModal/progression-modal.styles";
 import { Botao } from "../globals/Button.style";
 import { Theme } from "../../styles/theme";
@@ -138,11 +138,7 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title, refreshBookDet
 
                         </ButtonsDiv>
 
-                        {success &&
-                            <Snackbar open={!!success} autoHideDuration={4000} onClose={() => setSuccess(undefined)}>
-                                <Alert severity="success">{success}</Alert>
-                            </Snackbar>
-                        }
+                        {success && <Alert severity="success">{success}</Alert>}
                         {error && <Alert severity="error">{error}</Alert>}
 
                     </ProgressionForm>

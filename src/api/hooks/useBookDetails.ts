@@ -21,9 +21,9 @@ const useBookDetails = (googleId: BookData['googleId']) => {
 
     useEffect(() => {
         fetchMybook();
-    });
+    }, [googleId]);
 
-    return { page, bookStatus, bookId, refetchBookDetails : fetchMybook };
+    return { page, bookStatus, bookId, refetchBookDetails : fetchMybook, refetchBookId: bookId };
 }
 
 export { useBookDetails };
