@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
