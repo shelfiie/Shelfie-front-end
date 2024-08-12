@@ -78,8 +78,15 @@ export const Profile = () => {
             <div>
               <h2>Últimas avaliações</h2>
               {loading ? <ReviewProfileSkeletons /> :
-                <ProfilerReviews id="profile-reviews">
-                  <ReviewsCard isEditable={false} review={reviews?.slice(0, 10) ?? []} />
+                <ProfilerReviews>
+                  {reviews?.map((review, index) => (
+                    <ReviewsCard
+                      key={index}
+                      review={review}
+                      isEditable={true}
+                      isLikable={true}
+                    />
+                  ))}
                 </ProfilerReviews>
               }
             </div>

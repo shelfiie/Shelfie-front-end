@@ -15,10 +15,10 @@ export class UserService {
         return response;
     }
 
-    async editUser(data : UserData): Promise<HttpResponse<unknown>> {
+    async editUser(data: UserData): Promise<HttpResponse<unknown>> {
         const base = `/api/users/${data.id}/update`;
         const response = await this.client.put({ url: base, body: data });
-        if(response.statusCode !== 200) {
+        if (response.statusCode !== 200) {
             return {
                 ...response,
                 reject: 'Erro ao atualizar usuário. Tente novamente mais tarde.',
@@ -60,5 +60,20 @@ export class UserService {
         return response;
     }
 
+    async promoteUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
+        const base = `/api/admin/change-role/${id}`;
+        const response = await this.client.post({ url: base });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao promover usuário. Tente novamente mais tarde.',
+            }
+        } else {
+            return {
+                ...response,
+                resolve: "Usuário promovido para ADMIN com sucesso!",
+            }
+        }
 
+    }
 }
