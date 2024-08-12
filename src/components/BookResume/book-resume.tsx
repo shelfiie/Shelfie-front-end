@@ -44,7 +44,7 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
               REVIEW
             </Botao>
           ) : (
-            <Botao
+          <Botao
               backgroundColor={Theme.colors.blue}
               color={Theme.colors.white}
               fontSize={Theme.font.sizes.xsmall}
@@ -57,7 +57,7 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
         </ButtonWrapper>
         {loading ? <CircularProgress size={20} /> :
           <>
-            <Heart bookId={Bookzin.bookId} />
+            <Heart type='book' bookId={Bookzin.bookId} />
             <DeleteRoundedIcon onClick={handleDeleteDialog} />
             <DeleteDialog refetchBooks={refetchBooks} open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
           </>
