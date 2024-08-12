@@ -14,7 +14,6 @@ const useFetchReviewsByBookId = (googleId: BookData['googleId']) => {
         if (response.statusCode === StatusCode.Ok) {
             setReviews(response.body);
             setLoading(false);
-            console.log('response', response)
             return response;
         }
     };

@@ -58,9 +58,27 @@ const BoxesWrappers = styled.div`
     height: 100%;
 `
 
-const ReviewsWrapper = styled.div`
+const Like = styled.div`
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
 
+    span {
+        font-size: ${Theme.font.sizes.xxsmall};
+        font-family: ${Theme.font.family.poppins};
+    }
+    img {
+        height: 20px !important;
+        margin: 0;
+    }
+`
+
+const LikeDetails = styled.div`
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
 `
 
 
-export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, ReviewsWrapper }
+
+export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, Like, LikeDetails }

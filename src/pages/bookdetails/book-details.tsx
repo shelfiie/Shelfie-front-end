@@ -29,7 +29,7 @@ export const BookDetails = () => {
   const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(bookId);
 
   useEffect(() => {
-    if(bookId) {
+    if (bookId) {
       refetchReviews && refetchReviews();
     }
   }, [bookId])
@@ -41,6 +41,12 @@ export const BookDetails = () => {
       thumbnailUrl: book?.thumbnailUrl,
       smallThumbnailUrl: book?.smallThumbnailUrl,
     };
+  });
+
+  const sortedReviews = reviewsCombined && reviewsCombined.sort((a, b) => {
+    const dateA = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const dateB = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return dateB - dateA;
   });
 
   const navigate = useNavigate();
@@ -105,7 +111,7 @@ export const BookDetails = () => {
             </div>
 
             <div>
-              <Heart bookId={bookId} />
+              <Heart type='book' bookId={bookId} />
               {bookStatus === BookStatus.LENDO || bookStatus === BookStatus.QUERO_LER ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
@@ -182,15 +188,23 @@ export const BookDetails = () => {
           </UserBookDetails>
         </BookContent>
       </BoxBook>
-      <h2>Últimas avaliações</h2>
-      <p>Veja abaixo o que os leitores que já leram esse livro acharam dele!</p>
+
+      <div>
+        <h2>Últimas avaliações</h2>
+        <p>Veja abaixo o que os leitores que já leram esse livro acharam dele!</p>
+      </div>
+
       {reviews &&
         reviewsLoading ? <BookDetailsSkeleton /> :
-        <ProfilerReviews id="profile-reviews">
-          <ReviewsCard
-            isEditable={false}
-            review={reviewsCombined?.slice(0, 10) ?? []}
-          />
+        <ProfilerReviews>
+          {sortedReviews?.map((review, index) => (
+              <ReviewsCard
+                key={index}
+                review={review}
+                isEditable={false}
+                isLikable={true}
+              />
+          ))}
         </ProfilerReviews>
       }
     </Layout>
