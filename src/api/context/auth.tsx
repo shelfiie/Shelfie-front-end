@@ -80,7 +80,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     async function register({ name, email, nickname, password }: UserData) : Promise<HttpResponse<unknown> | undefined>{
         const response = await authService.registerUser({ name, email, nickname, password });
 
-        if (response.body) {
+        if (response.statusCode === StatusCode.Created) {
             return {
                 ...response,
                 resolve: 'Usuário cadastrado com sucesso'

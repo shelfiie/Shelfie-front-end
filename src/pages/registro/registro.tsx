@@ -12,7 +12,7 @@ import { RegisterDiv, TemContaP } from "./registro-styles.ts";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
 import { StatusCode } from "../../api/client/IHttpClient.ts";
-import { Alert } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 import { Input } from "../../components/globals/Input.style.ts";
 
 export function Registro() {
@@ -43,11 +43,10 @@ export function Registro() {
         const response = await auth.register(data);
         if (response?.statusCode === StatusCode.Created) {
             setSuccess(response.resolve);
-            console.log(response.resolve);
-            setTimeout(() => navigate('/'), 5000);
+            setTimeout(() => navigate('/'), 4000);
         } else {
             setError(response?.reject);
-            setTimeout(() => setError(''), 5000);
+            setTimeout(() => setError(''), 4000);
         }
     }
 
@@ -132,8 +131,16 @@ export function Registro() {
                     </a>
                 </TemContaP>
             </RegisterDiv>
-            {success && <Alert sx={{ width: 300, margin: '0 auto', marginTop: Theme.margins.margin2rem }} variant="filled" severity="success">{success}</Alert>}
-            {error && <Alert variant="filled" severity="error">{error}</Alert>}
+            {success &&
+                <Snackbar anchorOrigin={{horizontal: 'right', vertical: 'bottom'}} open={true} autoHideDuration={4000}>
+                    <Alert variant="filled" severity="success">{success}</Alert>
+                </Snackbar>
+            }
+            {error && 
+                <Snackbar anchorOrigin={{horizontal: 'right', vertical: 'bottom'}} open={true} autoHideDuration={4000}>
+                    <Alert variant="filled" severity="error">{error}</Alert>
+                </Snackbar>
+            }
             <Globals />
         </>
     );

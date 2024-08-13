@@ -23,22 +23,17 @@ export class AuthService {
 
     async registerUser({ name, email, password, nickname }: UserData): Promise<HttpResponse<any>> {
         const base = '/auth/signup';
-        try {
-            const response = await this.client.post({ url: base, body: { name, email, password, nickname } });
+        const response = await this.client.post({ url: base, body: { name, email, password, nickname } });
 
-            if (response.statusCode === 200) {
-                return {
-                    statusCode: 200,
-                    body: response.body,
-                    resolve: 'Usuário cadastrado com sucesso',
-                }
-
-            } else {
-                return response;
+        if (response.statusCode === 200) {
+            return {
+                statusCode: 200,
+                body: response.body,
+                resolve: 'Usuário cadastrado com sucesso',
             }
-        } catch (error) {
-            throw new Error('Erro ao cadastrar usuário');
+        } else {
+            return response
+
         }
     }
-
 }
