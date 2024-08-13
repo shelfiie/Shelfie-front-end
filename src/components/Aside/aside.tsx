@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
@@ -15,8 +15,11 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import { UserRole } from "../../types/userType.ts";
 
 export const Aside = () => {
-    const { logout, user } = useContext(AuthContext);
-
+    const { logout, user, refetchUser } = useContext(AuthContext);
+    useEffect(() => {
+         refetchUser && refetchUser();
+    }, [])
+    
     const navItems = [
         { src: MenuBookRoundedIcon, name: "Biblioteca", route: "/home" },
         { src: PersonRoundedIcon, name: "Perfil", route: "/me" },

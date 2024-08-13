@@ -13,7 +13,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
 import { StatusCode } from "../../api/client/IHttpClient.ts";
 import { Alert, Snackbar } from "@mui/material";
-import { Input } from "../../components/globals/Input.style.ts";
+import { Input } from "../../components/globals/Input.style.tsx";
 
 export function Registro() {
     const auth = useContext(AuthContext);
@@ -75,7 +75,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="email">E-mail</label>
-                        <Input
+                        <Input 
                             id="email"
                             {...register('email')}
                             type="email"

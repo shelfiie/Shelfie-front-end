@@ -13,7 +13,7 @@ import { Botao } from "../../components/globals/Button.style.tsx";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TemContaP } from "../registro/registro-styles.ts";
 import { UserData } from "../../types/userType.ts";
-import { Input } from "../../components/globals/Input.style.ts";
+import { Input } from "../../components/globals/Input.style.tsx";
 
 export function Login() {
     const [error, setError] = useState('');

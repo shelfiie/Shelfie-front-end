@@ -36,7 +36,7 @@ const useFetchBooksByUser = () => {
         setAbandonados(books.filter(book => book.bookStatus === BookStatus.ABANDONADO && book.enabled));
     }, []);
 
-    const fetchFavoriteBooks = useCallback(async (books : BookData[]) => {
+    const fetchFavoriteBooks = useCallback(async (books: BookData[]) => {
         const response = await bookService.fetchFavoriteBooks();
         if (response.statusCode === StatusCode.Ok) {
             const favoriteBookIds = response.body.map((book: BookData) => book.bookId);
@@ -48,6 +48,7 @@ const useFetchBooksByUser = () => {
     useEffect(() => {
         fetchAllBooksByUser();
     }, [])
+    
     return { isLoading, allBooks, lendo, lidos, queroler, abandonados, favoritos, refetchBooks: fetchAllBooksByUser };
 }
 
