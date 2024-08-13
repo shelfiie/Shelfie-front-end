@@ -17,9 +17,11 @@ type HeartProps = {
   bookId?: BookData['bookId'];
   reviewId?: string;
   type: 'book' | 'review';
+  refetchReviews?: () => void;
+  refetchBooks?: () => void;
 };
 
-export const Heart = ({ bookId, reviewId, type }: HeartProps) => {
+export const Heart = ({ bookId, reviewId, type, refetchReviews }: HeartProps) => {
   const [src, setSrc] = useState(Coracao);
   const [success, setSuccess] = useState<string | null>();
   const [error, setError] = useState<string | null>();
@@ -30,8 +32,7 @@ export const Heart = ({ bookId, reviewId, type }: HeartProps) => {
     if (type === 'book') {
       isFavorited = await bookService.isFavorited(bookId);
     } else {
-      return
-      isFavorited = await bookService.isFavorited(bookId);
+      return isFavorited = await bookService.isFavorited(bookId);
     }
     if (isFavorited.body === true) setSrc(CoracaoPreenchido);
     else setSrc(Coracao);
@@ -45,8 +46,11 @@ export const Heart = ({ bookId, reviewId, type }: HeartProps) => {
     let response;
     if (type === 'book') {
       response = await bookService.favoriteBook(bookId);
+      setSuccess(response?.resolve);
     } else {
       response = await bookService.likeReview(reviewId ?? '');
+      setSuccess(response?.resolve);
+      refetchReviews && refetchReviews();
     }
 
     if (response.statusCode === StatusCode.Created) setSuccess(response?.resolve);
