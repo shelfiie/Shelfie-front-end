@@ -162,7 +162,7 @@ export class BookService {
         }
     }
 
-    async fetchUsersWhoLikedReview(reviewId: BookData['reviews']): Promise<HttpResponse<any>> {
+    async fetchLikesQuantityByReviewId(reviewId: string): Promise<HttpResponse<any>> {
         const base = `/api/like/${reviewId}`;
         const response = await this.client.get({ url: base });
         if (response.statusCode === StatusCode.Ok) return response;
@@ -171,6 +171,7 @@ export class BookService {
             reject: 'Erro ao buscar usuários que curtiram a review',
         }
     }
+
     async fetchBooksByUser(): Promise<HttpResponse<any>> {
         const base = '/api/mybooks/mine';
 

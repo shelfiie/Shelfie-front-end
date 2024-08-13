@@ -15,9 +15,10 @@ type ReviewsCardProps = {
     review: BookData['reviews'];
     isEditable: boolean;
     isLikable: boolean;
+    refetchReviews?: () => void;
 };
 
-export const ReviewsCard = ({ review, isEditable, isLikable }: ReviewsCardProps) => {
+export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: ReviewsCardProps) => {
     const [selectedReview, setSelectedReview] = useState<BookData['reviews'] | null>(null);
     const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -62,7 +63,7 @@ export const ReviewsCard = ({ review, isEditable, isLikable }: ReviewsCardProps)
                     <Like>
                         {isLikable &&
                             <LikeDetails>
-                                <Heart type="review" reviewId={review && review.id} />
+                                <Heart refetchReviews={refetchReviews} type="review" reviewId={review && review.id} />
                                 <span>{likesQuantity}</span>
                             </LikeDetails>
                         }
