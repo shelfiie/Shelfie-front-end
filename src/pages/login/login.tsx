@@ -70,7 +70,7 @@ export function Login() {
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <ItemsForm>
                         <label htmlFor="email">Email</label>
-                        <Input required
+                        <Input
                             id="email"
                             type="email"
                             placeholder="Digite seu e-mail"
@@ -81,7 +81,7 @@ export function Login() {
 
                     <ItemsForm>
                         <label htmlFor="password">Senha</label>
-                        <Input required
+                        <Input
                             id="password"
                             type="password"
                             placeholder="Digite sua senha"
@@ -94,15 +94,7 @@ export function Login() {
                         <Alert sx={{ padding: '0 .275rem', borderRadius: '1.5rem' }} variant="outlined" severity="error">
                             {error}
                         </Alert>}
-
-                    {/* <CheckBox>
-                        <div>
-                            <input type="checkbox" placeholder="Lembre de mim" id="rememberMe" />
-                            <span>Lembre de mim</span>
-                        </div>
-                        <a href="#"><u>Esqueceu a senha?</u></a>
-                    </CheckBox> */}
-
+                        
                     <Botao
                         isError={hasErrors}
                         disabled={loading}
