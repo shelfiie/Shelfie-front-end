@@ -21,7 +21,7 @@ type HeartProps = {
   refetchBooks?: () => void;
 };
 
-export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: HeartProps) => {
+export const Heart = ({ bookId, reviewId, type, refetchReviews }: HeartProps) => {
   const [src, setSrc] = useState(Coracao);
   const [success, setSuccess] = useState<string | null>();
   const [error, setError] = useState<string | null>();
@@ -32,8 +32,7 @@ export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: 
     if (type === 'book') {
       isFavorited = await bookService.isFavorited(bookId);
     } else {
-      return
-      isFavorited = await bookService.isFavorited(bookId);
+      return isFavorited = await bookService.isFavorited(bookId);
     }
     if (isFavorited.body === true) setSrc(CoracaoPreenchido);
     else setSrc(Coracao);
