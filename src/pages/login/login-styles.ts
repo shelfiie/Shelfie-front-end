@@ -8,7 +8,7 @@ const LoginDiv = styled(BoxShadow)`
 
     padding: ${Theme.margins.margin5rem};
     margin: 0 auto;
-    margin-top: ${Theme.margins.margin7rem};
+    margin-top: 30rem;
 
     > div{
         margin: ${Theme.margins.margin5rem} 0 ${Theme.margins.margin6rem} 0;

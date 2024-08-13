@@ -57,7 +57,7 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
         </ButtonWrapper>
         {loading ? <CircularProgress size={20} /> :
           <>
-            <Heart type='book' bookId={Bookzin.bookId} />
+            <Heart refetchBooks={refetchBooks} type='book' bookId={Bookzin.bookId} />
             <DeleteRoundedIcon onClick={handleDeleteDialog} />
             <DeleteDialog refetchBooks={refetchBooks} open={confirmOpen} handleDeleteDialog={handleDeleteDialog} myBookId={Bookzin.id} />
           </>

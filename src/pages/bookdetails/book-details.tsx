@@ -198,12 +198,13 @@ export const BookDetails = () => {
         reviewsLoading ? <BookDetailsSkeleton /> :
         <ProfilerReviews>
           {sortedReviews?.map((review, index) => (
-              <ReviewsCard
-                key={index}
-                review={review}
-                isEditable={false}
-                isLikable={true}
-              />
+            <ReviewsCard
+              refetchReviews={refetchReviews}
+              key={index}
+              review={review}
+              isEditable={false}
+              isLikable={true}
+            />
           ))}
         </ProfilerReviews>
       }
