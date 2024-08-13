@@ -95,7 +95,7 @@ export class BookService {
                         ...response,
                         resolve: 'Status do livro alterado e progressão salva com sucesso!',
                     };
-    
+
                 }
             }, 2000)
 
@@ -149,34 +149,28 @@ export class BookService {
         }
     }
 
-    async likeReview(reviewId: BookData['id']): Promise<HttpResponse<any>> {
+    async likeReview(reviewId: string): Promise<HttpResponse<any>> {
         const base = `/api/like/${reviewId}`;
-
         const response = await this.client.post({ url: base });
 
-        if (response.statusCode === StatusCode.Created) {
-            return {
-                ...response,
-                resolve: 'Review curtido com sucesso!',
-            };
-        } else {
-            return {
-                ...response,
-                reject: 'Erro ao curtir review',
-            };
+        if (response.statusCode === StatusCode.Ok) return {
+            ...response,
+            resolve: 'Review curtido com sucesso',
+        }; else return {
+            ...response,
+            reject: 'Erro ao curtir review'
         }
     }
 
-    async fetchLikesQuantityByReviewId(reviewId: string): Promise<HttpResponse<any>> {
+    async fetchUsersWhoLikedReview(reviewId: BookData['reviews']): Promise<HttpResponse<any>> {
         const base = `/api/like/${reviewId}`;
         const response = await this.client.get({ url: base });
         if (response.statusCode === StatusCode.Ok) return response;
         return {
             ...response,
-            reject: 'Erro ao buscar quantidade de likes',
+            reject: 'Erro ao buscar usuários que curtiram a review',
         }
     }
-
     async fetchBooksByUser(): Promise<HttpResponse<any>> {
         const base = '/api/mybooks/mine';
 

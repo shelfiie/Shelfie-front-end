@@ -75,5 +75,12 @@ export class UserService {
             }
         }
 
+    }    
+    async fetchLikedReviews(): Promise<HttpResponse<any>> {
+        const base = '/api/like/mine';
+        const response = await this.client.get({ url: base });
+        return response;
     }
+
+
 }

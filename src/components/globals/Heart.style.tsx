@@ -46,7 +46,7 @@ export const Heart = ({ bookId, reviewId, type }: HeartProps) => {
     if (type === 'book') {
       response = await bookService.favoriteBook(bookId);
     } else {
-      response = await bookService.likeReview(reviewId);
+      response = await bookService.likeReview(reviewId ?? '');
     }
 
     if (response.statusCode === StatusCode.Created) setSuccess(response?.resolve);
