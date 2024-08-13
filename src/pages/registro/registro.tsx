@@ -13,7 +13,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
 import { StatusCode } from "../../api/client/IHttpClient.ts";
 import { Alert, Snackbar } from "@mui/material";
-import { Input, InputStyle } from "../../components/globals/Input.style.tsx";
+import { InputStyle } from "../../components/globals/Input.style.tsx";
 
 export function Registro() {
     const auth = useContext(AuthContext);

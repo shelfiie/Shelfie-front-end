@@ -54,7 +54,6 @@ export function Login() {
     };
 
     const hasErrors = Object.keys(errors).length > 0;
-    console.log(watch('email'), watch('password'));
 
     if (signed) return <Navigate to="/home" />
     return (
