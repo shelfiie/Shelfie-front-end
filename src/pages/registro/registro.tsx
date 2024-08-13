@@ -13,7 +13,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
 import { StatusCode } from "../../api/client/IHttpClient.ts";
 import { Alert, Snackbar } from "@mui/material";
-import { Input } from "../../components/globals/Input.style.tsx";
+import { Input, InputStyle } from "../../components/globals/Input.style.tsx";
 
 export function Registro() {
     const auth = useContext(AuthContext);
@@ -64,7 +64,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="nome">Nome Completo</label>
-                        <Input
+                        <InputStyle
                             id="name"
                             {...register('name')}
                             type="text"
@@ -75,7 +75,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="email">E-mail</label>
-                        <Input 
+                        <InputStyle 
                             id="email"
                             {...register('email')}
                             type="email"
@@ -85,7 +85,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="usuario">Usuário</label>
-                        <Input
+                        <InputStyle
                             id="user"
                             {...register('nickname')}
                             type="text"
@@ -95,7 +95,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="senha">Senha</label>
-                        <Input
+                        <InputStyle
                             id="password"
                             {...register('password')}
                             type="password"
@@ -105,7 +105,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="confirmarSenha">Confirmar Senha</label>
-                        <Input
+                        <InputStyle
                             id="confirmPassword"
                             {...register('confirmPassword')}
                             type="password"

@@ -4,7 +4,7 @@ import { Theme } from "../../styles/theme"
 
 const RegisterDiv = styled(LoginDiv)`
     @media (max-width: ${Theme.screen.desktopS}) {
-        margin-top: ${Theme.margins.margin5rem};
+        margin-top: 25rem;
         * input {
             padding: ${Theme.margins.margin1rem};
         }

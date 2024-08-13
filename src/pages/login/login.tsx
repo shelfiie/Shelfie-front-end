@@ -13,7 +13,7 @@ import { Botao } from "../../components/globals/Button.style.tsx";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TemContaP } from "../registro/registro-styles.ts";
 import { UserData } from "../../types/userType.ts";
-import { Input } from "../../components/globals/Input.style.tsx";
+import { InputStyle } from "../../components/globals/Input.style.tsx";
 
 export function Login() {
     const [error, setError] = useState('');
@@ -54,6 +54,7 @@ export function Login() {
     };
 
     const hasErrors = Object.keys(errors).length > 0;
+    console.log(watch('email'), watch('password'));
 
     if (signed) return <Navigate to="/home" />
     return (
@@ -70,7 +71,7 @@ export function Login() {
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <ItemsForm>
                         <label htmlFor="email">Email</label>
-                        <Input
+                        <InputStyle
                             id="email"
                             type="email"
                             placeholder="Digite seu e-mail"
@@ -81,7 +82,7 @@ export function Login() {
 
                     <ItemsForm>
                         <label htmlFor="password">Senha</label>
-                        <Input
+                        <InputStyle 
                             id="password"
                             type="password"
                             placeholder="Digite sua senha"
