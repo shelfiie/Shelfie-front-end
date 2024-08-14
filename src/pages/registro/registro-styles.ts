@@ -3,8 +3,12 @@ import { LoginDiv } from "../login/login-styles"
 import { Theme } from "../../styles/theme"
 
 const RegisterDiv = styled(LoginDiv)`
-    @media (max-width: ${Theme.screen.desktopS}) {
-        margin-top: 25rem;
+    @media (max-width:${Theme.screen.laptopM} ){
+        margin-top: ${Theme.margins.margin3rem};
+    }
+
+    @media (min-width: ${Theme.screen.desktopS}) {
+        margin-top: ${Theme.margins.margin8rem};
         * input {
             padding: ${Theme.margins.margin1rem};
         }
