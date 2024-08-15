@@ -63,12 +63,12 @@ export class BookService {
             if (response.statusCode === StatusCode.Created) {
                 return {
                     ...response,
-                    resolve: `Livro adicionado à sua estante como ${bookStatus}`,
+                    resolve: `Livro adicionado à sua estante como ${bookStatus}!`,
                 }
             } else {
                 return {
                     ...response,
-                    reject: 'Erro ao adicionar o livro na estante',
+                    reject: 'Erro ao adicionar o livro na estante.',
                 }
             }
         }
@@ -76,13 +76,14 @@ export class BookService {
 
     async postProgression(data: BookData): Promise<HttpResponse<any>> {
         const base = `/api/reading`;
+        console.log(data)
 
         const response = await this.client.post({
             url: base,
             body: data
         });
 
-        if (response.statusCode === StatusCode.BadRequest) {
+        if (response.statusCode === StatusCode.BadRequest || response.statusCode === StatusCode.InternalServerError) {
             this.putBookStatus({ googleId: data.googleId, bookStatus: BookStatus.LENDO })
 
             setTimeout(async () => {
@@ -103,7 +104,7 @@ export class BookService {
 
         return {
             ...response,
-            reject: 'Erro ao salvar progressão'
+            reject: 'Erro ao salvar progressão.'
         }
     }
     async postReview({ bookId, reviews }: BookData): Promise<HttpResponse<any>> {
@@ -145,7 +146,7 @@ export class BookService {
         if (response.statusCode === StatusCode.Ok) return response;
         return {
             ...response,
-            reject: 'Erro ao buscar reviews',
+            reject: 'Erro ao buscar reviews.',
         }
     }
 
@@ -155,10 +156,10 @@ export class BookService {
 
         if (response.statusCode === StatusCode.Ok) return {
             ...response,
-            resolve: 'Review curtido com sucesso',
+            resolve: 'Review curtido com sucesso!',
         }; else return {
             ...response,
-            reject: 'Erro ao curtir review'
+            reject: 'Erro ao curtir review.'
         }
     }
 
@@ -168,7 +169,7 @@ export class BookService {
         if (response.statusCode === StatusCode.Ok) return response;
         return {
             ...response,
-            reject: 'Erro ao buscar usuários que curtiram a review',
+            reject: 'Erro ao buscar usuários que curtiram a review.',
         }
     }
 
@@ -180,13 +181,13 @@ export class BookService {
         if (response.statusCode === StatusCode.Ok) {
             return {
                 ...response,
-                resolve: 'Sucesso ao buscar livros',
+                resolve: 'Sucesso ao buscar livros!',
             }
 
         } else {
             return {
                 ...response,
-                reject: 'Erro ao buscar livros',
+                reject: 'Erro ao buscar livros.',
             };
         }
     }
@@ -200,7 +201,7 @@ export class BookService {
         else {
             return {
                 ...response,
-                reject: 'Erro ao buscar livro',
+                reject: 'Erro ao buscar livro.',
             }
         }
     }
@@ -229,7 +230,7 @@ export class BookService {
         } else {
             return {
                 ...response,
-                reject: 'Erro ao buscar livro'
+                reject: 'Erro ao buscar livro.'
             }
         }
     }
@@ -245,7 +246,7 @@ export class BookService {
         } else {
             return {
                 ...response,
-                reject: 'Erro ao buscar livro'
+                reject: 'Erro ao buscar livro.'
             };
         }
     }
@@ -256,7 +257,7 @@ export class BookService {
         if (response.statusCode !== StatusCode.Ok) {
             return {
                 ...response,
-                reject: 'Erro ao buscar livros do usuário',
+                reject: 'Erro ao buscar livros do usuário.',
             };
         }
 
@@ -274,7 +275,7 @@ export class BookService {
         return {
             ...response,
             body: combinedBooks,
-            resolve: 'Sucesso ao buscar livros combinados do usuário',
+            resolve: 'Sucesso ao buscar livros combinados do usuário.',
         };
     }
 
@@ -288,13 +289,13 @@ export class BookService {
             return {
                 statusCode: StatusCode.Ok,
                 body: response.body,
-                resolve: 'Sucesso ao buscar livros',
+                resolve: 'Sucesso ao buscar livros!',
             }
 
         } else {
             return {
                 ...response,
-                reject: 'Erro ao buscar livros',
+                reject: 'Erro ao buscar livros.',
             };
         }
     }
@@ -323,7 +324,7 @@ export class BookService {
         } else {
             return {
                 ...response,
-                reject: 'Erro ao buscar progressões do livro',
+                reject: 'Erro ao buscar progressões do livro.',
             };
         }
     }
@@ -349,11 +350,11 @@ export class BookService {
 
         if (isFavorited.body === false) return {
             ...response,
-            resolve: 'Livro favoritado com sucesso'
+            resolve: 'Livro favoritado com sucesso!'
         };
         else if (isFavorited.statusCode === StatusCode.Ok) return {
             ...response,
-            resolve: 'Livro desfavoritado com sucesso'
+            resolve: 'Livro desfavoritado com sucesso!'
         };
 
         return {
@@ -371,12 +372,12 @@ export class BookService {
         if (response.statusCode === StatusCode.Ok) {
             return {
                 ...response,
-                resolve: 'Sucesso ao buscar livros favoritos',
+                resolve: 'Sucesso ao buscar livros favoritos!',
             };
         } else {
             return {
                 ...response,
-                reject: 'Erro ao buscar livros favoritos',
+                reject: 'Erro ao buscar livros favoritos.',
             };
         }
     }
@@ -389,12 +390,12 @@ export class BookService {
         if (response.statusCode === StatusCode.Ok) {
             return {
                 statusCode: StatusCode.Ok,
-                resolve: 'Livro desativado com sucesso',
+                resolve: 'Livro desativado com sucesso!',
             }
         } else {
             return {
                 ...response,
-                reject: 'Erro ao desativar livro',
+                reject: 'Erro ao desativar livro.',
             }
         }
     }

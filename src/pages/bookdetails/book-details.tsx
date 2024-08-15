@@ -111,7 +111,7 @@ export const BookDetails = () => {
             </div>
 
             <div>
-              <Heart type='book' bookId={bookId} />
+              <Heart  type='book' bookId={bookId} />
               {bookStatus === BookStatus.LENDO || bookStatus === BookStatus.QUERO_LER ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
@@ -143,7 +143,16 @@ export const BookDetails = () => {
                   </span>
                 </Tooltip>}
 
-              <ProgressionModal refetchPages={refetchBookDetails} bookId={bookId} googleId={book?.googleId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
+              <ProgressionModal
+                actualPage={page}
+                maxPage={book?.pageCount}
+                refetchPages={refetchBookDetails}
+                bookId={bookId}
+                googleId={book?.googleId}
+                isOpen={isOpen}
+                handleModal={handleProgressionModal}
+                title={book?.title}
+                key={book?.bookId} />
 
               {bookStatus === BookStatus.LIDO || bookStatus === BookStatus.ABANDONADO ? (
                 <Botao

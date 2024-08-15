@@ -21,14 +21,14 @@ type HeartProps = {
   refetchBooks?: () => void;
 };
 
-export const Heart = ({ bookId, reviewId, type, refetchReviews }: HeartProps) => {
+export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: HeartProps) => {
   const [src, setSrc] = useState(Coracao);
   const [success, setSuccess] = useState<string | null>();
   const [error, setError] = useState<string | null>();
   const bookService = new BookService();
 
+  let isFavorited;
   const handleIsFavorite = async () => {
-    let isFavorited;
     if (type === 'book') {
       isFavorited = await bookService.isFavorited(bookId);
     } else {
@@ -40,46 +40,57 @@ export const Heart = ({ bookId, reviewId, type, refetchReviews }: HeartProps) =>
 
   useEffect(() => {
     handleIsFavorite();
-  }, [bookId, type]);
+  }, [isFavorited]);
 
   const handleFavorite = async () => {
     let response;
     if (type === 'book') {
       response = await bookService.favoriteBook(bookId);
-      setSuccess(response?.resolve);
+      
+      if (response.statusCode === StatusCode.Ok) {
+        setSuccess(response?.resolve);
+        setTimeout(() => {
+          refetchBooks && refetchBooks();
+        }, 1500);
+
+      } else setError(response?.reject);
+
     } else {
       response = await bookService.likeReview(reviewId ?? '');
       setSuccess(response?.resolve);
-      refetchReviews && refetchReviews();
-    }
 
-    if (response.statusCode === StatusCode.Created) setSuccess(response?.resolve);
-    else setError(response?.reject);
+      if (response.statusCode === StatusCode.Ok) {
+        setTimeout(() => {
+          refetchReviews && refetchReviews();
+        }, 1500);
+      } else setError(response?.reject);
+    }
   };
 
-  return (
-    <>
-      <HeartStyle onClick={handleFavorite} src={src} />
-      {success && (
-        <Snackbar
-          open={true}
-          onClose={() => setSuccess(null)}
-          autoHideDuration={4000}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        >
-          <Alert severity="success">{success}</Alert>
-        </Snackbar>
-      )}
-      {error && (
-        <Snackbar
-          open={true}
-          onClose={() => setError(null)}
-          autoHideDuration={4000}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        >
-          <Alert severity="error">{error}</Alert>
-        </Snackbar>
-      )}
-    </>
-  );
+
+return (
+  <>
+    <HeartStyle onClick={handleFavorite} src={src} />
+    {success && (
+      <Snackbar
+        open={Boolean(success)}
+        onClose={() => setSuccess(null)}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity="success">{success}</Alert>
+      </Snackbar>
+    )}
+    {error && (
+      <Snackbar
+        open={Boolean(error)}
+        onClose={() => setError(null)}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity="error">{error}</Alert>
+      </Snackbar>
+    )}
+  </>
+);
 };

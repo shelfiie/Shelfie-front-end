@@ -9,7 +9,6 @@ import { BookData } from "../../types/bookData";
 import { ButtonsDiv, ProgressionForm, ProgressionSpan, styledBox } from "./progression-modal.styles";
 import { BookService } from "../../api/services/BookService";
 import { StatusCode } from "../../api/client/IHttpClient";
-import { useFetchLastPage } from "../../api/hooks/useFetchLastPage";
 
 type ProgressionModalProps = {
     isOpen: boolean;
@@ -18,11 +17,13 @@ type ProgressionModalProps = {
     title?: BookData['title'];
     googleId?: BookData['googleId'];
     refetchPages?: () => void;
+    maxPage?: number;
+    actualPage?: number;
 }
 
 export const ProgressionModal = (
-    { isOpen, handleModal, bookId, title, googleId, refetchPages }: ProgressionModalProps) => {
-    const { actualPage, maxPage } = useFetchLastPage(bookId);
+    { isOpen, handleModal, bookId, title, googleId, refetchPages, maxPage, actualPage }: ProgressionModalProps) => {
+
     const progressionFilter = z.object({
         commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
         page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(maxPage as number, { message: `Número deve ser menor ou igual a ${maxPage}` }),
@@ -35,6 +36,7 @@ export const ProgressionModal = (
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors }
     } = useForm<ProgressionFilter>({
         mode: 'all',
@@ -46,12 +48,18 @@ export const ProgressionModal = (
     const [success, setSuccess] = useState<string | null>();
     const [error, setError] = useState<string | null>();
 
-    const onSubmit: SubmitHandler<ProgressionFilter> = async (data) => {
+    const onSubmit: SubmitHandler<ProgressionFilter> = async () => {
         setLoading(true);
+
+       const data = {
+            bookId: bookId,
+            commentary: watch('commentary'),
+            page: watch('page'),
+        }
 
         const service = new BookService()
         const response = await service.postProgression(data as BookData);
-
+        console.log(response);
         if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
             setError(null);

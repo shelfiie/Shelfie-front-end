@@ -23,7 +23,6 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { actualPage, maxPage, loading, refetchPages } = useFetchLastPage(Bookzin.bookId);
-
   const handleProgressionModal = () => setIsOpen(!isOpen);
   const handleDeleteDialog = () => setConfirmOpen(!confirmOpen);
   const handleReviewModal = () => setReviewIsOpen(!reviewIsOpen);
@@ -44,7 +43,7 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
               REVIEW
             </Botao>
           ) : (
-          <Botao
+            <Botao
               backgroundColor={Theme.colors.blue}
               color={Theme.colors.white}
               fontSize={Theme.font.sizes.xsmall}
@@ -85,6 +84,8 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
         googleId={Bookzin.googleId}
         bookId={Bookzin.bookId}
         isOpen={isOpen}
+        maxPage={maxPage}
+        actualPage={actualPage}
         handleModal={handleProgressionModal}
         title={Bookzin.title}
         key={Bookzin.googleId} />

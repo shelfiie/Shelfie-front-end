@@ -54,10 +54,12 @@ export class ShelfieHttpClient implements IHttpClient {
             statusCode: 500,
             reject: 'Erro interno no servidor',
           };
-        } else return {
-          statusCode: error.response?.status,
-          reject: error.response?.data.description,
-        };
+        } else {
+          return {
+            statusCode: error.response?.status,
+            reject: error.response?.data.description || error.response?.data.detail,
+          };
+        }
       });
   }
   
@@ -72,7 +74,7 @@ export class ShelfieHttpClient implements IHttpClient {
         if (error.response?.status >= 500){
           return {
             statusCode: 500,
-            reject: error.response?.data.detail,
+            reject: error.response?.data.detail || error.response.data.description,
           };
         } else return {
           statusCode: error.response?.status,
