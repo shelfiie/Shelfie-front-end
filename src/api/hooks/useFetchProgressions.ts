@@ -42,8 +42,9 @@ const useFetchAllProgressions = () => {
                     }
                 })
             );
-
-            setProgressions(progressionsArray.filter(Boolean) as BookData['progressions'][]);
+            const validProgressions = progressionsArray.filter(Boolean) as BookData['progressions'][];
+            validProgressions.sort((a, b) => new Date(b?.createdAt ?? 0).getTime() - new Date(a?.createdAt ?? 0).getTime());
+            setProgressions(validProgressions);
             setLoading(false);
         }
     };

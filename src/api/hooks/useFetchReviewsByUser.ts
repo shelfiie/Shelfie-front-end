@@ -30,6 +30,7 @@ const useFetchReviewsByUser = () => {
                     }
                 }
             }))
+            combinedReviews.sort((a, b) => { return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() });
             setReviews(combinedReviews);
             setLoading(false);
             return combinedReviews;
