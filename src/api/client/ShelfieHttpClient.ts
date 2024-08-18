@@ -82,4 +82,24 @@ export class ShelfieHttpClient implements IHttpClient {
         };
       });
   }
+
+  async delete<T>({ url }: HttpRequest<T>): Promise<HttpResponse<T>> {
+    return await this.axiosInstance.delete<T>(url)
+      .then(response => {
+        return {
+          statusCode: response.status,
+          body: response.data,
+        };
+      }).catch(error => {
+        if (error.response?.status >= 500){
+          return {
+            statusCode: 500,
+            reject: error.response?.data.detail,
+          };
+        } else return {
+          statusCode: error.response?.status,
+          reject: error.response?.data.description,
+        };
+      });
+  }
 }
