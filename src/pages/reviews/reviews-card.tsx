@@ -73,6 +73,7 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
             </BoxWrapper>
             {selectedReview && (
                 <ReviewModal
+                    refetchReviews={refetchReviews}
                     isOpen={isEditOpen}
                     handleModal={handleModalClose}
                     bookId={selectedReview.bookId}

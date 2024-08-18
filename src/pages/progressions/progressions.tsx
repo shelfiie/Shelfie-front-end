@@ -18,7 +18,7 @@ export const Progressions = () => {
           <p>Confira aqui todos os seus comentários feitos durante suas leituras!</p>
         </div>
 
-        {loading ? <ProgressionSkeleton /> : progressions?.length ?? 0 > 0 ? (
+        {loading ? <ProgressionSkeleton /> : progressions && progressions.length > 0 ? (
           <ProgressionsCard progressions={progressions} />
         ) : (<NoItemsFound>Você não tem progressões!</NoItemsFound>)}
       </ProgressionsStyles>
