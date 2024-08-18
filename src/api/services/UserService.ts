@@ -23,64 +23,79 @@ export class UserService {
                 ...response,
                 reject: 'Erro ao atualizar usuário. Tente novamente mais tarde.',
             }
+        } else {
+            return response;
         }
-        return response;
     }
 
-    async disableUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
-        const base = `/api/users/${id}/disable`;
-        const response = await this.client.put({ url: base });
-        return {
+    async editProfileImage(image: UserData['image']): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/upload-image`;
+        const response = await this.client.put({ url: base, body: { image } });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao atualizar imagem. Tente novamente mais tarde.',
+            }
+        } else return {
             ...response,
-            resolve: 'Usuário desativado com sucesso!',
+            resolve: 'Imagem atualizada com sucesso!',
         };
     }
 
-    async fetchAllUsers(): Promise<HttpResponse<unknown>> {
-        const base = `/api/users`;
-        const response = await this.client.get({ url: base });
-        return response;
+    async disableUser(id: UserData['id']): Promise < HttpResponse < unknown >> {
+    const base = `/api/users/${id}/disable`;
+    const response = await this.client.put({ url: base });
+    return {
+        ...response,
+        resolve: 'Usuário desativado com sucesso!',
+    };
+}
+
+    async fetchAllUsers(): Promise < HttpResponse < unknown >> {
+    const base = `/api/users`;
+    const response = await this.client.get({ url: base });
+    return response;
+}
+
+    async fetchAllReviewsMyReviews(): Promise < HttpResponse < any >> {
+    const base = `/api/review/mine`;
+    const response = await this.client.get({ url: base });
+    if(response.statusCode !== 200) {
+    return {
+        ...response,
+        reject: 'Erro ao buscar avaliações. Tente novamente mais tarde.',
+    }
+}
+return response;
     }
 
-    async fetchAllReviewsMyReviews(): Promise<HttpResponse<any>> {
-        const base = `/api/review/mine`;
-        const response = await this.client.get({ url: base });
-        if (response.statusCode !== 200) {
-            return {
-                ...response,
-                reject: 'Erro ao buscar avaliações. Tente novamente mais tarde.',
-            }
-        }
-        return response;
-    }
+    async fetchBooksQuantity(): Promise < HttpResponse < any >> {
+    const base = '/api/pages/mine';
+    const response = await this.client.get({ url: base });
+    return response;
+}
 
-    async fetchBooksQuantity(): Promise<HttpResponse<any>> {
-        const base = '/api/pages/mine';
-        const response = await this.client.get({ url: base });
-        return response;
+    async promoteUser(id: UserData['id']): Promise < HttpResponse < unknown >> {
+    const base = `/api/admin/change-role/${id}`;
+    const response = await this.client.post({ url: base });
+    if(response.statusCode !== 200) {
+    return {
+        ...response,
+        reject: 'Erro ao promover usuário. Tente novamente mais tarde.',
     }
-
-    async promoteUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
-        const base = `/api/admin/change-role/${id}`;
-        const response = await this.client.post({ url: base });
-        if (response.statusCode !== 200) {
-            return {
-                ...response,
-                reject: 'Erro ao promover usuário. Tente novamente mais tarde.',
-            }
-        } else {
-            return {
-                ...response,
-                resolve: "Usuário promovido para ADMIN com sucesso!",
-            }
-        }
-
-    }    
-    async fetchLikedReviews(): Promise<HttpResponse<any>> {
-        const base = '/api/like/mine';
-        const response = await this.client.get({ url: base });
-        return response;
+} else {
+    return {
+        ...response,
+        resolve: "Usuário promovido para ADMIN com sucesso!",
     }
+}
+
+    }
+    async fetchLikedReviews(): Promise < HttpResponse < any >> {
+    const base = '/api/like/mine';
+    const response = await this.client.get({ url: base });
+    return response;
+}
 
 
 }

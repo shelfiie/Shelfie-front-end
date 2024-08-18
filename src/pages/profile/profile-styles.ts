@@ -85,4 +85,21 @@ const BooksInfStyles = {
     }
 }
 
-export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles }
+const PhotoDiv = styled.div`
+    display: flex;
+    align-items: flex-start;
+    gap: ${Theme.margins.margin1rem};
+    flex-direction: column;
+`
+
+const EditPhotosDiv = styled.div`
+    img{
+        transition: all 0.3s;
+        &:hover {
+            transform: scale(1.1);
+        }
+        
+    }
+`
+
+export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles, PhotoDiv, EditPhotosDiv }
