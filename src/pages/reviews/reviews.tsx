@@ -6,7 +6,7 @@ import { ReviewsSkeleton } from "./reviews-skeleton";
 import { NoItemsFound } from "../../components/globals/NoItemsFound";
 
 export const Reviews = () => {
-  const { reviews, loading } = useFetchReviewsByUser();
+  const { reviews, loading, refetchReviews } = useFetchReviewsByUser();
 
   return (
     <Layout>
@@ -22,7 +22,7 @@ export const Reviews = () => {
           reviews?.length ?? 0 > 0 ?
             <div id='reviews-wrapper'>
               {reviews?.map((review) => (
-                <ReviewsCard key={review?.id} review={review} isEditable={true} isLikable={true} />
+                <ReviewsCard refetchReviews={refetchReviews} key={review?.id} review={review} isEditable={true} isLikable={true} />
               ))}
             </div> : <NoItemsFound>Você não tem livros avaliados!</NoItemsFound>
         )}
