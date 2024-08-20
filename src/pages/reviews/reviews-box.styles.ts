@@ -42,7 +42,6 @@ const ReviewsContent = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 `
 
 const ReviewDetails = styled.div`

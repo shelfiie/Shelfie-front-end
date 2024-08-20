@@ -1,5 +1,5 @@
 import { UserData } from "../../types/userType";
-import { HttpResponse } from "../client/IHttpClient";
+import { HttpResponse, StatusCode } from "../client/IHttpClient";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 
 export class UserService {
@@ -42,60 +42,65 @@ export class UserService {
         };
     }
 
-    async disableUser(id: UserData['id']): Promise < HttpResponse < unknown >> {
-    const base = `/api/users/${id}/disable`;
-    const response = await this.client.put({ url: base });
-    return {
-        ...response,
-        resolve: 'Usuário desativado com sucesso!',
-    };
-}
-
-    async fetchAllUsers(): Promise < HttpResponse < unknown >> {
-    const base = `/api/users`;
-    const response = await this.client.get({ url: base });
-    return response;
-}
-
-    async fetchAllReviewsMyReviews(): Promise < HttpResponse < any >> {
-    const base = `/api/review/mine`;
-    const response = await this.client.get({ url: base });
-    if(response.statusCode !== 200) {
-    return {
-        ...response,
-        reject: 'Erro ao buscar avaliações. Tente novamente mais tarde.',
-    }
-}
-return response;
+    async disableUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/${id}/disable`;
+        const response = await this.client.put({ url: base });
+        return {
+            ...response,
+            resolve: 'Usuário desativado com sucesso!',
+        };
     }
 
-    async fetchBooksQuantity(): Promise < HttpResponse < any >> {
-    const base = '/api/pages/mine';
-    const response = await this.client.get({ url: base });
-    return response;
-}
+    async fetchAllUsers(): Promise<HttpResponse<unknown>> {
+        const base = `/api/users`;
+        const response = await this.client.get({ url: base });
+        return response;
+    }
 
-    async promoteUser(id: UserData['id']): Promise < HttpResponse < unknown >> {
-    const base = `/api/admin/change-role/${id}`;
-    const response = await this.client.post({ url: base });
-    if(response.statusCode !== 200) {
-    return {
-        ...response,
-        reject: 'Erro ao promover usuário. Tente novamente mais tarde.',
+    async fetchAllReviewsMyReviews(): Promise<HttpResponse<any>> {
+        const base = `/api/review/mine`;
+        const response = await this.client.get({ url: base });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao buscar avaliações. Tente novamente mais tarde.',
+            }
+        }
+        return response;
     }
-} else {
-    return {
-        ...response,
-        resolve: "Usuário promovido para ADMIN com sucesso!",
+
+    async fetchBooksQuantity(): Promise<HttpResponse<any>> {
+        const base = '/api/pages/mine';
+        const response = await this.client.get({ url: base });
+        return response;
     }
-}
+
+    async promoteUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
+        const base = `/api/admin/change-role/${id}`;
+        const response = await this.client.post({ url: base });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao promover usuário. Tente novamente mais tarde.',
+            }
+        } else {
+            return {
+                ...response,
+                resolve: "Usuário promovido para ADMIN com sucesso!",
+            }
+        }
 
     }
-    async fetchLikedReviews(): Promise < HttpResponse < any >> {
-    const base = '/api/like/mine';
-    const response = await this.client.get({ url: base });
-    return response;
-}
+    async fetchMyLikedReviews(): Promise<HttpResponse<any>> {
+        const base = '/api/like/mine';
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) return response;
+        return {
+            ...response,
+            reject: 'Erro ao buscar reviews curtidos.',
+        }
+    }
 
 
 }

@@ -33,7 +33,6 @@ export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: 
       isFavorited = await bookService.isFavorited(bookId);
     } else if (type === 'review') {
       isFavorited = await bookService.isReviewLiked(reviewId ?? '');
-      console.log(isFavorited.body.liked);
     }
     if (isFavorited.body.liked || isFavorited.body === true) setSrc(CoracaoPreenchido);
     else setSrc(Coracao);
