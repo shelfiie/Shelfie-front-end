@@ -33,6 +33,7 @@ type BookData = {
         abandonado?: number;
     };
     reviews?: {
+        googleId?: BookData['googleId'];
         id?: string;
         createdAt?: string;
         bookId?: BookData['bookId'];

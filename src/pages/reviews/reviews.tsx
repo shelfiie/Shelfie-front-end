@@ -10,8 +10,8 @@ import { TabListStyle } from "../home/home.style";
 import { Tab } from "@mui/material";
 
 export const Reviews = () => {
-  const { reviews, likedReviews, loading, refetchReviews } = useFetchReviewsByUser();
-
+  const { reviews, loading, refetchReviews } = useFetchReviewsByUser();
+  // const { likedReviews } = useFetchLikedReview();
   const [value, setValue] = useState('1');
 
   return (
@@ -45,7 +45,7 @@ export const Reviews = () => {
             )}
           </TabPanel>
 
-          <TabPanel value='2'>
+          {/* <TabPanel value='2'>
             {loading ? (
               <ReviewsSkeleton />
             ) : (
@@ -61,7 +61,7 @@ export const Reviews = () => {
                   ))}
                 </div> : <NoItemsFound>Você não tem livros favoritados!</NoItemsFound>
             )}
-          </TabPanel>
+          </TabPanel> */}
         </TabContext>
 
       </ReviewsContent>

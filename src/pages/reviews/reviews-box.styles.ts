@@ -24,6 +24,16 @@ const TitleRating = styled.div`
     span {
         scale: 0.9;
     }
+
+    a{
+        text-decoration: none; 
+        color: ${Theme.colors.deep};
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    
     p {
         font-size: ${Theme.font.sizes.small};
         font-family: ${Theme.font.family.poppins};
