@@ -6,6 +6,12 @@ export enum BookStatus {
     ABANDONADO = "ABANDONADO",
 }
 
+export enum ReportStatus {
+    'PENDENTE',
+    'RESOLVIDO',
+}
+
+
 type BookData = {
     // myBooksId
     id?: string;
@@ -59,6 +65,14 @@ type BookData = {
         porcentage?: number;
         page: number;
         createdAt: string;
+    }
+    report?: {
+        reportId?: string;
+        userId?: string;
+        reviewId?: string;
+        bookId?: BookData['bookId'];
+        review?: string;
+        reportStatus?: ReportStatus;
     }
 }
 

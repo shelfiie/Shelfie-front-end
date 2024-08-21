@@ -11,6 +11,7 @@ import { ReviewModal } from "./edit-review";
 import { Heart } from "../../components/globals/Heart.style";
 import { useFetchLikesQuantityByReview } from "../../api/hooks/useFetchLikesQuantityByReview";
 import { Link } from "react-router-dom";
+import { ReportReview } from "../../components/globals/Report";
 
 type ReviewsCardProps = {
     review: BookData['reviews'];
@@ -60,8 +61,7 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
                                 <a onClick={() => handleEditClick(review)}>
                                     <EditRoundedIcon
                                         sx={{ fill: `${Theme.colors.pink}` }} />
-                                </a>
-                            }
+                                </a>}
 
                         </Icons>
                     </TitleRating>
@@ -71,9 +71,11 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
                             <LikeDetails>
                                 <Heart refetchReviews={refetchReviews} type="review" reviewId={review && review.id} />
                                 <span>{likesQuantity}</span>
-                            </LikeDetails>
-                        }
-                        <ReviewDate id="review-date">{formatDate(review?.createdAt ?? '')}</ReviewDate>
+                            </LikeDetails>}
+                        <div>
+                            <ReportReview reviewId={review?.id as string} />
+                            <ReviewDate id="review-date">{formatDate(review?.createdAt ?? '')}</ReviewDate>
+                        </div>
                     </Like>
                 </ReviewDetails>
             </BoxWrapper>
