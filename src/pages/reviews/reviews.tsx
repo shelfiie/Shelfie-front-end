@@ -26,7 +26,16 @@ export const Reviews = () => {
               <Tab label="Favoritos" value='2' />
             </TabList>
           </div>
-
+        {loading ? (
+          <ReviewsSkeleton />
+        ) : (
+          reviews?.length ?? 0 > 0 ?
+            <div id='reviews-wrapper'>
+              {reviews?.map((review) => (
+                <ReviewsCard refetchReviews={refetchReviews} key={review?.id} review={review} isEditable={true} isLikable={true} />
+              ))}
+            </div> : <NoItemsFound>Você não tem livros avaliados!</NoItemsFound>
+        )}
           <TabPanel value='1'>
             {loading ? (
               <ReviewsSkeleton />
