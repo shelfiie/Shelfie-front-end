@@ -7,6 +7,7 @@ import { BookData } from "../../types/bookData";
 const useFetchReviewsByUser = () => {
     const [reviews, setReviews] = useState<BookData['reviews'][]>();
     const [loading, setLoading] = useState<boolean>(false);
+
     const userService = new UserService();
     const bookService = new BookService();
 
@@ -21,7 +22,14 @@ const useFetchReviewsByUser = () => {
                 if (review) {
                     const booksDetailsResponse = await bookService.fetchBookById(review.bookId);
                     if (booksDetailsResponse.statusCode === StatusCode.Ok) {
-                        return { ...review, ...booksDetailsResponse.body }
+                        const data = {
+                            ...review,
+                            googleId: booksDetailsResponse.body.googleId,
+                            title: booksDetailsResponse.body.title,
+                            smallThumbnailUrl: booksDetailsResponse.body.smallThumbnailUrl,
+                            thumbnailUrl: booksDetailsResponse.body.thumbnailUrl,
+                        }
+                        return { ...review, ...data }
                     } else {
                         return {
                             ...response,
@@ -36,9 +44,12 @@ const useFetchReviewsByUser = () => {
             return combinedReviews;
         }
     }, [reviews]);
+
+    
     useEffect(() => {
         fetchReviewsByUser();
     }, [])
+
     return { reviews, loading, refetchReviews: fetchReviewsByUser }
 }
 export { useFetchReviewsByUser }

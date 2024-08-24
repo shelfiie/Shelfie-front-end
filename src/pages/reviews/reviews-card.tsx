@@ -10,6 +10,7 @@ import { useState } from "react";
 import { ReviewModal } from "./edit-review";
 import { Heart } from "../../components/globals/Heart.style";
 import { useFetchLikesQuantityByReview } from "../../api/hooks/useFetchLikesQuantityByReview";
+import { Link } from "react-router-dom";
 
 type ReviewsCardProps = {
     review: BookData['reviews'];
@@ -38,10 +39,15 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
     return (
         <>
             <BoxWrapper id="box-wrapper">
-                <img src={review?.thumbnailUrl ?? review?.smallThumbnailUrl} alt={review?.title} />
+                <Link to={`/bookdetails/${review?.googleId}`}>
+                    <img src={review?.thumbnailUrl ?? review?.smallThumbnailUrl} alt={review?.title} />
+                </Link>
+
                 <ReviewDetails id="review-details">
                     <TitleRating id="title-rating">
-                        <p>{review?.title}</p>
+                        <Link to={`/bookdetails/${review?.googleId}`}>
+                            <p>{review?.title}</p>
+                        </Link>
                         <Icons>
                             <Rating
                                 name="read-only"

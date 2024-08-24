@@ -150,17 +150,57 @@ export class BookService {
         }
     }
 
+    async unlikeReview(reviewId: string): Promise<HttpResponse<any>> {
+        const base = `/api/like/${reviewId}`;
+        const response = await this.client.delete({ url: base });
+
+        if (response.statusCode === StatusCode.Created) return {
+            ...response,
+            resolve: 'Review descurtido com sucesso!',
+        }; else return {
+            ...response,
+            reject: 'Erro ao descurtir review.'
+        }
+    }
+
     async likeReview(reviewId: string): Promise<HttpResponse<any>> {
         const base = `/api/like/${reviewId}`;
-        const response = await this.client.post({ url: base });
+
+        const isLiked = await this.isReviewLiked(reviewId);
+
+        if (isLiked.body.liked === true) {
+            const deslike = await this.unlikeReview(reviewId);
+            if (deslike.statusCode === StatusCode.Ok) return {
+                ...deslike,
+                resolve: 'Review descurtido com sucesso!',
+            }; else return {
+                ...deslike,
+                reject: 'Erro ao descurtir review.'
+            }
+        } else {
+            const response = await this.client.post({ url: base });
+            if (response.statusCode === StatusCode.Created) return {
+                ...response,
+                resolve: 'Review curtido com sucesso!',
+            }; else return {
+                ...response,
+                reject: 'Erro ao curtir review.'
+            }
+        }
+    }
+
+    async isReviewLiked(reviewId: string): Promise<HttpResponse<any>> {
+        const base = `/api/like/is-liked/${reviewId}`;
+        const response = await this.client.get({ url: base });
 
         if (response.statusCode === StatusCode.Ok) return {
             ...response,
-            resolve: 'Review curtido com sucesso!',
-        }; else return {
+            resolve: 'Sucesso ao buscar curtida na review.',
+        };
+        return {
             ...response,
-            reject: 'Erro ao curtir review.'
-        }
+            reject: 'Erro ao buscar curtida na review.'
+        };
     }
 
     async fetchLikesQuantityByReviewId(reviewId: string): Promise<HttpResponse<any>> {
