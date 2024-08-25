@@ -1,4 +1,4 @@
-import { BookData, BookStatus } from "../../types/bookData";
+import { BookData, BookStatus, ReportStatus } from "../../types/bookData";
 import { HttpResponse, StatusCode } from "../client/IHttpClient";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 
@@ -203,8 +203,8 @@ export class BookService {
         };
     }
 
-    async reportReview(id: BookData['report']): Promise<HttpResponse<any>> {
-        const base = `/api/reports/${id}`;
+    async reportReview(reviewId: BookData['report']): Promise<HttpResponse<any>> {
+        const base = `/api/reports/${reviewId}`;
         const response = await this.client.post({ url: base });
 
         if (response.statusCode === StatusCode.Created) return {
@@ -213,6 +213,34 @@ export class BookService {
         }; else return {
             ...response,
             reject: 'Erro ao denunciar review.'
+        }
+    }
+
+    async resolveReport(reportId: string, status: ReportStatus): Promise<HttpResponse<any>> {
+        const base = `/api/reports/admin/${reportId}/${status}`;
+        const response = await this.client.put({ url: base });
+
+        if (status === ReportStatus.RESOLVIDO) {
+            if (response.statusCode === StatusCode.Ok) return {
+                ...response,
+                resolve: 'Denúncia resolvida com sucesso!',
+            }; else return {
+                ...response,
+                reject: 'Erro ao resolver denúncia.'
+            }
+        } else if (status === ReportStatus.RECUSADO) {
+            if (response.statusCode === StatusCode.Ok) return {
+                ...response,
+                resolve: 'Denúncia rejeitada com sucesso!',
+            }; else return {
+                ...response,
+                reject: 'Erro ao rejeitar denúncia.'
+            }
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao resolver denúncia.'
+            }
         }
     }
 

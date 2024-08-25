@@ -7,13 +7,14 @@ export enum BookStatus {
 }
 
 export enum ReportStatus {
-    'PENDENTE',
-    'RESOLVIDO',
+    TODOS = 'TODOS',
+    PENDENTE = 'PENDENTE',
+    RESOLVIDO = 'RESOLVIDO',
+    RECUSADO = 'RECUSADO'
 }
 
 
 type BookData = {
-    // myBooksId
     id?: string;
     bookId?: string;
     googleId?: string;

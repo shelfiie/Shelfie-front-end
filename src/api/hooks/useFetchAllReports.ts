@@ -6,7 +6,7 @@ import { UserData } from "../../types/userType";
 
 const useFetchAllReports = () => {
     const [reports, setReports] = useState<BookData['report'][]>([]);
-    const [users, setUsers] = useState<UserData[]>([]);
+    const [users, setUsers] = useState<UserData[]>([] as UserData[]);
     const [error, setError] = useState<string | undefined>(undefined);
     const [success, setSuccess] = useState<string | undefined>(undefined);
 
@@ -19,7 +19,8 @@ const useFetchAllReports = () => {
             const reportsBody = response.body;
             reportsBody.forEach(async (report : BookData['report']) => {
                 const user = await userService.fetchUserById(report?.userId);
-                return user;
+                // console.log(user);   
+               
             });
             
             setSuccess(response?.resolve);
