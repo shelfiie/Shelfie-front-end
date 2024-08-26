@@ -72,7 +72,6 @@ export const Profile = () => {
                 </a>
 
                 <DeleteDialog
-                  id={user.id}
                   open={confirmDelete}
                   handleDeleteDialog={handleConfirmDelete} />
                 <EditUserModal
