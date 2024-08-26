@@ -1,7 +1,6 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from "@mui/material"
 import { StatusCode } from "../../api/client/IHttpClient";
 import { useContext, useState } from "react";
-import { UserData } from "../../types/userType";
 import { UserService } from "../../api/services/UserService";
 import { AuthContext } from "../../api/context/auth";
 
