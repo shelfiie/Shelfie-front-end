@@ -43,6 +43,18 @@ const BookNumber = styled.p`
     margin: auto 5px;
 `
 
+const UserInfo = styled.p`
+    font-weight: ${Theme.font.weight.semiBold};
+    color: ${Theme.colors.light};
+    font-size: ${Theme.font.sizes.xsmall};
+    text-decoration: underline;
+`
+
+const UserInfoWrapper = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.marginhalfrem};
+`
+
 const ProfilerReviews = styled(BoxesWrappers)`
     height: min-content;
     display: flex;
@@ -81,7 +93,7 @@ const BooksInfStyles = {
     gap: '1rem',
     transition: 'background-color 0.3s',
     '&:hover': {
-      backgroundColor: Theme.colors.deepOrange
+        backgroundColor: Theme.colors.deepOrange
     }
 }
 
@@ -102,4 +114,43 @@ const EditPhotosDiv = styled.div`
     }
 `
 
-export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles, PhotoDiv, EditPhotosDiv }
+const AllUserInfos = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${Theme.margins.margin1rem};
+`
+
+const UserDescription = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const UserPhotoAndInfos = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.margin1rem};
+`
+
+const Achievements = styled.div`
+
+`
+
+const Badges = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.marginhalfrem};
+    img {
+        height: 80px;
+        border-radius: ${Theme.borders.radius};
+        transition: all 0.3s;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+`
+
+const AchievementsTitle = styled.p`
+    font-weight: ${Theme.font.weight.bold};
+    color: ${Theme.colors.light};    
+    text-decoration: underline;
+`
+
+export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles, PhotoDiv, EditPhotosDiv, UserInfo, UserInfoWrapper, AllUserInfos, UserPhotoAndInfos, UserDescription, Achievements, AchievementsTitle, Badges }
