@@ -15,6 +15,7 @@ const DeleteDialog = ({ open, handleDeleteDialog, id }: DialogProps) => {
     const [success, setSuccess] = useState<string | undefined>();
     const [error, setError] = useState<string | undefined>();
     const { logout } = useContext(AuthContext)
+    
     const handleDisable = async () => {
         const service = new UserService();
         const response = await service.disableUser(id ?? '');

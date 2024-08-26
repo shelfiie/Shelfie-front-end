@@ -6,8 +6,15 @@ export enum BookStatus {
     ABANDONADO = "ABANDONADO",
 }
 
+export enum ReportStatus {
+    TODOS = 'TODOS',
+    PENDENTE = 'PENDENTE',
+    RESOLVIDO = 'RESOLVIDO',
+    RECUSADO = 'RECUSADO'
+}
+
+
 type BookData = {
-    // myBooksId
     id?: string;
     bookId?: string;
     googleId?: string;
@@ -33,6 +40,7 @@ type BookData = {
         abandonado?: number;
     };
     reviews?: {
+        googleId?: BookData['googleId'];
         id?: string;
         createdAt?: string;
         bookId?: BookData['bookId'];
@@ -58,6 +66,14 @@ type BookData = {
         porcentage?: number;
         page: number;
         createdAt: string;
+    }
+    report?: {
+        reportId?: string;
+        userId?: string;
+        reviewId?: string;
+        bookId?: BookData['bookId'];
+        review?: string;
+        reportStatus?: ReportStatus;
     }
 }
 
