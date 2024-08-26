@@ -36,7 +36,7 @@ export const AllUsers = ({ user, refetchUsers }: AllUsersProps) => {
 
     const handleDisableUser = async (id: BookData['id']) => {
         if (id) {
-            const response = await userService.disableUser(id);
+            const response = await userService.disableUserAdmin(id);
             if (response.statusCode === 200) {
                 setSuccess(response?.resolve);
                 setTimeout(() => setSuccess(undefined), 3000);
