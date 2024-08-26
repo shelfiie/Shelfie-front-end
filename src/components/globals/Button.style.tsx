@@ -17,6 +17,8 @@ const ButtonWithShadow = styled.button<ButtonProps>`
     background-color: ${(props) => props.isError ? Theme.colors.lightDark : props.backgroundColor || Theme.colors.pink};
     color: ${(props) => props.color};
 
+    cursor: pointer;
+
     font-size: ${(props) => props.fontSize || Theme.font.sizes.regular};
     font-weight: ${(props) => props.fontWeight || Theme.font.weight.semiBold};
     
