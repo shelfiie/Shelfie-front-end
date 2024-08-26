@@ -43,7 +43,7 @@ export function Registro() {
         const response = await auth.register(data);
         if (response?.statusCode === StatusCode.Created) {
             setSuccess(response.resolve);
-            setTimeout(() => navigate('/'), 4000);
+            setTimeout(() => navigate('/'), 3000);
         } else {
             setError(response?.reject);
             setTimeout(() => setError(''), 4000);
@@ -75,7 +75,7 @@ export function Registro() {
 
                     <ItemsForm>
                         <label htmlFor="email">E-mail</label>
-                        <InputStyle 
+                        <InputStyle
                             id="email"
                             {...register('email')}
                             type="email"
@@ -123,7 +123,15 @@ export function Registro() {
                         Registrar
                     </Botao>
                 </Form>
-
+                <TemContaP>
+                    Ao se registrar, você concorda com os
+                    <a target="_blank" href="https://drive.google.com/file/d/1b5VAG6pIslYbR3iVGZjrDuYPI1-qxwMB/view?usp=sharing">
+                        Termos de Uso
+                    </a> e as
+                    <a  target="_blank" href="https://drive.google.com/file/d/1TyEnKEeuzuygyn4yq3RwCHZ55gLtndoW/view?usp=sharing">
+                        Política de Privacidade
+                    </a> do sistema.
+                </TemContaP>
                 <TemContaP>
                     Já tem uma conta?
                     <a onClick={() => navigate('/')}>
@@ -132,12 +140,12 @@ export function Registro() {
                 </TemContaP>
             </RegisterDiv>
             {success &&
-                <Snackbar anchorOrigin={{horizontal: 'right', vertical: 'bottom'}} open={true} autoHideDuration={4000}>
+                <Snackbar anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} open={true} autoHideDuration={4000}>
                     <Alert variant="filled" severity="success">{success}</Alert>
                 </Snackbar>
             }
-            {error && 
-                <Snackbar anchorOrigin={{horizontal: 'right', vertical: 'bottom'}} open={true} autoHideDuration={4000}>
+            {error &&
+                <Snackbar anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} open={true} autoHideDuration={4000}>
                     <Alert variant="filled" severity="error">{error}</Alert>
                 </Snackbar>
             }
