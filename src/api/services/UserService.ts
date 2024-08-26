@@ -58,13 +58,36 @@ export class UserService {
         };
     }
 
-    async disableUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
-        const base = `/api/users/${id}/disable`;
+    async disableUserAdmin(id: UserData['id']): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/admin/${id}/disable`;
         const response = await this.client.put({ url: base });
-        return {
-            ...response,
-            resolve: 'Usuário desativado com sucesso!',
-        };
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao desativar usuário. Tente novamente mais tarde.',
+            }
+        } else {
+            return {
+                ...response,
+                resolve: 'Usuário desativado com sucesso!',
+            }
+        }
+    }
+
+    async disableMe(): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/disable`;
+        const response = await this.client.put({ url: base });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao desativar usuário. Tente novamente mais tarde.',
+            }
+        } else {
+            return {
+                ...response,
+                resolve: 'Usuário desativado com sucesso!',
+            }
+        }
     }
 
     async fetchAllUsers(): Promise<HttpResponse<unknown>> {

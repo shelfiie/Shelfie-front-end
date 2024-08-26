@@ -21,11 +21,8 @@ import { useFetchReviewsByBookId } from '../../api/hooks/useFetchReviewsByBookId
 
 export const BookDetails = () => {
   const { id } = useParams();
-
   const { book, loading } = useGBookById(id ?? '');
-
   const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
-
   const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(bookId);
 
   useEffect(() => {
