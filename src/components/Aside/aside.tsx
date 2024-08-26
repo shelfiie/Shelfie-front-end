@@ -17,9 +17,9 @@ import { UserRole } from "../../types/userType.ts";
 export const Aside = () => {
     const { logout, user, refetchUser } = useContext(AuthContext);
     useEffect(() => {
-         refetchUser && refetchUser();
+        refetchUser && refetchUser();
     }, [])
-    
+
     const navItems = [
         { src: MenuBookRoundedIcon, name: "Biblioteca", route: "/home" },
         { src: PersonRoundedIcon, name: "Perfil", route: "/me" },
@@ -46,7 +46,9 @@ export const Aside = () => {
                     marginbottom="-1.5rem" />
                 <Logo />
 
-                <Perfil />
+                <Link style={{textDecoration: 'none'}} to="/me">
+                    <Perfil />
+                </Link>
             </div>
 
             <Nav>
