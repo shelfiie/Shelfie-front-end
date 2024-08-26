@@ -15,6 +15,22 @@ export class UserService {
         return response;
     }
 
+    async fetchUserById(id: UserData['id']): Promise<HttpResponse<unknown>> {
+        const base = `/api/users/${id}`;
+        const response = await this.client.get({ url: base });
+        if (response.statusCode !== 200) {
+            return {
+                ...response,
+                reject: 'Erro ao buscar usuário. Tente novamente mais tarde.',
+            }
+        } else {
+            return {
+                ...response,
+                resolve: "Usuário encontrado com sucesso!",
+            }
+        }
+    }
+
     async editUser(data: UserData): Promise<HttpResponse<unknown>> {
         const base = `/api/users/${data.id}/update`;
         const response = await this.client.put({ url: base, body: data });

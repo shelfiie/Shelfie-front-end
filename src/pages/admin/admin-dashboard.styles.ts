@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Theme } from "../../styles/theme";
+import { ReportStatus } from "../../types/bookData";
 
 const UserDiv = styled.div`
     background-color: ${Theme.colors.white};
@@ -46,4 +47,35 @@ const ItemWrapper = styled.div`
     gap: ${Theme.margins.marginhalfrem}
 `
 
-export { UserDiv, PageWrapper, UsersWrapper, DashboardWrapper, UserInformation, AdminSpan, ItemWrapper };
+const Status = styled.div < { $status?: ReportStatus } > `
+background-color: ${({ $status }) => {
+        switch ($status) {
+            case ReportStatus.RESOLVIDO:
+                return Theme.colors.green;
+            case ReportStatus.RECUSADO:
+                return Theme.colors.pink;
+            case ReportStatus.PENDENTE:
+                return Theme.colors.orange;
+        }
+    }};
+    padding: 0 ${Theme.margins.marginhalfrem};
+    border-radius: ${Theme.borders.radius};
+    color: ${Theme.colors.white};
+    font-weight: bold;
+`
+
+const TitleFilter = styled.div`
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: ${Theme.margins.margin1rem};
+`
+
+const ReviewWrapper = styled.div`
+    padding: ${Theme.margins.marginhalfrem};
+    background-color: ${Theme.colors.light};
+    border-radius: ${Theme.borders.radius};
+    margin-right: ${Theme.margins.margin1rem};
+`
+
+export { UserDiv, PageWrapper, UsersWrapper, DashboardWrapper, UserInformation, AdminSpan, ItemWrapper, Status, TitleFilter, ReviewWrapper };
