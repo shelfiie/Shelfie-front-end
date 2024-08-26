@@ -71,4 +71,11 @@ const TitleFilter = styled.div`
     margin-bottom: ${Theme.margins.margin1rem};
 `
 
-export { UserDiv, PageWrapper, UsersWrapper, DashboardWrapper, UserInformation, AdminSpan, ItemWrapper, Status, TitleFilter };
+const ReviewWrapper = styled.div`
+    padding: ${Theme.margins.marginhalfrem};
+    background-color: ${Theme.colors.light};
+    border-radius: ${Theme.borders.radius};
+    margin-right: ${Theme.margins.margin1rem};
+`
+
+export { UserDiv, PageWrapper, UsersWrapper, DashboardWrapper, UserInformation, AdminSpan, ItemWrapper, Status, TitleFilter, ReviewWrapper };

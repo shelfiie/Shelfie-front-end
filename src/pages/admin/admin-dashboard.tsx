@@ -5,15 +5,15 @@ import { AllUsers } from "./all-users";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useState } from "react";
 import { TabListStyle } from "../home/home.style";
-import { Tab } from "@mui/material";
 import { useFetchAllReports } from "../../api/hooks/useFetchAllReports";
 import { Reports } from "./reports";
 import { FilterReports } from "../../components/filter/filter-reports";
 import { BookData, ReportStatus } from "../../types/bookData";
+import { Tab } from "@mui/material";
 
 export const AdminDashboard = () => {
     const { users, refetchUsers } = useFetchAllUsers();
-    const { reports, refetchReports } = useFetchAllReports();
+    const { reports, refetchReports} = useFetchAllReports();
 
     const [value, setValue] = useState('1');
     const [filterStatus, setFilterStatus] = useState<string>('TODOS');

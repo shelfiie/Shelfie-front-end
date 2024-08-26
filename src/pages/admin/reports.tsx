@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { BookService } from "../../api/services/BookService";
 import { Botao } from "../../components/globals/Button.style";
 import { Theme } from "../../styles/theme";
-import { BookData, ReportStatus } from "../../types/bookData"
-import { AdminSpan, ItemWrapper, Status, UserInformation } from "./admin-dashboard.styles";
+import { BookData } from "../../types/bookData"
+import { AdminSpan, ItemWrapper, ReviewWrapper, Status, UserInformation } from "./admin-dashboard.styles";
 import { Alert, Snackbar } from "@mui/material";
-import { StatusCode } from "../../api/client/IHttpClient";
+import { ConfirmDialog } from "./confirm-dialog";
 
 type ReportsProps = {
     report: BookData['report'];
@@ -15,48 +14,32 @@ type ReportsProps = {
 export const Reports = ({ report, refetchReports }: ReportsProps) => {
     const [error, setError] = useState<string | undefined>(undefined);
     const [success, setSuccess] = useState<string | undefined>(undefined)
+    const [open, setOpen] = useState<boolean>(false);
+    const [dialogType, setDialogType] = useState<'resolve' | 'reject'>();
 
-
-    const service = new BookService();
-    const handleResolveReport = async () => {
-        const response = await service.resolveReport(report?.reportId as string, ReportStatus.RESOLVIDO);
-
-        if (response.statusCode === StatusCode.Ok) {
-            setSuccess(response?.resolve)
-            refetchReports();
-        } else setError(response?.reject);
-
-    }
-
-    const handleRejectReport = async () => {
-        const response = await service.resolveReport(report?.reportId as string, ReportStatus.RECUSADO);
-        if(response.statusCode === StatusCode.Ok) {
-            setSuccess(response?.resolve)
-            refetchReports();
-        } else setError(response?.reject);
-    }
+    const handleConfirmDialog = () => setOpen(!open);
 
     return (
         <>
             <UserInformation>
                 <ItemWrapper>
-                    <AdminSpan>Review Id: </AdminSpan>
-                    <p>{report?.reviewId}</p>
-                </ItemWrapper>
-
-                <ItemWrapper>
-                    <AdminSpan>Report Status: </AdminSpan>
+                    <AdminSpan>Status: </AdminSpan>
                     <Status $status={report?.reportStatus}>{report?.reportStatus}</Status>
                 </ItemWrapper>
 
                 <ItemWrapper>
-                    <AdminSpan>User Id: </AdminSpan>
+                    <AdminSpan>ID da Review: </AdminSpan>
+                    <p>{report?.reviewId}</p>
+                </ItemWrapper>
+
+                <ItemWrapper>
+                    <AdminSpan>ID do usuário: </AdminSpan>
                     <p>{report?.userId}</p>
                 </ItemWrapper>
 
                 <ItemWrapper>
                     <AdminSpan>Review: </AdminSpan>
-                    <p>{report?.review}</p>
+                    <ReviewWrapper>{report?.review}</ReviewWrapper>
                 </ItemWrapper>
 
 
@@ -67,20 +50,34 @@ export const Reports = ({ report, refetchReports }: ReportsProps) => {
                     color={Theme.colors.white}
                     borderRadius={Theme.borders.radius}
                     padding={`${Theme.margins.margin1rem} ${Theme.margins.marginhalfrem}`}
-                    onClick={handleResolveReport}
+                    onClick={() => {
+                        setDialogType('resolve');
+                        handleConfirmDialog();
+                    }}
                 >
-                    Aceitar Denúncia
+                    Resolver Denúncia
                 </Botao>
                 <Botao
                     fontSize={Theme.font.sizes.xsmall}
                     color={Theme.colors.white}
                     borderRadius={Theme.borders.radius}
                     padding={`${Theme.margins.margin1rem} ${Theme.margins.marginhalfrem}`}
-                    onClick={handleRejectReport}
+                    onClick={() => {
+                        setDialogType('reject');
+                        handleConfirmDialog();
+                    }}
                 >
-                    Rejeitar Denúncia
+                    Recusar Denúncia
                 </Botao>
             </div>
+
+            <ConfirmDialog
+                open={open}
+                type={dialogType}
+                reportId={report?.reportId ?? ''}
+                handleConfirmDialog={handleConfirmDialog}
+                refetchReports={refetchReports} />
+
 
             {error && <Snackbar
                 open={error !== undefined}
