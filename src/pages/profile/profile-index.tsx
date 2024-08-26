@@ -23,8 +23,8 @@ export const Profile = () => {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [editPhoto, setEditPhoto] = useState<boolean>(false);
 
-  const { reviews, loading } = useFetchReviewsByUser();
-  const { progressions } = useFetchAllProgressions();
+  const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByUser();
+  const { progressions, loading: progLoading } = useFetchAllProgressions();
   const { user, refetchUser } = useContext(AuthContext);
   const { quantity } = useFetchPaginometer();
 
@@ -100,10 +100,11 @@ export const Profile = () => {
           <ProfileBookInfo>
             <div>
               <h2>Últimas avaliações</h2>
-              {loading ? <ReviewProfileSkeletons /> :
+              {reviewsLoading ? <ReviewProfileSkeletons /> :
                 <ProfilerReviews>
                   {reviews?.map((review, index) => (
                     <ReviewsCard
+                      refetchReviews={refetchReviews}
                       key={index}
                       review={review}
                       isEditable={true}
@@ -116,7 +117,7 @@ export const Profile = () => {
 
             <div>
               <h2>Últimas progressões</h2>
-              {loading ? <ReviewProfileSkeletons /> :
+              {progLoading ? <ReviewProfileSkeletons /> :
                 <ProgressionsCard progressions={progressions?.slice(0, 10) ?? []} />
               }
             </div>

@@ -46,7 +46,6 @@ export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: 
     let response;
     if (type === 'book') {
       response = await bookService.favoriteBook(bookId);
-      console.log(response);
       if (response.statusCode === StatusCode.Ok) {
         setSuccess(response?.resolve);
         setTimeout(() => {
