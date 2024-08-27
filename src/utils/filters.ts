@@ -11,9 +11,9 @@ const limitedDescription = (description: string ) => {
     return filterDescription(description.substring(0, maxLength) + '... ');
 }
 
-const filterBookStatus = (status: string | undefined) => {
-    if(status) return status.replace(/_/g, ' ');
-
+const filterBookStatus = (c: string | undefined) => {
+    if(c) return c.replace(/_/g, ' ');
+    else return '';
 }
 
 const formatDate = (date: string) => {

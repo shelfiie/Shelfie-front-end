@@ -6,6 +6,18 @@ export enum UserRole {
     USER = 'ROLE_USER',
 }
 
+export type Badge = {
+    imageBookBadge: string,
+    descriptionBookBadge: string,
+    nameBookBadge: string,
+    imagePaginometerBadge: string,
+    descriptionPaginometerBadge: string,
+    namePaginometerBadge: string,
+    imageReviewBadge: string,
+    descriptionReviewBadge: string,
+    nameReviewBadge: string,
+}
+
 export type UserData = {
     id?: string,
     name?: string,
@@ -19,6 +31,7 @@ export type UserData = {
     role?: UserRole,
     progressions?: Array<BookProgressionData>,
     reviews?: Array<ReviewData>,
+    badges?: Array<Badge>,
 }
 
 export const profileImageLinks = [

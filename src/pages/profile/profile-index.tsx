@@ -1,6 +1,6 @@
 import { Layout } from "../layout/layout.js";
 import { Theme } from "../../styles/theme.ts";
-import { BookNumber, BooksInfStyles, PhotoDiv, PhotoWrapper, ProfileBookInfo, ProfilerReviews, SettingsImageProfile, UserContent, UserInformation } from "./profile-styles.ts";
+import { AchievementsTitle, AllUserInfos, BadgeDescription, BadgeInfo, Badges, BookNumber, BooksInfStyles, PhotoDiv, PhotoWrapper, ProfileBookInfo, ProfilerReviews, SettingsImageProfile, UserContent, UserDescription, UserInfo, UserInformation, UserInfoWrapper, UserPhotoAndInfos } from "./profile-styles.ts";
 import { Box } from "@mui/material";
 import { ProfileSkeletons } from "./profile-skeletons.tsx";
 import { useFetchPaginometer } from "../../api/hooks/useFetchPaginometer.ts";
@@ -17,6 +17,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { DeleteDialog } from "./delete-dialog.tsx";
 import { Botao } from "../../components/globals/Button.style.tsx";
 import { EditPhotoModal } from "./edit-photo-modal.tsx";
+import { useFetchBadges } from "../../api/hooks/useFetchBadges.ts";
 
 export const Profile = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -27,6 +28,7 @@ export const Profile = () => {
   const { progressions, loading: progLoading } = useFetchAllProgressions();
   const { user, refetchUser } = useContext(AuthContext);
   const { quantity } = useFetchPaginometer();
+  const { badges } = useFetchBadges();
 
   const handleOpenEditModal = () => setIsEditing(!isEditing);
   const handleConfirmDelete = () => setConfirmDelete(!confirmDelete);
@@ -38,38 +40,78 @@ export const Profile = () => {
         <>
           <h2>Meu perfil</h2>
           <UserContent>
-            <UserInformation>
-              <PhotoWrapper>
+            <UserInformation id="user-information">
+              <PhotoWrapper id="photo-wrapper">
+                <UserPhotoAndInfos>
+                  <PhotoDiv>
+                    <SettingsImageProfile src={user.image} alt="Foto do usuário" />
+                    <Botao
+                      onClick={handleEditPhoto}
+                      padding={Theme.margins.marginhalfrem}
+                      color={Theme.colors.white}
+                      backgroundColor={Theme.colors.green}
+                      fontSize={Theme.font.sizes.xsmall}
+                      borderRadius={Theme.borders.radius}>Alterar foto</Botao>
 
-                <PhotoDiv>
-                  <SettingsImageProfile src={user.image} alt="Foto do usuário" />
-                  <Botao
-                    onClick={handleEditPhoto}
-                    padding={Theme.margins.marginhalfrem}
-                    color={Theme.colors.white}
-                    backgroundColor={Theme.colors.green}
-                    fontSize={Theme.font.sizes.xsmall}
-                    borderRadius={Theme.borders.radius}>Alterar foto</Botao>
+                    <EditPhotoModal
+                      refetchUser={refetchUser}
+                      open={editPhoto}
+                      handleEditPhoto={handleEditPhoto} />
+                  </PhotoDiv>
 
-                  <EditPhotoModal
-                    refetchUser={refetchUser}
-                    open={editPhoto}
-                    handleEditPhoto={handleEditPhoto} />
-                </PhotoDiv>
+                  <AllUserInfos>
+                    <UserDescription>
+                      <AchievementsTitle>
+                        Informações do usuário:
+                      </AchievementsTitle>
+                      <UserInfoWrapper>
+                        <UserInfo>Nome: </UserInfo> <p>{user.name}</p>
+                      </UserInfoWrapper>
+
+                      <UserInfoWrapper>
+                        <UserInfo>Nickname: </UserInfo> <p>{user.nickname}</p>
+                      </UserInfoWrapper>
+
+                      <UserInfoWrapper>
+                        <UserInfo>Email: </UserInfo> <p>{user.email}</p>
+                      </UserInfoWrapper>
+                    </UserDescription>
+
+                    <div>
+                      <AchievementsTitle>
+                        Conquistas do usuário:
+                      </AchievementsTitle>
+                      <Badges>
+                        <BadgeInfo>
+                          <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
+                          <p>{badges?.nameBookBadge}</p>
+                          <BadgeDescription>{badges?.descriptionBookBadge}</BadgeDescription>
+                        </BadgeInfo>
+                        <BadgeInfo>
+                          <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
+                          <p>{badges?.namePaginometerBadge}</p>
+                          <BadgeDescription>{badges?.descriptionPaginometerBadge}</BadgeDescription>
+                        </BadgeInfo>
+                        <BadgeInfo>
+                          <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
+                          <p>{badges?.nameReviewBadge}</p>
+                          <BadgeDescription>{badges?.descriptionReviewBadge}</BadgeDescription>
+                        </BadgeInfo>
+                      </Badges>
+                    </div>
+
+                  </AllUserInfos>
+                </UserPhotoAndInfos>
 
                 <div>
-                  <BookNumber>Nome: {user.name}</BookNumber>
-                  <p>Nickname: {user.nickname}</p>
-                  <p>Email: <span>{user.email}</span> </p>
+                  <a onClick={handleOpenEditModal}>
+                    <EditRoundedIcon />
+                  </a>
+
+                  <a onClick={handleConfirmDelete}>
+                    <DeleteRoundedIcon />
+                  </a>
                 </div>
-
-                <a onClick={handleOpenEditModal}>
-                  <EditRoundedIcon />
-                </a>
-
-                <a onClick={handleConfirmDelete}>
-                  <DeleteRoundedIcon />
-                </a>
 
                 <DeleteDialog
                   open={confirmDelete}

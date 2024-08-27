@@ -141,5 +141,13 @@ export class UserService {
         }
     }
 
-
+    async fetchMyBadges(): Promise<HttpResponse<any>> {
+        const base = '/api/badges/user';
+        const response = await this.client.get({ url: base });
+        if (response.statusCode === StatusCode.Ok) return response;
+        return {
+            ...response,
+            reject: 'Erro ao buscar conquistas.',
+        }
+    }
 }
