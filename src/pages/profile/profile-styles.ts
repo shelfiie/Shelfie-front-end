@@ -130,20 +130,42 @@ const UserPhotoAndInfos = styled.div`
     gap: ${Theme.margins.margin1rem};
 `
 
-const Achievements = styled.div`
+const BadgeInfo = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 5px;
+    border-radius: ${Theme.borders.radius};
+    transition: all 1s;
 
+    p{
+        font-weight: ${Theme.font.weight.semiBold};
+        color: ${Theme.colors.light};
+        text-align: center;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+        background-color: ${Theme.colors.deepBlue};
+    }
+    
+`
+
+const BadgeDescription = styled.span`
+    text-align: center;
+    font-size: ${Theme.font.sizes.xsmall};
 `
 
 const Badges = styled.div`
     display: inline-flex;
     gap: ${Theme.margins.marginhalfrem};
+
     img {
-        height: 80px;
+        height: 60px;
         border-radius: ${Theme.borders.radius};
-        transition: all 0.3s;
-        &:hover {
-            transform: scale(1.1);
-        }
     }
 `
 
@@ -153,4 +175,4 @@ const AchievementsTitle = styled.p`
     text-decoration: underline;
 `
 
-export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles, PhotoDiv, EditPhotosDiv, UserInfo, UserInfoWrapper, AllUserInfos, UserPhotoAndInfos, UserDescription, Achievements, AchievementsTitle, Badges }
+export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles, PhotoDiv, EditPhotosDiv, UserInfo, UserInfoWrapper, AllUserInfos, UserPhotoAndInfos, UserDescription, BadgeInfo, AchievementsTitle, Badges, BadgeDescription }

@@ -1,6 +1,6 @@
 import { Layout } from "../layout/layout.js";
 import { Theme } from "../../styles/theme.ts";
-import { Achievements, AchievementsTitle, AllUserInfos, Badges, BookNumber, BooksInfStyles, PhotoDiv, PhotoWrapper, ProfileBookInfo, ProfilerReviews, SettingsImageProfile, UserContent, UserDescription, UserInfo, UserInformation, UserInfoWrapper, UserPhotoAndInfos } from "./profile-styles.ts";
+import { AchievementsTitle, AllUserInfos, BadgeDescription, BadgeInfo, Badges, BookNumber, BooksInfStyles, PhotoDiv, PhotoWrapper, ProfileBookInfo, ProfilerReviews, SettingsImageProfile, UserContent, UserDescription, UserInfo, UserInformation, UserInfoWrapper, UserPhotoAndInfos } from "./profile-styles.ts";
 import { Box } from "@mui/material";
 import { ProfileSkeletons } from "./profile-skeletons.tsx";
 import { useFetchPaginometer } from "../../api/hooks/useFetchPaginometer.ts";
@@ -77,16 +77,28 @@ export const Profile = () => {
                       </UserInfoWrapper>
                     </UserDescription>
 
-                    <Achievements>
+                    <div>
                       <AchievementsTitle>
                         Conquistas do usuário:
                       </AchievementsTitle>
                       <Badges>
-                        <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
-                        <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
-                        <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
+                        <BadgeInfo>
+                          <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
+                          <p>{badges?.nameBookBadge}</p>
+                          <BadgeDescription>{badges?.descriptionBookBadge}</BadgeDescription>
+                        </BadgeInfo>
+                        <BadgeInfo>
+                          <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
+                          <p>{badges?.namePaginometerBadge}</p>
+                          <BadgeDescription>{badges?.descriptionPaginometerBadge}</BadgeDescription>
+                        </BadgeInfo>
+                        <BadgeInfo>
+                          <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
+                          <p>{badges?.nameReviewBadge}</p>
+                          <BadgeDescription>{badges?.descriptionReviewBadge}</BadgeDescription>
+                        </BadgeInfo>
                       </Badges>
-                    </Achievements>
+                    </div>
 
                   </AllUserInfos>
                 </UserPhotoAndInfos>
