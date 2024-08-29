@@ -10,7 +10,7 @@ import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions.ts
 import { ProgressionsCard } from "../progressions/progressions-card.tsx";
 import { ReviewProfileSkeletons } from "./review-profile-skeletons.tsx";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../api/context/auth.tsx";
 import { EditUserModal } from "./edit-user-modal.tsx";
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -28,11 +28,12 @@ export const Profile = () => {
   const { progressions, loading: progLoading } = useFetchAllProgressions();
   const { user, refetchUser } = useContext(AuthContext);
   const { quantity } = useFetchPaginometer();
-  const { badges } = useFetchBadges();
-
+  const { badges, refetchBadges, loading: badgesLoading } = useFetchBadges();
   const handleOpenEditModal = () => setIsEditing(!isEditing);
   const handleConfirmDelete = () => setConfirmDelete(!confirmDelete);
   const handleEditPhoto = () => setEditPhoto(!editPhoto);
+
+  useEffect(() => { refetchBadges(); }, [quantity]);
 
   return (
     <Layout>
@@ -81,23 +82,24 @@ export const Profile = () => {
                       <AchievementsTitle>
                         Conquistas do usuário:
                       </AchievementsTitle>
-                      <Badges>
-                        <BadgeInfo>
-                          <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
-                          <p>{badges?.nameBookBadge}</p>
-                          <BadgeDescription>{badges?.descriptionBookBadge}</BadgeDescription>
-                        </BadgeInfo>
-                        <BadgeInfo>
-                          <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
-                          <p>{badges?.namePaginometerBadge}</p>
-                          <BadgeDescription>{badges?.descriptionPaginometerBadge}</BadgeDescription>
-                        </BadgeInfo>
-                        <BadgeInfo>
-                          <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
-                          <p>{badges?.nameReviewBadge}</p>
-                          <BadgeDescription>{badges?.descriptionReviewBadge}</BadgeDescription>
-                        </BadgeInfo>
-                      </Badges>
+                      {badgesLoading ? null :
+                        <Badges>
+                          <BadgeInfo>
+                            <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
+                            <p>{badges?.nameBookBadge}</p>
+                            <BadgeDescription>{badges?.descriptionBookBadge}</BadgeDescription>
+                          </BadgeInfo>
+                          <BadgeInfo>
+                            <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
+                            <p>{badges?.namePaginometerBadge}</p>
+                            <BadgeDescription>{badges?.descriptionPaginometerBadge}</BadgeDescription>
+                          </BadgeInfo>
+                          <BadgeInfo>
+                            <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
+                            <p>{badges?.nameReviewBadge}</p>
+                            <BadgeDescription>{badges?.descriptionReviewBadge}</BadgeDescription>
+                          </BadgeInfo>
+                        </Badges>}
                     </div>
 
                   </AllUserInfos>
