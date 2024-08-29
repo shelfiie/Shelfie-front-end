@@ -17,9 +17,11 @@ const useFetchBadges = () => {
         descriptionReviewBadge: "",
         nameReviewBadge: "",
     });
+    const [loading, setLoading] = useState(false);
     const service = new UserService();
 
     const fetchBadges = async () => {
+        setLoading(true);
         const response = await service.fetchMyBadges();
         if (response.statusCode === StatusCode.Ok) {
             setFormattedBadges({
@@ -34,8 +36,10 @@ const useFetchBadges = () => {
                 nameReviewBadge: filterBookStatus(response.body.nameReviewBadge),
             })
             setBadges(formattedBadges);
+            setLoading(false);
         } else {
             console.error(response.reject);
+            setLoading(false);
         }
     };
     
@@ -43,6 +47,6 @@ const useFetchBadges = () => {
         fetchBadges();
     }, []);
 
-    return { badges, refetchBadges: fetchBadges }; 
+    return { badges, refetchBadges: fetchBadges, loading }; 
 };
 export { useFetchBadges };
