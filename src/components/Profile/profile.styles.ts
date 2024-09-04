@@ -3,7 +3,6 @@ import { Theme } from "../../styles/theme";
 
 const ProfileContainer = styled.div`
     width: 100%;
-    margin-top: ${Theme.margins.margin2rem};
     background-color: ${Theme.colors.blue};
     border-radius: ${Theme.borders.radiusRound};
 
@@ -17,6 +16,13 @@ const ProfileContainer = styled.div`
 
     font-size: ${Theme.font.sizes.xsmall};
     color: ${Theme.colors.white};
+
+    transition: 0.3s all ease-in-out;
+
+    &:hover{
+        background-color: ${Theme.colors.deepBlue};
+        border-radius: ${Theme.borders.radiusRound};
+    }
 
     img{
         width: 50px;
