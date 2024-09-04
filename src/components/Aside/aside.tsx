@@ -4,7 +4,7 @@ import { MyBookLogo } from "../../assets/logos/mybook-logo.tsx";
 import { Logo } from "../../assets/logos/shelfie-logo.svg.tsx";
 import { Theme } from "../../styles/theme.ts";
 import { Botao } from "../globals/Button.style.tsx";
-import { AsideStyles, Nav, UlNav } from './aside.styles.ts';
+import { AsideStyles, LogOutForm, Nav, UlNav } from './aside.styles.ts';
 import { AuthContext } from "../../api/context/auth.tsx";
 import { Perfil } from "../Profile/profile.tsx";
 import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded';
@@ -37,7 +37,7 @@ export const Aside = () => {
     }
 
     return (
-        <AsideStyles>
+        <AsideStyles id="aside-styles">
             <div>
                 <MyBookLogo
                     color={Theme.colors.light}
@@ -45,11 +45,11 @@ export const Aside = () => {
                     fontWeight={`${Theme.font.weight.regular}`}
                     marginbottom="-1.5rem" />
                 <Logo />
-
-                <Link style={{textDecoration: 'none'}} to="/me">
-                    <Perfil />
-                </Link>
             </div>
+
+            <Link style={{ textDecoration: 'none', width: '100%' }} to="/me">
+                <Perfil />
+            </Link>
 
             <Nav>
                 <UlNav>
@@ -64,18 +64,19 @@ export const Aside = () => {
                 </UlNav>
             </Nav>
 
-            <form onSubmit={handleLogout}>
+            <LogOutForm onSubmit={handleLogout}>
                 <Botao
                     backgroundColor={Theme.colors.blue}
                     color={Theme.colors.light}
                     fontSize={Theme.font.sizes.xsmall}
-                    padding="0.5rem 1rem"
+                    padding="1rem"
                     content="Sair da conta"
                     type="submit"
+                    width="100%"
                 >
                     Sair da Conta
                 </Botao>
-            </form>
+            </LogOutForm>
         </AsideStyles>
     );
 };
