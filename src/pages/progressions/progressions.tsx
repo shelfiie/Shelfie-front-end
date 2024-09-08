@@ -1,7 +1,6 @@
 import { useFetchAllProgressions } from "../../api/hooks/useFetchProgressions";
 import { Layout } from "../layout/layout";
 import { ProgressionsCard } from "./progressions-card";
-
 import { ProgressionsStyles } from "./progressions.styles";
 import { ProgressionSkeleton } from "./progressions-skeleton";
 import { NoItemsFound } from "../../components/globals/NoItemsFound";

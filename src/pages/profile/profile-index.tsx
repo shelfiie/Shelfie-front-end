@@ -85,18 +85,24 @@ export const Profile = () => {
                       {badgesLoading ? null :
                         <Badges>
                           <BadgeInfo>
-                            <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
-                            <p>{badges?.nameBookBadge}</p>
+                            {badges?.imageBookBadge == "" ? null :
+                              <img src={badges?.imageBookBadge} alt="Conquistas do usuário" />
+                            }
+                            <p>{badges?.nameBookBadge === "NONE" ? null : badges?.nameBookBadge}</p>
                             <BadgeDescription>{badges?.descriptionBookBadge}</BadgeDescription>
                           </BadgeInfo>
                           <BadgeInfo>
-                            <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
-                            <p>{badges?.namePaginometerBadge}</p>
+                            {badges?.imagePaginometerBadge == "" ? null :
+                              <img src={badges?.imagePaginometerBadge} alt="Conquistas do usuário" />
+                            }
+                            <p>{badges?.namePaginometerBadge === "NONE" ? null : badges?.namePaginometerBadge}</p>
                             <BadgeDescription>{badges?.descriptionPaginometerBadge}</BadgeDescription>
                           </BadgeInfo>
                           <BadgeInfo>
-                            <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
-                            <p>{badges?.nameReviewBadge}</p>
+                            {badges?.imageReviewBadge == "" ? null :
+                              <img src={badges?.imageReviewBadge} alt="Conquistas do usuário" />
+                            }
+                            <p>{badges?.nameReviewBadge === "NONE" ? null : badges?.nameReviewBadge}</p>
                             <BadgeDescription>{badges?.descriptionReviewBadge}</BadgeDescription>
                           </BadgeInfo>
                         </Badges>}
@@ -143,9 +149,9 @@ export const Profile = () => {
           <ProfileBookInfo>
             <div>
               <h2>Últimas avaliações</h2>
-              {reviewsLoading ? <ReviewProfileSkeletons /> :
+              {reviewsLoading ? <ReviewProfileSkeletons /> : reviews?.length === 0 ? <p>O usuário ainda não fez nenhuma avaliação.</p> :
                 <ProfilerReviews>
-                  {reviews?.map((review, index) => (
+                  {reviews?.slice(0, 10)?.map((review, index) => (
                     <ReviewsCard
                       refetchReviews={refetchReviews}
                       key={index}
@@ -160,7 +166,7 @@ export const Profile = () => {
 
             <div>
               <h2>Últimas progressões</h2>
-              {progLoading ? <ReviewProfileSkeletons /> :
+              {progLoading ? <ReviewProfileSkeletons /> : progressions?.length === 0 ? <p>O usuário ainda não fez nenhuma progressão.</p> :
                 <ProgressionsCard progressions={progressions?.slice(0, 10) ?? []} />
               }
             </div>

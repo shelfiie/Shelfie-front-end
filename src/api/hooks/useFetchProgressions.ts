@@ -21,8 +21,7 @@ const useFetchAllProgressions = () => {
                     const myBook = await service.fetchMyBooksByGoogleId(progression?.googleId);
 
                     if (bookDetails.statusCode === StatusCode.Ok && myBook.statusCode === StatusCode.Ok) {
-                        setLoading(false);
-                        return {
+                        const data = {
                             id: progression?.id,
                             googleId: bookDetails.body.googleId,
                             thumbnailUrl: bookDetails.body.thumbnailUrl,
@@ -36,6 +35,7 @@ const useFetchAllProgressions = () => {
                             description: bookDetails.body.description && limitedDescription(bookDetails.body.description),
                             percentage: progressionPageDetails.body.porcentage
                         };
+                        return data;
                     } else {
                         setLoading(false);
                         return null;

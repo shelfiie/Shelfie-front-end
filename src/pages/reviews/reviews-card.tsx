@@ -18,9 +18,10 @@ type ReviewsCardProps = {
     isEditable: boolean;
     isLikable: boolean;
     refetchReviews?: () => void;
+    refetchBookDetails?: () => void;
 };
 
-export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: ReviewsCardProps) => {
+export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews, refetchBookDetails }: ReviewsCardProps) => {
     const [selectedReview, setSelectedReview] = useState<BookData['reviews'] | null>(null);
     const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -81,6 +82,7 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
             </BoxWrapper>
             {selectedReview && (
                 <ReviewModal
+                    refetchBookDetails={refetchBookDetails}
                     refetchReviews={refetchReviews}
                     isOpen={isEditOpen}
                     handleModal={handleModalClose}
