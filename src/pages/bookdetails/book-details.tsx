@@ -109,7 +109,7 @@ export const BookDetails = () => {
 
             <div>
               <Heart  type='book' bookId={bookId} />
-              {bookStatus === BookStatus.LENDO || bookStatus === BookStatus.QUERO_LER ? (
+              {bookStatus === BookStatus.LENDO ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
                   color={Theme.colors.light}
@@ -122,7 +122,7 @@ export const BookDetails = () => {
                   Ler
                 </Botao>
               ) :
-                <Tooltip title='Deve estar na lista lendo'>
+                <Tooltip title='Deve estar na lista LENDO'>
                   <span>
                     <Botao
                       backgroundColor={Theme.colors.blue}
