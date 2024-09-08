@@ -8,7 +8,8 @@ const AsideStyles = styled.aside`
     align-items: center;
     gap: ${Theme.margins.margin1rem};
     padding: ${Theme.margins.marginhalfrem};
-    margin-top: 20rem;
+    margin-top: 5rem;
+    justify-content: center;
     margin-bottom: ${Theme.margins.margin5rem};
 
     > div {
