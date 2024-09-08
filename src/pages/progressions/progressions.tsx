@@ -5,9 +5,14 @@ import { ProgressionsCard } from "./progressions-card";
 import { ProgressionsStyles } from "./progressions.styles";
 import { ProgressionSkeleton } from "./progressions-skeleton";
 import { NoItemsFound } from "../../components/globals/NoItemsFound";
+import { useEffect } from "react";
 
 export const Progressions = () => {
   const { progressions, loading } = useFetchAllProgressions();
+
+  useEffect(() => {
+    console.log(loading)
+  }, [loading]);
 
   return (
     <Layout>
