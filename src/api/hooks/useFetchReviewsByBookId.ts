@@ -10,9 +10,10 @@ const useFetchReviewsByBookId = (googleId: BookData['googleId']) => {
 
     const fetchReviewsByGoogleId = async () => {
         setLoading(true);
-        const response = await bookService.fetchReviewsByBookId(googleId);
+        const response = await bookService.fetchBooksByGoogleId(googleId);
         if (response.statusCode === StatusCode.Ok) {
-            setReviews(response.body);
+            const reviews = await bookService.fetchReviewsByBookId(response.body.bookId);
+            setReviews(reviews.body);
             setLoading(false);
             return response;
         }
