@@ -116,7 +116,7 @@ export class UserService {
 
     async promoteUser(id: UserData['id']): Promise<HttpResponse<unknown>> {
         const base = `/api/admin/change-role/${id}`;
-        const response = await this.client.post({ url: base });
+        const response = await this.client.put({ url: base });
         if (response.statusCode !== 200) {
             return {
                 ...response,
