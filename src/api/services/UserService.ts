@@ -1,4 +1,3 @@
-import { BookData } from "../../types/bookData";
 import { UserData } from "../../types/userType";
 import { HttpResponse, StatusCode } from "../client/IHttpClient";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";

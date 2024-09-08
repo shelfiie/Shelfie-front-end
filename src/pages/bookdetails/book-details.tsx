@@ -23,10 +23,12 @@ export const BookDetails = () => {
   const { id } = useParams();
   const { book, loading } = useGBookById(id ?? '');
   const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
-  const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(id);
+  const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(bookId);
 
   useEffect(() => {
-    refetchReviews && refetchReviews();
+    if (bookId) {
+      refetchReviews && refetchReviews();
+    }
   }, [bookId])
 
   const reviewsCombined = reviews?.map((review) => {
