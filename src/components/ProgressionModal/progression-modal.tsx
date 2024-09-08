@@ -17,12 +17,13 @@ type ProgressionModalProps = {
     title?: BookData['title'];
     googleId?: BookData['googleId'];
     refetchPages?: () => void;
+    refetchBookDetails?: () => void;
     maxPage?: number;
     actualPage?: number;
 }
 
 export const ProgressionModal = (
-    { isOpen, handleModal, bookId, title, googleId, refetchPages, maxPage, actualPage }: ProgressionModalProps) => {
+    { isOpen, handleModal, bookId, title, googleId, refetchPages, maxPage, actualPage, refetchBookDetails }: ProgressionModalProps) => {
 
     const progressionFilter = z.object({
         commentary: z.string().max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
@@ -66,6 +67,7 @@ export const ProgressionModal = (
             setError(null);
             setSuccess(response?.resolve);
             refetchPages && refetchPages();
+            refetchBookDetails && refetchBookDetails();
             setTimeout(() => {
                 setSuccess(null);
                 handleModal();
