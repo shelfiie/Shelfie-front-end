@@ -10,7 +10,7 @@ import { ReviewModal } from '../Review/review.tsx';
 import { DeleteDialog } from './delete-dialog.tsx';
 import { Heart } from '../globals/Heart.style.tsx';
 import { useFetchLastPage } from '../../api/hooks/useFetchLastPage.ts';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Tooltip } from '@mui/material';
 
 type BookResumeProps = {
   Bookzin: BookData;
@@ -42,6 +42,18 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
             >
               REVIEW
             </Botao>
+          ) : (Bookzin.bookStatus === BookStatus.QUERO_LER) ? (
+            <Tooltip title="O status do livro deve estar como LENDO" >
+              <Botao
+                isError={true}
+                backgroundColor={Theme.colors.blue}
+                color={Theme.colors.white}
+                fontSize={Theme.font.sizes.xsmall}
+                padding={'.525rem 1rem'}
+                borderRadius={Theme.borders.radius}>
+                LER
+              </Botao>
+            </Tooltip>
           ) : (
             <Botao
               backgroundColor={Theme.colors.blue}

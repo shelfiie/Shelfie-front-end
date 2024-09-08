@@ -52,7 +52,8 @@ export const ProgressionModal = (
     const onSubmit: SubmitHandler<ProgressionFilter> = async () => {
         setLoading(true);
 
-       const data = {
+        const data = {
+            googleId: googleId,
             bookId: bookId,
             commentary: watch('commentary'),
             page: watch('page'),
@@ -60,7 +61,7 @@ export const ProgressionModal = (
 
         const service = new BookService()
         const response = await service.postProgression(data as BookData);
-        if (response?.statusCode === StatusCode.Created) {
+        if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);
