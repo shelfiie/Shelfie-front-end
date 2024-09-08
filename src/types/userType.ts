@@ -7,15 +7,15 @@ export enum UserRole {
 }
 
 export type Badge = {
-    imageBookBadge: string,
-    descriptionBookBadge: string,
-    nameBookBadge: string,
-    imagePaginometerBadge: string,
-    descriptionPaginometerBadge: string,
-    namePaginometerBadge: string,
-    imageReviewBadge: string,
-    descriptionReviewBadge: string,
-    nameReviewBadge: string,
+    imageBookBadge: string | undefined,
+    descriptionBookBadge: string | undefined,
+    nameBookBadge: string | undefined,
+    imagePaginometerBadge: string | undefined,
+    descriptionPaginometerBadge: string | undefined,
+    namePaginometerBadge: string | undefined,
+    imageReviewBadge: string | undefined,
+    descriptionReviewBadge: string | undefined,
+    nameReviewBadge: string | undefined,
 }
 
 export type UserData = {

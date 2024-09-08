@@ -7,15 +7,15 @@ import { filterBookStatus } from "../../utils/filters";
 const useFetchBadges = () => {
     const [badges, setBadges] = useState<Badge>();
     const [ formattedBadges, setFormattedBadges ] = useState<Badge>({
-        imageBookBadge: "",
-        descriptionBookBadge: "",
-        nameBookBadge: "",
-        imagePaginometerBadge: "",
-        descriptionPaginometerBadge: "",
-        namePaginometerBadge: "",
-        imageReviewBadge: "",
-        descriptionReviewBadge: "",
-        nameReviewBadge: "",
+        imageBookBadge: undefined,
+        descriptionBookBadge: undefined,
+        nameBookBadge: undefined,
+        imagePaginometerBadge: undefined,
+        descriptionPaginometerBadge: undefined,
+        namePaginometerBadge: undefined,
+        imageReviewBadge: undefined,
+        descriptionReviewBadge: undefined,
+        nameReviewBadge: undefined,
     });
     const [loading, setLoading] = useState(false);
     const service = new UserService();
@@ -35,6 +35,7 @@ const useFetchBadges = () => {
                 descriptionReviewBadge: response.body.descriptionReviewBadge,
                 nameReviewBadge: filterBookStatus(response.body.nameReviewBadge),
             })
+            console.log(formattedBadges);
             setBadges(formattedBadges);
             setLoading(false);
         } else {
