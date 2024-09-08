@@ -10,7 +10,6 @@ import { DropDownSelection } from '../../components/DropDownSelection/dropdown-s
 import { useBookDetails } from '../../api/hooks/useBookDetails';
 import { StatusTag } from '../progressions/progressions.styles';
 import { ProgressionModal } from '../../components/ProgressionModal/progression-modal';
-import { ReviewModal } from '../../components/Review/review';
 import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
@@ -18,6 +17,7 @@ import { BookStatus } from '../../types/bookData';
 import { ReviewsCard } from '../reviews/reviews-card';
 import { ProfilerReviews } from '../profile/profile-styles';
 import { useFetchReviewsByBookId } from '../../api/hooks/useFetchReviewsByBookId';
+import { ReviewModal } from '../reviews/edit-review';
 
 export const BookDetails = () => {
   const { id } = useParams();
@@ -108,7 +108,7 @@ export const BookDetails = () => {
             </div>
 
             <div>
-              <Heart  type='book' bookId={bookId} />
+              <Heart type='book' bookId={bookId} />
               {bookStatus === BookStatus.LENDO ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
@@ -183,7 +183,8 @@ export const BookDetails = () => {
                 </Tooltip>
               }
               <ReviewModal
-                refreshBookDetails={refetchBookDetails}
+                refetchReviews={refetchReviews}
+                refetchBookDetails={refetchBookDetails}
                 isEditing={false}
                 isOpen={reviewIsOpen}
                 handleModal={handleReviewModal}
