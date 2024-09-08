@@ -1,4 +1,4 @@
-import { BookData, BookStatus } from "../../types/bookData";
+import { BookData, BookStatus, ReportStatus } from "../../types/bookData";
 import { HttpResponse, StatusCode } from "../client/IHttpClient";
 import { ShelfieHttpClient } from "../client/ShelfieHttpClient";
 
@@ -27,8 +27,13 @@ export class BookService {
 
     async putBookStatus({ googleId, bookStatus }: BookData): Promise<HttpResponse<any>> {
         const base = `/api/mybooks/${googleId}/update/${bookStatus}`;
-
         const response = await this.client.put({ url: base });
+        if(response.statusCode === StatusCode.Ok) {
+            return {
+                ...response,
+                resolve: 'Status atualizado com sucesso',
+            }
+        }
         return response;
     }
 
@@ -76,36 +81,30 @@ export class BookService {
 
     async postProgression(data: BookData): Promise<HttpResponse<any>> {
         const base = `/api/reading`;
-        console.log(data)
 
         const response = await this.client.post({
             url: base,
             body: data
         });
 
-        if (response.statusCode === StatusCode.BadRequest || response.statusCode === StatusCode.InternalServerError) {
+        if (response.statusCode === StatusCode.Forbidden) {
             this.putBookStatus({ googleId: data.googleId, bookStatus: BookStatus.LENDO })
-
             setTimeout(async () => {
-                const response = await this.client.post({
+                const progression = await this.client.post({
                     url: base,
                     body: data
                 });
-                if (response.statusCode === StatusCode.Created) {
+                if (progression.statusCode === StatusCode.Ok) {
                     return {
-                        ...response,
+                        ...progression,
                         resolve: 'Status do livro alterado e progressão salva com sucesso!',
                     };
 
                 }
-            }, 2000)
+            }, 1000)
 
-        } else if (response.statusCode === StatusCode.Created) return { ...response, resolve: 'Progressão salva com sucesso!' };
-
-        return {
-            ...response,
-            reject: 'Erro ao salvar progressão.'
-        }
+        } else if (response.statusCode === StatusCode.Created) return { ...response, resolve: 'Progressão salva com sucesso!' }
+        return response;
     }
     async postReview({ bookId, reviews }: BookData): Promise<HttpResponse<any>> {
         const base = `/api/review/${bookId}`;
@@ -150,16 +149,108 @@ export class BookService {
         }
     }
 
+    async unlikeReview(reviewId: string): Promise<HttpResponse<any>> {
+        const base = `/api/like/${reviewId}`;
+        const response = await this.client.delete({ url: base });
+
+        if (response.statusCode === StatusCode.Created) return {
+            ...response,
+            resolve: 'Review descurtido com sucesso!',
+        }; else return {
+            ...response,
+            reject: 'Erro ao descurtir review.'
+        }
+    }
+
     async likeReview(reviewId: string): Promise<HttpResponse<any>> {
         const base = `/api/like/${reviewId}`;
-        const response = await this.client.post({ url: base });
+
+        const isLiked = await this.isReviewLiked(reviewId);
+
+        if (isLiked.body.liked === true) {
+            const deslike = await this.unlikeReview(reviewId);
+            if (deslike.statusCode === StatusCode.Ok) return {
+                ...deslike,
+                resolve: 'Review descurtido com sucesso!',
+            }; else return {
+                ...deslike,
+                reject: 'Erro ao descurtir review.'
+            }
+        } else {
+            const response = await this.client.post({ url: base });
+            if (response.statusCode === StatusCode.Created) return {
+                ...response,
+                resolve: 'Review curtido com sucesso!',
+            }; else return {
+                ...response,
+                reject: 'Erro ao curtir review.'
+            }
+        }
+    }
+
+    async isReviewLiked(reviewId: string): Promise<HttpResponse<any>> {
+        const base = `/api/like/is-liked/${reviewId}`;
+        const response = await this.client.get({ url: base });
 
         if (response.statusCode === StatusCode.Ok) return {
             ...response,
-            resolve: 'Review curtido com sucesso!',
+            resolve: 'Sucesso ao buscar curtida na review.',
+        };
+        return {
+            ...response,
+            reject: 'Erro ao buscar curtida na review.'
+        };
+    }
+
+    async reportReview(reviewId: BookData['report']): Promise<HttpResponse<any>> {
+        const base = `/api/reports/${reviewId}`;
+        const response = await this.client.post({ url: base });
+
+        if (response.statusCode === StatusCode.Created) return {
+            ...response,
+            resolve: 'Review denunciado com sucesso!',
         }; else return {
             ...response,
-            reject: 'Erro ao curtir review.'
+            reject: 'Erro ao denunciar review.'
+        }
+    }
+
+    async resolveReport(reportId: string, status: ReportStatus): Promise<HttpResponse<any>> {
+        const base = `/api/reports/admin/${reportId}/${status}`;
+        const response = await this.client.put({ url: base });
+
+        if (status === ReportStatus.RESOLVIDO) {
+            if (response.statusCode === StatusCode.Ok) return {
+                ...response,
+                resolve: 'Denúncia resolvida com sucesso!',
+            }; else return {
+                ...response,
+                reject: 'Erro ao resolver denúncia.'
+            }
+        } else if (status === ReportStatus.RECUSADO) {
+            if (response.statusCode === StatusCode.Ok) return {
+                ...response,
+                resolve: 'Denúncia rejeitada com sucesso!',
+            }; else return {
+                ...response,
+                reject: 'Erro ao rejeitar denúncia.'
+            }
+        } else {
+            return {
+                ...response,
+                reject: 'Erro ao resolver denúncia.'
+            }
+        }
+    }
+
+    async fetchAllReports(): Promise<HttpResponse<any>> {
+        const base = '/api/reports/admin/all';
+        const response = await this.client.get({ url: base });
+
+        if (response.statusCode === StatusCode.Ok) return response;
+        return {
+            ...response,
+            reject: 'Erro ao buscar denúncias.',
         }
     }
 
