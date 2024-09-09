@@ -149,7 +149,6 @@ const BadgeInfo = styled.div`
 
     &:hover {
         transform: scale(1.1);
-        background-color: ${Theme.colors.deepBlue};
     }
     
 `

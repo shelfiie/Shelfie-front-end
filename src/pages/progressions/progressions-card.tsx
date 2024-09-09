@@ -4,7 +4,7 @@ import { Theme } from "../../styles/theme"
 import { AllProgressions, BookDescriptionNDate, BookInfo, BookProgression, Commentary, CompleteProgress, PercentageStyle, ProgressionDate, ProgressionPageCount, StatusTag } from "./progressions.styles"
 import { Link } from "react-router-dom"
 import { BookData } from "../../types/bookData"
-import { formatDate } from "../../utils/filters"
+import { filterBookStatus, formatDate } from "../../utils/filters"
 
 type ProgressionsCardProps = {
   progressions: BookData['progressions'][]
@@ -26,7 +26,7 @@ export const ProgressionsCard = ({ progressions }: ProgressionsCardProps) => {
           borderRadius={Theme.borders.radius}>
 
           <BookProgression id="book-progression">
-            <StatusTag>{progression?.status}</StatusTag>
+            <StatusTag>{filterBookStatus(progression?.status)}</StatusTag>
 
             <LinearProgress
               sx={CompleteProgress}

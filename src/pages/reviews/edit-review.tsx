@@ -38,6 +38,7 @@ type ReviewModalProps = {
     reviewData?: BookData['reviews'];
     isEditing: boolean;
     refetchReviews?: () => void;
+    refetchBookDetails?: () => void;
 };
 
 const reviewFilter = z.object({
@@ -46,13 +47,13 @@ const reviewFilter = z.object({
 
 type ReviewFilter = z.infer<typeof reviewFilter>;
 
-export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, isEditing, refetchReviews }: ReviewModalProps) => {
+export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, isEditing, refetchReviews, refetchBookDetails }: ReviewModalProps) => {
     const [loading, setLoading] = useState(false);
     const [value, setValue] = useState<number | undefined>(reviewData?.rating);
     const [success, setSuccess] = useState<string | null>();
     const [error, setError] = useState<string | null>();
 
-    const { watch, register, handleSubmit, setValue: setFormValue, formState: { errors } } = useForm<ReviewFilter>({
+    const { watch, register, handleSubmit, reset, setValue: setFormValue, formState: { errors } } = useForm<ReviewFilter>({
         mode: 'all',
         reValidateMode: 'onChange',
         resolver: zodResolver(reviewFilter),
@@ -86,18 +87,21 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, is
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);
+            console.log(!!!refetchBookDetails);
             setTimeout(() => {
-                setSuccess(null);
-                handleModal();
+                refetchBookDetails && refetchBookDetails();
                 refetchReviews && refetchReviews();
-            }, 2500);
+                handleModal();
+                reset();
+                setSuccess(null);
+            }, 2000);
         } else {
             setSuccess(null);
             setError(response?.reject);
             setTimeout(() => {
                 setError(null);
                 handleModal();
-            }, 2500);
+            }, 2000);
         }
     };
 

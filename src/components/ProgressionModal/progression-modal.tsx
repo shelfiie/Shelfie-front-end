@@ -17,15 +17,16 @@ type ProgressionModalProps = {
     title?: BookData['title'];
     googleId?: BookData['googleId'];
     refetchPages?: () => void;
+    refetchBookDetails?: () => void;
     maxPage?: number;
     actualPage?: number;
 }
 
 export const ProgressionModal = (
-    { isOpen, handleModal, bookId, title, googleId, refetchPages, maxPage, actualPage }: ProgressionModalProps) => {
+    { isOpen, handleModal, bookId, title, googleId, refetchPages, maxPage, actualPage, refetchBookDetails }: ProgressionModalProps) => {
 
     const progressionFilter = z.object({
-        commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
+        commentary: z.string().max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
         page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(maxPage as number, { message: `Número deve ser menor ou igual a ${maxPage}` }),
         bookId: z.string(),
         googleId: z.string()
@@ -37,6 +38,7 @@ export const ProgressionModal = (
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors }
     } = useForm<ProgressionFilter>({
         mode: 'all',
@@ -51,7 +53,8 @@ export const ProgressionModal = (
     const onSubmit: SubmitHandler<ProgressionFilter> = async () => {
         setLoading(true);
 
-       const data = {
+        const data = {
+            googleId: googleId,
             bookId: bookId,
             commentary: watch('commentary'),
             page: watch('page'),
@@ -59,14 +62,17 @@ export const ProgressionModal = (
 
         const service = new BookService()
         const response = await service.postProgression(data as BookData);
+        console.log(response);
         if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);
             refetchPages && refetchPages();
+            refetchBookDetails && refetchBookDetails();
             setTimeout(() => {
                 setSuccess(null);
                 handleModal();
+                reset();
             }, 2000);
         } else {
             setSuccess(null);
@@ -107,7 +113,6 @@ export const ProgressionModal = (
                         <TextField
                             sx={{ width: '100%' }}
                             {...register('commentary')}
-                            required
                             multiline
                             minRows={4}
                             error={!!errors.commentary}
