@@ -22,7 +22,8 @@ import { ReviewModal } from '../../components/Review/edit-review.tsx';
 export const BookDetails = () => {
   const { id } = useParams();
   const { book, loading } = useGBookById(id ?? '');
-  const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
+  const { page, bookStatus, refetchBookDetails } = useBookDetails({ type: 'mybook', googleId: book?.googleId });
+  const { bookId } = useBookDetails({ type: 'general', googleId: book?.googleId });
   const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(bookId);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export const BookDetails = () => {
       refetchReviews && refetchReviews();
     }
   }, [id, bookId])
-  
+
   const reviewsCombined = reviews?.map((review) => {
     return {
       ...review,
@@ -63,7 +64,6 @@ export const BookDetails = () => {
   if (loading) {
     return <Layout><BookDetailsSkeleton /> </Layout>;
   }
-
   return (
     <Layout>
       <BoxBook
