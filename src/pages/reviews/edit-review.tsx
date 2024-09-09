@@ -87,7 +87,6 @@ export const ReviewModal = ({ isOpen, handleModal, bookId, title, reviewData, is
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);
-            console.log(!!!refetchBookDetails);
             setTimeout(() => {
                 refetchBookDetails && refetchBookDetails();
                 refetchReviews && refetchReviews();
