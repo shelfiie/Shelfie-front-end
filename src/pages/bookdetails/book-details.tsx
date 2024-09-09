@@ -29,8 +29,8 @@ export const BookDetails = () => {
     if (bookId) {
       refetchReviews && refetchReviews();
     }
-  }, [bookId])
-
+  }, [id, bookId])
+  
   const reviewsCombined = reviews?.map((review) => {
     return {
       ...review,
