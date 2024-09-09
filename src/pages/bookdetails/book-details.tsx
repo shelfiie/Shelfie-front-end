@@ -17,7 +17,7 @@ import { BookStatus } from '../../types/bookData';
 import { ReviewsCard } from '../reviews/reviews-card';
 import { ProfilerReviews } from '../profile/profile-styles';
 import { useFetchReviewsByBookId } from '../../api/hooks/useFetchReviewsByBookId';
-import { ReviewModal } from '../reviews/edit-review';
+import { ReviewModal } from '../../components/Review/edit-review.tsx';
 
 export const BookDetails = () => {
   const { id } = useParams();

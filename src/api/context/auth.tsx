@@ -45,7 +45,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             setToken(response.body.token);
 
             const expiresInMilliseconds = response.body.expiresIn;
-            console.log(response);
             setTimeout(logout, expiresInMilliseconds);
 
             const expirationDate = new Date(new Date().getTime() + expiresInMilliseconds);

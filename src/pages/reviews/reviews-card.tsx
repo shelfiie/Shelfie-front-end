@@ -7,7 +7,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { formatDate } from "../../utils/filters";
 import { Theme } from "../../styles/theme";
 import { useState } from "react";
-import { ReviewModal } from "./edit-review";
+import { ReviewModal } from "../../components/Review/edit-review.tsx";
 import { Heart } from "../../components/globals/Heart.style";
 import { useFetchLikesQuantityByReview } from "../../api/hooks/useFetchLikesQuantityByReview";
 import { Link } from "react-router-dom";
