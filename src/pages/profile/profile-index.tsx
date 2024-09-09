@@ -33,7 +33,7 @@ export const Profile = () => {
   const handleConfirmDelete = () => setConfirmDelete(!confirmDelete);
   const handleEditPhoto = () => setEditPhoto(!editPhoto);
 
-  useEffect(() => { refetchBadges(); }, [quantity]);
+  useEffect(() => { refetchBadges(); }, [quantity, user]);
 
   return (
     <Layout>
