@@ -8,7 +8,6 @@ import { AsideStyles, LogOutForm, Nav, UlNav } from './aside.styles.ts';
 import { AuthContext } from "../../api/context/auth.tsx";
 import { Perfil } from "../Profile/profile.tsx";
 import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
 import ReviewsIcon from '@mui/icons-material/Reviews';
@@ -22,7 +21,6 @@ export const Aside = () => {
 
     const navItems = [
         { src: MenuBookRoundedIcon, name: "Biblioteca", route: "/home" },
-        { src: PersonRoundedIcon, name: "Perfil", route: "/me" },
         { src: EditNoteRoundedIcon, name: "Progressões", route: "/progressions" },
         { src: ReviewsIcon, name: "Avaliações", route: "/reviews" },
     ];
