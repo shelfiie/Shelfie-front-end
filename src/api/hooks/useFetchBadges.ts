@@ -35,7 +35,6 @@ const useFetchBadges = () => {
                 descriptionReviewBadge: response.body.descriptionReviewBadge,
                 nameReviewBadge: filterBookStatus(response.body.nameReviewBadge),
             })
-            console.log(formattedBadges);
             setBadges(formattedBadges);
             setLoading(false);
         } else {
