@@ -62,7 +62,8 @@ export const ProgressionModal = (
 
         const service = new BookService()
         const response = await service.postProgression(data as BookData);
-        if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
+        console.log(response);
+        if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);

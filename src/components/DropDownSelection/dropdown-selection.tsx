@@ -32,7 +32,6 @@ export const DropDownSelection = ({ googleId, content, refreshBookDetails, ...re
             } else {
                 setError(response?.reject);
             }
-            console.log(response);
         } else return;
 
         setIsOpen(false);

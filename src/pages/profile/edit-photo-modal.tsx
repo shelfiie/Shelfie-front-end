@@ -30,7 +30,6 @@ export const EditPhotoModal = ({ open, handleEditPhoto, refetchUser }: EditPhoto
         e.preventDefault();
         const service = new UserService();
         const response = await service.editProfileImage(linkSelected);
-        console.log(response);
         if (response.statusCode === 200) {
             setSuccess(response?.resolve);
             refetchUser && refetchUser();
