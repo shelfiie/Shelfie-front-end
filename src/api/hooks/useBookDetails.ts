@@ -10,7 +10,7 @@ const useBookDetails = (googleId: BookData['googleId']) => {
     const service = new BookService();
 
     const fetchMybook = async () => {
-        const myBook = await service.fetchMyBooksByGoogleId(googleId);
+        const myBook = await service.fetchBooksByGoogleId(googleId);
         if (myBook.statusCode === StatusCode.Ok) {
             setBookStatus(myBook.body.bookStatus);
             setBookId(myBook.body.bookId);
