@@ -6,11 +6,11 @@ import { ProgressionModal } from '../ProgressionModal/progression-modal.tsx';
 import { BookData, BookStatus } from '../../types/bookData.ts';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { Link } from 'react-router-dom';
-import { ReviewModal } from '../Review/review.tsx';
 import { DeleteDialog } from './delete-dialog.tsx';
 import { Heart } from '../globals/Heart.style.tsx';
 import { useFetchLastPage } from '../../api/hooks/useFetchLastPage.ts';
 import { CircularProgress, Tooltip } from '@mui/material';
+import {ReviewModal} from "../Review/edit-review.tsx";
 
 type BookResumeProps = {
   Bookzin: BookData;
