@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { Theme } from "../../styles/theme";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useBookSearch } from "../../api/hooks/useBookSearch";
 import { Filter } from "./search-filter";
 import { DivDivisao, DivTesteSearch } from "./search-bar.styles";
@@ -9,8 +9,6 @@ import { BookListItem } from "./book-list-item";
 import { BookData } from "../../types/bookData";
 
 export const SearchBar: React.FC = () => {
-  const navigate = useNavigate();
-
   const { books, error, loading } = useBookSearch();
   const [searchParams, setSearchParams] = useSearchParams({ filter: "", search: "" });
 
@@ -60,7 +58,7 @@ export const SearchBar: React.FC = () => {
           return <BookListItem
             key={option.id}
             option={option}
-            navigate={navigate} />;
+            />;
         }}
         renderInput={(params) => <TextField {...params} placeholder="Pesquisar livros" variant="outlined"
           InputLabelProps={{ shrink: false }}

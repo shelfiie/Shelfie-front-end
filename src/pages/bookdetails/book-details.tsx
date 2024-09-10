@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/layout';
-import { BookContent, BookDescription, BoxBook, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage, TitleWrapper } from './book-details-styles';
+import { BookContent, BookDescription, BoxBook, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage, TitleWrapper, NoAvailable } from './book-details-styles';
 import { Heart } from '../../components/globals/Heart.style'
 import { useGBookById } from '../../api/hooks/useGBookById';
 import { useEffect, useState } from 'react';
@@ -17,6 +17,7 @@ import { BookStatus } from '../../types/bookData';
 import { ReviewsCard } from '../reviews/reviews-card';
 import { ProfilerReviews } from '../profile/profile-styles';
 import { useFetchReviewsByBookId } from '../../api/hooks/useFetchReviewsByBookId';
+import { ReviewsSkeleton } from '../reviews/reviews-skeleton.tsx';
 import { ReviewModal } from '../../components/Review/edit-review.tsx';
 
 export const BookDetails = () => {
@@ -202,7 +203,7 @@ export const BookDetails = () => {
       </div>
 
       {reviews &&
-        reviewsLoading ? <BookDetailsSkeleton /> :
+        reviewsLoading ? <ReviewsSkeleton /> : bookId === undefined || reviews?.length === 0 ? <NoAvailable>Nenhuma avaliação disponível</NoAvailable> :
         <ProfilerReviews>
           {sortedReviews?.map((review, index) => (
             <ReviewsCard

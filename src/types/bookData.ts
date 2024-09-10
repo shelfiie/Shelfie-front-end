@@ -20,7 +20,7 @@ type BookData = {
     googleId?: string;
     title?: string;
     enabled?: boolean;
-    authors?: string[];
+    authors?: string[] | string;
     publisher?: string;
     publishedDate?: string;
     description?: string;
