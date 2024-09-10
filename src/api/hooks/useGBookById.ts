@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BookData } from "../../types/bookData";
 import { GoogleBooksService } from "../services/GBookService";
 import { StatusCode } from "../client/IHttpClient";
-import { filterDescription } from "../../utils/filters";
+import { concatAuthor, filterDescription } from "../../utils/filters";
 
 const useGBookById = (id: string) => {
     const [book, setBook] = useState<BookData | null>(null);
@@ -17,7 +17,7 @@ const useGBookById = (id: string) => {
             const data = {
                 googleId: response.body.id,
                 title: response.body.volumeInfo.title,
-                authors: response.body.volumeInfo.authors ?? 'Autor não informado',
+                authors: concatAuthor(response.body.volumeInfo.authors) ?? 'Autor não informado',
                 publishedDate: new Date(response.body.volumeInfo.publishedDate).toLocaleDateString('pt-BR') ?? response.body.volumeInfo.publishedDate,
                 publisher: response.body.volumeInfo.publisher ?? 'Editora não informada',
                 isbn10: response.body.volumeInfo.industryIdentifiers?.find((identifier: { type: string; }) => identifier.type === 'ISBN_10')?.identifier ?? 'ISBN não informado',

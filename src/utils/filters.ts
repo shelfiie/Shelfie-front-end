@@ -16,6 +16,10 @@ const filterBookStatus = (c: string | undefined) => {
     else return '';
 }
 
+const concatAuthor = (authors: string[]) => {
+    return authors.join(', ');
+}
+
 const formatDate = (date: string) => {
     const newDate = new Date(date);
     return newDate.toLocaleDateString('pt-BR', {
@@ -25,4 +29,4 @@ const formatDate = (date: string) => {
     });
   };
 
-export { filterDescription, limitedDescription, filterBookStatus, formatDate }
+export { filterDescription, limitedDescription, filterBookStatus, formatDate, concatAuthor }
