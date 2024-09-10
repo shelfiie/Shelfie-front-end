@@ -138,6 +138,22 @@ export class BookService {
         }
     }
 
+    async deleteReview(reviewId: string): Promise<HttpResponse<any>> {
+        const base = `/api/review/${reviewId}`;
+
+        const response = await this.client.delete({ url: base });
+
+        if (response.statusCode === StatusCode.Accepted) {
+            return {
+                ...response,
+                resolve: 'Review deletado com sucesso!',
+            };
+        } else return {
+            ...response,
+            reject: 'Erro ao deletar review.',
+        }
+    }
+
     async fetchReviewsByBookId(googleId: BookData['googleId']): Promise<HttpResponse<any>> {
         const base = `/api/review/book/${googleId}`;
         const response = await this.client.get({ url: base });

@@ -107,6 +107,16 @@ const LikeDetails = styled.div`
     gap: 3px;
 `
 
+const ReviewActions = styled.div`
+    display: flex;
+    gap: 10px;
+
+    a{
+        transition: 0.3s ease-in-out;
+        &:hover{scale: 1.1; cursor: pointer;}
+    }
+`
 
 
-export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, Like, LikeDetails }
+
+export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, Like, LikeDetails, ReviewActions }
