@@ -29,7 +29,8 @@ const useGBookById = (id: string) => {
             }
             setBook(data);
         } else {
-            setError(response.reject as string);
+            setBook(null);
+            setError(response.reject);
         }
         setLoading(false);
     };

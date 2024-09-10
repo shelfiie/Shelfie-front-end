@@ -14,10 +14,10 @@ const StyledListItem = styled('li')({
 
 type BookListItemProps = {
     option: BookData;
-    navigate: ReturnType<typeof useNavigate>;
 };
 
-export const BookListItem: React.FC<BookListItemProps> = ({ option, navigate, ...props }) => {
+export const BookListItem: React.FC<BookListItemProps> = ({ option, ...props }) => {
+    const navigate = useNavigate();
     const placeholderImage = 'https://centrodametropole.fflch.usp.br/sites/centrodametropole.fflch.usp.br/files/user_files/livros/imagem/capa-no-book-cover.png';
 
     let authorsText = '';
@@ -38,7 +38,7 @@ export const BookListItem: React.FC<BookListItemProps> = ({ option, navigate, ..
         <StyledListItem
             {...props}
             key={option.googleId}
-            onClick={() => navigate(`/bookdetails/${option.googleId}`)}
+            onClick={() => {navigate(`/bookdetails/${option.googleId}`);}}
         >
             <BookContainer>
                 <img src={verifThumb} alt={`${option.title} thumbnail`} />
