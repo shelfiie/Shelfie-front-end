@@ -19,28 +19,35 @@ type HeartProps = {
   type: 'book' | 'review';
   refetchReviews?: () => void;
   refetchBooks?: () => void;
+  refetchBookDetails?: () => void;
 };
 
-export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: HeartProps) => {
+export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews, refetchBookDetails }: HeartProps) => {
   const [src, setSrc] = useState(Coracao);
   const [success, setSuccess] = useState<string | null>();
   const [error, setError] = useState<string | null>();
   const bookService = new BookService();
 
+  const [isBookFavorited, setIsBookFavorited] = useState<boolean>();
+  const [isReviewFavorited, setIsReviewFavorited] = useState<boolean>();
+
   let isFavorited: { body?: any };
   const handleIsFavorite = async () => {
     if (type === 'book') {
+      if(!bookId) return;
       isFavorited = await bookService.isFavorited(bookId);
+      setIsBookFavorited(isFavorited.body === true);
     } else if (type === 'review') {
+      if(!reviewId) return;
       isFavorited = await bookService.isReviewLiked(reviewId ?? '');
+      setIsReviewFavorited(isFavorited.body.liked === true);
     }
-    if (isFavorited.body.liked || isFavorited.body === true) setSrc(CoracaoPreenchido);
+    if (isBookFavorited || isReviewFavorited === true) setSrc(CoracaoPreenchido);
     else setSrc(Coracao);
   };
-
   useEffect(() => {
     handleIsFavorite();
-  }, []); 
+  }, [isBookFavorited, isReviewFavorited, bookId]); 
 
   const handleFavorite = async () => {
     let response;
@@ -48,8 +55,10 @@ export const Heart = ({ bookId, reviewId, type, refetchBooks, refetchReviews }: 
       response = await bookService.favoriteBook(bookId);
       if (response.statusCode === StatusCode.Ok) {
         setSuccess(response?.resolve);
+        setIsBookFavorited(!isBookFavorited);
         setTimeout(() => {
           refetchBooks && refetchBooks();
+          refetchBookDetails && refetchBookDetails();
         }, 1500);
 
       } else setError(response?.reject);
