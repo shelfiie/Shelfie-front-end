@@ -38,7 +38,7 @@ export const BookListItem: React.FC<BookListItemProps> = ({ option, ...props }) 
         <StyledListItem
             {...props}
             key={option.googleId}
-            onClick={() => {navigate(`/bookdetails/${option.googleId}`);}}
+            onClick={() => {navigate(`/bookdetails/${option.googleId}`); window.location.reload();}}
         >
             <BookContainer>
                 <img src={verifThumb} alt={`${option.title} thumbnail`} />
