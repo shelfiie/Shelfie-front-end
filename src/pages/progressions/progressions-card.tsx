@@ -2,13 +2,12 @@ import {LinearProgress, Typography} from "@mui/material"
 import {BoxShadow} from "../../components/globals/Box.style"
 import {Theme} from "../../styles/theme"
 import {
-    AllProgressions,
     BookDescriptionNDate,
     BookInfo,
     BookProgression,
     Commentary,
     CompleteProgress,
-    PercentageStyle,
+    PercentageStyle, ProgressionCard,
     ProgressionDate,
     ProgressionPageCount,
     StatusTag
@@ -34,7 +33,7 @@ export const ProgressionsCard = ({ isEditable, progression, refetchProgressions 
 
 
     return (
-        <AllProgressions id='all-progressions'>
+        <ProgressionCard id='progression-list'>
                 <BoxShadow id="progression-card"
                            display="flex"
                            flexDirection="column"
@@ -84,6 +83,6 @@ export const ProgressionsCard = ({ isEditable, progression, refetchProgressions 
                         </BookDescriptionNDate>
                     </BookInfo>
                 </BoxShadow>
-        </AllProgressions>
+        </ProgressionCard>
     )
 }

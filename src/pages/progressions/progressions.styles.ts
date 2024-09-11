@@ -100,6 +100,10 @@ const AllProgressions = styled.div`
     gap: 1rem;
 `
 
+const ProgressionCard = styled.div`
+
+`
+
 const ProgressionsStyles = styled.div`
     display: flex;
     flex-direction: column;
@@ -107,4 +111,4 @@ const ProgressionsStyles = styled.div`
     gap: ${Theme.margins.margin1rem};
 `
 
-export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }
+export { ProgressionCard, StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }
