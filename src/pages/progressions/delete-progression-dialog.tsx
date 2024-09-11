@@ -32,7 +32,7 @@ export const DeleteProgressionDialog = ({ handleDialog, dialogOpen, progressionI
                 refetchProgressions && refetchProgressions();
                 setSuccess(undefined);
                 handleDialog();
-            }, 3000);
+            }, 2000);
         } else {
             setError(response.reject);
             setTimeout(() => {
