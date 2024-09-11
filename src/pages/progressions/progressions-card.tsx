@@ -21,33 +21,21 @@ import {useState} from "react";
 import {DeleteProgressionDialog} from "./delete-progression-dialog.tsx";
 
 type ProgressionsCardProps = {
-    progressions: BookData['progressions'][]
+    progression: BookData['progressions']
     refetchProgressions?: () => void;
     isEditable: boolean;
 }
 
 
-export const ProgressionsCard = ({ isEditable, progressions, refetchProgressions }: ProgressionsCardProps) => {
+export const ProgressionsCard = ({ isEditable, progression, refetchProgressions }: ProgressionsCardProps) => {
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
     const handleConfirmDeleteDialog = () => setIsDialogOpen(!isDialogOpen);
 
-    const sortedProgressions = progressions.sort((a: BookData['progressions'], b: BookData['progressions']) => {
-        const dateA = new Date(a?.createdAt).getTime();
-        const dateB = new Date(b?.createdAt).getTime();
-
-        // Primeiro, compara as datas
-        if (dateA !== dateB) {
-            return dateB - dateA; // Ordena da data mais recente para a mais antiga
-        }
-        // Se as datas forem iguais, compara a contagem de páginas
-        return (b?.page ?? 0) - (a?.page ?? 0); // Ordena da página com maior contagem para a menor
-    })
 
     return (
         <AllProgressions id='all-progressions'>
-            {sortedProgressions.map((progression: BookData['progressions'], index: number) => (
-                <BoxShadow id="progression-card" key={index}
+                <BoxShadow id="progression-card"
                            display="flex"
                            flexDirection="column"
                            gap={Theme.margins.marginhalfrem}
@@ -69,6 +57,11 @@ export const ProgressionsCard = ({ isEditable, progressions, refetchProgressions
                         {isEditable &&
                             <a onClick={handleConfirmDeleteDialog}>
                                 <DeleteRoundedIcon/>
+                                <DeleteProgressionDialog
+                                    refetchProgressions={refetchProgressions}
+                                    progressionId={progression?.id as string}
+                                    dialogOpen={isDialogOpen}
+                                    handleDialog={handleConfirmDeleteDialog}/>
                             </a>
                         }
                     </BookProgression>
@@ -90,14 +83,7 @@ export const ProgressionsCard = ({ isEditable, progressions, refetchProgressions
                             <ProgressionDate>{formatDate(progression?.createdAt ?? 'Data não disponível')}</ProgressionDate>
                         </BookDescriptionNDate>
                     </BookInfo>
-                    <DeleteProgressionDialog
-                        refetchProgressions={refetchProgressions}
-                        progressionId={progression?.id ?? ''}
-                        dialogOpen={isDialogOpen}
-                        handleDialog={handleConfirmDeleteDialog}/>
                 </BoxShadow>
-            ))}
-
         </AllProgressions>
     )
 }
