@@ -17,6 +17,15 @@ const BookProgression = styled.div`
     display: flex;
     align-items: center;
     gap: ${Theme.margins.margin1rem};
+    
+    a {
+        transition: 0.3s all ease-in-out;
+        
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
 
 `
 
@@ -91,6 +100,10 @@ const AllProgressions = styled.div`
     gap: 1rem;
 `
 
+const ProgressionCard = styled.div`
+
+`
+
 const ProgressionsStyles = styled.div`
     display: flex;
     flex-direction: column;
@@ -98,4 +111,4 @@ const ProgressionsStyles = styled.div`
     gap: ${Theme.margins.margin1rem};
 `
 
-export { StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }
+export { ProgressionCard, StatusTag, BookProgression, CompleteProgress, PercentageStyle, BookInfo, Commentary, ProgressionPageCount, AllProgressions, ProgressionsStyles, BookDescriptionNDate, ProgressionDate }
