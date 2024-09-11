@@ -10,8 +10,8 @@ export const Progressions = () => {
     const {progressions, loading, refetchProgressions} = useFetchAllProgressions();
 
     const sortedProgressions = progressions.sort((a: BookData['progressions'], b: BookData['progressions']) => {
-        const dateA = new Date(a?.createdAt).getTime();
-        const dateB = new Date(b?.createdAt).getTime();
+        const dateA = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
 
         // Primeiro, compara as datas
         if (dateA !== dateB) {
