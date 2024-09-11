@@ -1,7 +1,7 @@
 import {useFetchAllProgressions} from "../../api/hooks/useFetchProgressions";
 import {Layout} from "../layout/layout";
 import {ProgressionsCard} from "./progressions-card";
-import {ProgressionsStyles} from "./progressions.styles";
+import {AllProgressions, ProgressionsStyles} from "./progressions.styles";
 import {ProgressionSkeleton} from "./progressions-skeleton";
 import {NoItemsFound} from "../../components/globals/NoItemsFound";
 import {BookData} from "../../types/bookData.ts";
@@ -31,13 +31,17 @@ export const Progressions = () => {
                 </div>
 
                 {loading ? <ProgressionSkeleton/> : progressions && progressions.length > 0 ?
-                    sortedProgressions.map((progression, index) => (
-                        <ProgressionsCard
-                            progression={progression}
-                            key={index}
-                            isEditable={true}
-                            refetchProgressions={refetchProgressions}/>
-                    ))
+                   <AllProgressions>
+                       {
+                           sortedProgressions.map((progression, index) => (
+                               <ProgressionsCard
+                                   progression={progression}
+                                   key={index}
+                                   isEditable={true}
+                                   refetchProgressions={refetchProgressions}/>
+                           ))
+                       }
+                   </AllProgressions>
                     : (<NoItemsFound>Você não tem progressões!</NoItemsFound>)}
             </ProgressionsStyles>
         </Layout>
