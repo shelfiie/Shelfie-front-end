@@ -17,6 +17,15 @@ const BookProgression = styled.div`
     display: flex;
     align-items: center;
     gap: ${Theme.margins.margin1rem};
+    
+    a {
+        transition: 0.3s all ease-in-out;
+        
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
 
 `
 
