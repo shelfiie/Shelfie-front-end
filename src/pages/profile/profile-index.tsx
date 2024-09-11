@@ -156,7 +156,7 @@ export const Profile = () => {
                       refetchReviews={refetchReviews}
                       key={index}
                       review={review}
-                      isEditable={true}
+                      isEditable={false}
                       isLikable={true}
                     />
                   ))}
@@ -167,7 +167,7 @@ export const Profile = () => {
             <div>
               <h2>Últimas progressões</h2>
               {progLoading ? <ReviewProfileSkeletons /> : progressions?.length === 0 ? <p>O usuário ainda não fez nenhuma progressão.</p> :
-                <ProgressionsCard progressions={progressions?.slice(0, 10) ?? []} />
+                <ProgressionsCard isEditable={false} progressions={progressions?.slice(0, 10) ?? []} />
               }
             </div>
           </ProfileBookInfo>
