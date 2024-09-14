@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Botao } from '../../components/globals/Button.style';
 import { Theme } from '../../styles/theme';
 import { Layout } from '../layout/layout';
-import { BookContent, BookDescription, BoxBook, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage, TitleWrapper } from './book-details-styles';
+import { BookContent, BookDescription, BoxBook, ComplementaryDetails, PageCount, UserBookDetails, BookCoverImage, TitleWrapper, NoAvailable } from './book-details-styles';
 import { Heart } from '../../components/globals/Heart.style'
 import { useGBookById } from '../../api/hooks/useGBookById';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,6 @@ import { DropDownSelection } from '../../components/DropDownSelection/dropdown-s
 import { useBookDetails } from '../../api/hooks/useBookDetails';
 import { StatusTag } from '../progressions/progressions.styles';
 import { ProgressionModal } from '../../components/ProgressionModal/progression-modal';
-import { ReviewModal } from '../../components/Review/review';
 import { Tooltip } from '@mui/material';
 import { filterBookStatus } from '../../utils/filters';
 import { BookDetailsSkeleton } from './book-details-skeleton';
@@ -18,21 +17,21 @@ import { BookStatus } from '../../types/bookData';
 import { ReviewsCard } from '../reviews/reviews-card';
 import { ProfilerReviews } from '../profile/profile-styles';
 import { useFetchReviewsByBookId } from '../../api/hooks/useFetchReviewsByBookId';
+import { ReviewsSkeleton } from '../reviews/reviews-skeleton.tsx';
+import { ReviewModal } from '../../components/Review/edit-review.tsx';
 
 export const BookDetails = () => {
   const { id } = useParams();
-
   const { book, loading } = useGBookById(id ?? '');
-
-  const { page, bookStatus, bookId, refetchBookDetails } = useBookDetails(id);
-
+  const { page, bookStatus, refetchBookDetails } = useBookDetails({ type: 'mybook', googleId: book?.googleId });
+  const { bookId } = useBookDetails({ type: 'general', googleId: book?.googleId });
   const { reviews, loading: reviewsLoading, refetchReviews } = useFetchReviewsByBookId(bookId);
 
   useEffect(() => {
     if (bookId) {
       refetchReviews && refetchReviews();
     }
-  }, [bookId])
+  }, [id, bookId])
 
   const reviewsCombined = reviews?.map((review) => {
     return {
@@ -66,7 +65,6 @@ export const BookDetails = () => {
   if (loading) {
     return <Layout><BookDetailsSkeleton /> </Layout>;
   }
-
   return (
     <Layout>
       <BoxBook
@@ -112,7 +110,7 @@ export const BookDetails = () => {
 
             <div>
               <Heart type='book' bookId={bookId} />
-              {bookStatus === BookStatus.LENDO || bookStatus === BookStatus.QUERO_LER ? (
+              {bookStatus === BookStatus.LENDO ? (
                 <Botao
                   backgroundColor={Theme.colors.blue}
                   color={Theme.colors.light}
@@ -125,7 +123,7 @@ export const BookDetails = () => {
                   Ler
                 </Botao>
               ) :
-                <Tooltip title='Deve estar na lista lendo'>
+                <Tooltip title='Deve estar na lista LENDO'>
                   <span>
                     <Botao
                       backgroundColor={Theme.colors.blue}
@@ -143,7 +141,16 @@ export const BookDetails = () => {
                   </span>
                 </Tooltip>}
 
-              <ProgressionModal refetchPages={refetchBookDetails} bookId={bookId} googleId={book?.googleId} isOpen={isOpen} handleModal={handleProgressionModal} title={book?.title} key={book?.bookId} />
+              <ProgressionModal
+                actualPage={page}
+                maxPage={book?.pageCount}
+                refetchPages={refetchBookDetails}
+                bookId={bookId}
+                googleId={book?.googleId}
+                isOpen={isOpen}
+                handleModal={handleProgressionModal}
+                title={book?.title}
+                key={book?.bookId} />
 
               {bookStatus === BookStatus.LIDO || bookStatus === BookStatus.ABANDONADO ? (
                 <Botao
@@ -177,7 +184,8 @@ export const BookDetails = () => {
                 </Tooltip>
               }
               <ReviewModal
-                refreshBookDetails={refetchBookDetails}
+                refetchReviews={refetchReviews}
+                refetchBookDetails={refetchBookDetails}
                 isEditing={false}
                 isOpen={reviewIsOpen}
                 handleModal={handleReviewModal}
@@ -195,7 +203,7 @@ export const BookDetails = () => {
       </div>
 
       {reviews &&
-        reviewsLoading ? <BookDetailsSkeleton /> :
+        reviewsLoading ? <ReviewsSkeleton /> : bookId === undefined || reviews?.length === 0 ? <NoAvailable>Nenhuma avaliação disponível</NoAvailable> :
         <ProfilerReviews>
           {sortedReviews?.map((review, index) => (
             <ReviewsCard

@@ -9,7 +9,6 @@ import { BookData } from "../../types/bookData";
 import { ButtonsDiv, ProgressionForm, ProgressionSpan, styledBox } from "./progression-modal.styles";
 import { BookService } from "../../api/services/BookService";
 import { StatusCode } from "../../api/client/IHttpClient";
-import { useFetchLastPage } from "../../api/hooks/useFetchLastPage";
 
 type ProgressionModalProps = {
     isOpen: boolean;
@@ -18,13 +17,16 @@ type ProgressionModalProps = {
     title?: BookData['title'];
     googleId?: BookData['googleId'];
     refetchPages?: () => void;
+    refetchBookDetails?: () => void;
+    maxPage?: number;
+    actualPage?: number;
 }
 
 export const ProgressionModal = (
-    { isOpen, handleModal, bookId, title, googleId, refetchPages }: ProgressionModalProps) => {
-    const { actualPage, maxPage } = useFetchLastPage(bookId);
+    { isOpen, handleModal, bookId, title, googleId, refetchPages, maxPage, actualPage, refetchBookDetails }: ProgressionModalProps) => {
+
     const progressionFilter = z.object({
-        commentary: z.string().min(3, { message: 'Comentário deve ter no mínimo 10 caracteres' }).max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
+        commentary: z.string().max(250, { message: 'Comentário deve ter no máximo 250 caracteres' }),
         page: z.coerce.number({ message: 'Você deve digitar um número' }).positive({ message: 'Número deve ser positivo' }).int({ message: 'Número deve ser inteiro' }).max(maxPage as number, { message: `Número deve ser menor ou igual a ${maxPage}` }),
         bookId: z.string(),
         googleId: z.string()
@@ -35,6 +37,8 @@ export const ProgressionModal = (
     const {
         register,
         handleSubmit,
+        watch,
+        reset,
         formState: { errors }
     } = useForm<ProgressionFilter>({
         mode: 'all',
@@ -46,20 +50,28 @@ export const ProgressionModal = (
     const [success, setSuccess] = useState<string | null>();
     const [error, setError] = useState<string | null>();
 
-    const onSubmit: SubmitHandler<ProgressionFilter> = async (data) => {
+    const onSubmit: SubmitHandler<ProgressionFilter> = async () => {
         setLoading(true);
+
+        const data = {
+            googleId: googleId,
+            bookId: bookId,
+            commentary: watch('commentary'),
+            page: watch('page'),
+        }
 
         const service = new BookService()
         const response = await service.postProgression(data as BookData);
-
         if (response?.statusCode === StatusCode.Created) {
             setLoading(false);
             setError(null);
             setSuccess(response?.resolve);
             refetchPages && refetchPages();
+            refetchBookDetails && refetchBookDetails();
             setTimeout(() => {
                 setSuccess(null);
                 handleModal();
+                reset();
             }, 2000);
         } else {
             setSuccess(null);
@@ -100,7 +112,6 @@ export const ProgressionModal = (
                         <TextField
                             sx={{ width: '100%' }}
                             {...register('commentary')}
-                            required
                             multiline
                             minRows={4}
                             error={!!errors.commentary}

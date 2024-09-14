@@ -95,5 +95,14 @@ const TitleWrapper = styled.div`
     gap: ${Theme.margins.margin1rem};
 `
 
-export { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails, Carregando, BookCoverImage, TitleWrapper };;
+const NoAvailable = styled.p`
+    height: 100%;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: ${Theme.font.weight.bold};
+    margin-top: ${Theme.margins.margin1rem};
+    color: ${Theme.colors.lightDark};
+`
+
+export { BookContent, BookDescription, BoxBook, BoxBookImage, ComplementaryDetails, PageCount, UserBookDetails, Carregando, BookCoverImage, TitleWrapper, NoAvailable };
 

@@ -1,33 +1,41 @@
 import { Rating } from "@mui/material";
 import { BookData } from "../../types/bookData";
-import { BoxWrapper, Icons, Like, LikeDetails, ReviewDate, ReviewDetails, TitleRating } from "./reviews-box.styles";
+import { BoxWrapper, Icons, Like, LikeDetails, ReviewActions, ReviewDate, ReviewDetails, TitleRating } from "./reviews-box.styles";
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { formatDate } from "../../utils/filters";
 import { Theme } from "../../styles/theme";
 import { useState } from "react";
-import { ReviewModal } from "./edit-review";
+import { ReviewModal } from "../../components/Review/edit-review.tsx";
 import { Heart } from "../../components/globals/Heart.style";
 import { useFetchLikesQuantityByReview } from "../../api/hooks/useFetchLikesQuantityByReview";
+import { Link } from "react-router-dom";
+import { ReportReview } from "../../components/globals/Report";
+import { DeleteReviewDialog } from "./delete-review-dialog.tsx";
 
 type ReviewsCardProps = {
     review: BookData['reviews'];
     isEditable: boolean;
     isLikable: boolean;
     refetchReviews?: () => void;
+    refetchBookDetails?: () => void;
 };
 
-export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: ReviewsCardProps) => {
+export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews, refetchBookDetails }: ReviewsCardProps) => {
     const [selectedReview, setSelectedReview] = useState<BookData['reviews'] | null>(null);
-    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
 
     const { likesQuantity } = useFetchLikesQuantityByReview(review?.id ?? '');
-
+    console.log(review)
     const handleEditClick = (review: BookData['reviews']) => {
         setSelectedReview(review);
         setIsEditOpen(true);
     };
+
+    const handleDeleteClick = () => setDeleteDialogOpen(!deleteDialogOpen)
 
     const handleModalClose = () => {
         setIsEditOpen(false);
@@ -38,10 +46,15 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
     return (
         <>
             <BoxWrapper id="box-wrapper">
-                <img src={review?.thumbnailUrl ?? review?.smallThumbnailUrl} alt={review?.title} />
+                <Link to={`/bookdetails/${review?.googleId}`}>
+                    <img src={review?.thumbnailUrl ?? review?.smallThumbnailUrl} alt={review?.title} />
+                </Link>
+
                 <ReviewDetails id="review-details">
                     <TitleRating id="title-rating">
-                        <p>{review?.title}</p>
+                        <Link to={`/bookdetails/${review?.googleId}`}>
+                            <p>{review?.title}</p>
+                        </Link>
                         <Icons>
                             <Rating
                                 name="read-only"
@@ -51,12 +64,17 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
                             />
 
                             {isEditable &&
-                                <a onClick={() => handleEditClick(review)}>
-                                    <EditRoundedIcon
-                                        sx={{ fill: `${Theme.colors.pink}` }} />
-                                </a>
+                                <ReviewActions>
+                                    <a onClick={() => handleEditClick(review)}>
+                                        <EditRoundedIcon
+                                            sx={{ fill: `${Theme.colors.pink}` }} />
+                                    </a>
+                                    <a onClick={handleDeleteClick}>
+                                        <DeleteRoundedIcon
+                                            sx={{ fill: `${Theme.colors.pink}` }} />
+                                    </a>
+                                </ReviewActions>
                             }
-
                         </Icons>
                     </TitleRating>
                     <p>{review?.review}</p>
@@ -65,14 +83,25 @@ export const ReviewsCard = ({ review, isEditable, isLikable, refetchReviews }: R
                             <LikeDetails>
                                 <Heart refetchReviews={refetchReviews} type="review" reviewId={review && review.id} />
                                 <span>{likesQuantity}</span>
-                            </LikeDetails>
-                        }
-                        <ReviewDate id="review-date">{formatDate(review?.createdAt ?? '')}</ReviewDate>
+                            </LikeDetails>}
+                        <div>
+                            <ReportReview reviewId={review?.id as string} />
+                            <ReviewDate id="review-date">{formatDate(review?.createdAt ?? '')}</ReviewDate>
+                        </div>
                     </Like>
                 </ReviewDetails>
             </BoxWrapper>
+
+            <DeleteReviewDialog
+                refetchReviews={refetchReviews}
+                handleDialog={handleDeleteClick}
+                deleteDialogOpen={deleteDialogOpen}
+                reviewId={review?.id as BookData['reviews']} />
+
             {selectedReview && (
                 <ReviewModal
+                    refetchBookDetails={refetchBookDetails}
+                    refetchReviews={refetchReviews}
                     isOpen={isEditOpen}
                     handleModal={handleModalClose}
                     bookId={selectedReview.bookId}

@@ -24,6 +24,16 @@ const TitleRating = styled.div`
     span {
         scale: 0.9;
     }
+
+    a{
+        text-decoration: none; 
+        color: ${Theme.colors.deep};
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    
     p {
         font-size: ${Theme.font.sizes.small};
         font-family: ${Theme.font.family.poppins};
@@ -42,7 +52,6 @@ const ReviewsContent = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 `
 
 const ReviewDetails = styled.div`
@@ -60,16 +69,35 @@ const BoxesWrappers = styled.div`
 
 const Like = styled.div`
     display: inline-flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
+
+    div{
+        display: inline-flex;
+        align-items: flex-end;
+        gap: 5px;
+    }
 
     span {
         font-size: ${Theme.font.sizes.xxsmall};
         font-family: ${Theme.font.family.poppins};
     }
+
     img {
         height: 20px !important;
         margin: 0;
+
+        &:hover{
+            cursor: pointer;
+            scale: 1.1;
+        }
+    }
+
+    svg {
+        &:hover{
+            cursor: pointer;
+            scale: 1.1;
+        }
     }
 `
 
@@ -79,6 +107,16 @@ const LikeDetails = styled.div`
     gap: 3px;
 `
 
+const ReviewActions = styled.div`
+    display: flex;
+    gap: 10px;
+
+    a{
+        transition: 0.3s ease-in-out;
+        &:hover{scale: 1.1; cursor: pointer;}
+    }
+`
 
 
-export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, Like, LikeDetails }
+
+export { TitleRating, ReviewDate, BoxWrapper, ReviewsContent, ReviewDetails, Icons, BoxesWrappers, Like, LikeDetails, ReviewActions }

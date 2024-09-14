@@ -1,23 +1,22 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from "@mui/material"
 import { StatusCode } from "../../api/client/IHttpClient";
 import { useContext, useState } from "react";
-import { UserData } from "../../types/userType";
 import { UserService } from "../../api/services/UserService";
 import { AuthContext } from "../../api/context/auth";
 
 type DialogProps = {
-    id: UserData['id'];
     open: boolean;
     handleDeleteDialog: () => void;
 }
 
-const DeleteDialog = ({ open, handleDeleteDialog, id }: DialogProps) => {
+const DeleteDialog = ({ open, handleDeleteDialog }: DialogProps) => {
     const [success, setSuccess] = useState<string | undefined>();
     const [error, setError] = useState<string | undefined>();
     const { logout } = useContext(AuthContext)
+    
     const handleDisable = async () => {
         const service = new UserService();
-        const response = await service.disableUser(id ?? '');
+        const response = await service.disableMe();
 
         if (response.statusCode === StatusCode.Ok) {
             setSuccess(response?.resolve);

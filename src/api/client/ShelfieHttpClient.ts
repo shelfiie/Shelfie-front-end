@@ -54,15 +54,37 @@ export class ShelfieHttpClient implements IHttpClient {
             statusCode: 500,
             reject: 'Erro interno no servidor',
           };
+        } else {
+          return {
+            statusCode: error.response?.status,
+            reject: error.response?.data.description || error.response?.data.detail,
+          };
+        }
+      });
+  }
+  
+  async post<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
+    return await this.axiosInstance.post<T>(url, body)
+      .then(response => {
+        return {
+          statusCode: response.status,
+          body: response.data,
+        };
+      }).catch(error => {
+        if (error.response?.status >= 500){
+          return {
+            statusCode: 500,
+            reject: error.response?.data.detail || error.response.data.description,
+          };
         } else return {
           statusCode: error.response?.status,
           reject: error.response?.data.description,
         };
       });
   }
-  
-  async post<T>({ url, body }: HttpRequest<T>): Promise<HttpResponse<T>> {
-    return await this.axiosInstance.post<T>(url, body)
+
+  async delete<T>({ url }: HttpRequest<T>): Promise<HttpResponse<T>> {
+    return await this.axiosInstance.delete<T>(url)
       .then(response => {
         return {
           statusCode: response.status,

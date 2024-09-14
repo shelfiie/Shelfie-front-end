@@ -16,14 +16,13 @@ const Global = createGlobalStyle`
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  display: grid;
-
-  grid-template-columns: 1fr 6fr;
+  display: flex;
+  padding: 0 ${Theme.margins.margin1rem};
   background-color: ${Theme.colors.orange};
 `
 
 const PageContent = styled.div`
-  width: 90%;
+  width: 100%;
   height: 90%;
   background-color: ${Theme.colors.light};
 
@@ -35,8 +34,7 @@ const PageContent = styled.div`
 const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 90%;
-
+  width: 100%;
 `
 
 const SearchNContentWrapper = styled.div`
@@ -45,6 +43,8 @@ const SearchNContentWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 90%;
+  flex: 6;
 `
 
 type LayoutChildrenProps = {

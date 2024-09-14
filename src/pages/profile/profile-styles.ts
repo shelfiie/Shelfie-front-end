@@ -43,6 +43,18 @@ const BookNumber = styled.p`
     margin: auto 5px;
 `
 
+const UserInfo = styled.p`
+    font-weight: ${Theme.font.weight.semiBold};
+    color: ${Theme.colors.light};
+    font-size: ${Theme.font.sizes.xsmall};
+    text-decoration: underline;
+`
+
+const UserInfoWrapper = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.marginhalfrem};
+`
+
 const ProfilerReviews = styled(BoxesWrappers)`
     height: min-content;
     display: flex;
@@ -81,8 +93,85 @@ const BooksInfStyles = {
     gap: '1rem',
     transition: 'background-color 0.3s',
     '&:hover': {
-      backgroundColor: Theme.colors.deepOrange
+        backgroundColor: Theme.colors.deepOrange
     }
 }
 
-export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles }
+const PhotoDiv = styled.div`
+    display: flex;
+    align-items: flex-start;
+    gap: ${Theme.margins.margin1rem};
+    flex-direction: column;
+`
+
+const EditPhotosDiv = styled.div`
+    img{
+        transition: all 0.3s;
+        &:hover {
+            transform: scale(1.1);
+        }
+        
+    }
+`
+
+const AllUserInfos = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${Theme.margins.margin1rem};
+`
+
+const UserDescription = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const UserPhotoAndInfos = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.margin1rem};
+`
+
+const BadgeInfo = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 5px;
+    border-radius: ${Theme.borders.radius};
+    transition: all 1s;
+
+    p{
+        font-weight: ${Theme.font.weight.semiBold};
+        color: ${Theme.colors.light};
+        text-align: center;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+    
+`
+
+const BadgeDescription = styled.span`
+    text-align: center;
+    font-size: ${Theme.font.sizes.xsmall};
+`
+
+const Badges = styled.div`
+    display: inline-flex;
+    gap: ${Theme.margins.marginhalfrem};
+
+    img {
+        height: 60px;
+        border-radius: ${Theme.borders.radius};
+    }
+`
+
+const AchievementsTitle = styled.p`
+    font-weight: ${Theme.font.weight.bold};
+    color: ${Theme.colors.light};    
+    text-decoration: underline;
+`
+
+export { SettingsImageProfile, TesteSettings, UserInformation, PhotoWrapper, UserContent, BookNumber, ProfilerReviews, ProfileBookInfo, BooksInfStyles, PhotoDiv, EditPhotosDiv, UserInfo, UserInfoWrapper, AllUserInfos, UserPhotoAndInfos, UserDescription, BadgeInfo, AchievementsTitle, Badges, BadgeDescription }

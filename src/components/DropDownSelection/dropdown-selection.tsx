@@ -28,11 +28,10 @@ export const DropDownSelection = ({ googleId, content, refreshBookDetails, ...re
 
             if (response?.statusCode === StatusCode.Created || response?.statusCode === StatusCode.Ok) {
                 setSuccess(response?.resolve);
-                setTimeout(() => refreshBookDetails && refreshBookDetails(), 2000);
+                setTimeout(() => refreshBookDetails && refreshBookDetails(), 1500);
             } else {
                 setError(response?.reject);
             }
-            console.log(response);
         } else return;
 
         setIsOpen(false);

@@ -6,11 +6,11 @@ import { ProgressionModal } from '../ProgressionModal/progression-modal.tsx';
 import { BookData, BookStatus } from '../../types/bookData.ts';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { Link } from 'react-router-dom';
-import { ReviewModal } from '../Review/review.tsx';
 import { DeleteDialog } from './delete-dialog.tsx';
 import { Heart } from '../globals/Heart.style.tsx';
 import { useFetchLastPage } from '../../api/hooks/useFetchLastPage.ts';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Tooltip } from '@mui/material';
+import {ReviewModal} from "../Review/edit-review.tsx";
 
 type BookResumeProps = {
   Bookzin: BookData;
@@ -23,7 +23,6 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { actualPage, maxPage, loading, refetchPages } = useFetchLastPage(Bookzin.bookId);
-
   const handleProgressionModal = () => setIsOpen(!isOpen);
   const handleDeleteDialog = () => setConfirmOpen(!confirmOpen);
   const handleReviewModal = () => setReviewIsOpen(!reviewIsOpen);
@@ -43,8 +42,20 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
             >
               REVIEW
             </Botao>
+          ) : (Bookzin.bookStatus === BookStatus.QUERO_LER) ? (
+            <Tooltip title="O status do livro deve estar como LENDO" >
+              <Botao
+                isError={true}
+                backgroundColor={Theme.colors.blue}
+                color={Theme.colors.white}
+                fontSize={Theme.font.sizes.xsmall}
+                padding={'.525rem 1rem'}
+                borderRadius={Theme.borders.radius}>
+                LER
+              </Botao>
+            </Tooltip>
           ) : (
-          <Botao
+            <Botao
               backgroundColor={Theme.colors.blue}
               color={Theme.colors.white}
               fontSize={Theme.font.sizes.xsmall}
@@ -85,6 +96,8 @@ export const BookResume = ({ Bookzin, refetchBooks }: BookResumeProps) => {
         googleId={Bookzin.googleId}
         bookId={Bookzin.bookId}
         isOpen={isOpen}
+        maxPage={maxPage}
+        actualPage={actualPage}
         handleModal={handleProgressionModal}
         title={Bookzin.title}
         key={Bookzin.googleId} />
